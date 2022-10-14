@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -14,34 +14,105 @@
     <header>
       <nav></nav>
     </header>
-    <main>
-      <section>
-        <article></article>
-      </section>
-      <!-- Lista desordenada -->
-      <ul>
-        <li>Manzana</li>
-        <li>Mandarina</li>
-        <li>Platano</li>
-        <li>Naranja</li>
-        <li>Limon</li>
-      </ul>
-      <!-- Lista Ordenada -->
-      <ol>
-        <li>Manzana</li>
-        <li>Mandarina</li>
-        <li>Platano</li>
-        <li>Naranja</li>
-        <li>Limon</li>
-      </ol>
-    </main>
-    <footer></footer>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis aperiam
-      rerum similique dolorum iusto repellendus fuga rem illo harum qui ut
-      tempore tenetur laborum quaerat, dolore, atque animi enim numquam!
-    </p>
-    <h1>Soy un titulo</h1>
-    <a href="#">Soy un link</a>
+    <section>
+      <!-- Main: Sirve para guardar la idea principal de una sección -->
+      <main>
+        <!-- Lista desordenada -->
+        <ul>
+          <li>Manzana</li>
+          <li>Mandarina</li>
+          <li>Platano</li>
+          <li>Naranja</li>
+          <li>Limon</li>
+        </ul>
+        <!-- Lista Ordenada -->
+        <ol>
+          <li>Manzana</li>
+          <li>Mandarina</li>
+          <li>Platano</li>
+          <li>Naranja</li>
+          <li>Limon</li>
+        </ol>
+      </main>
+    </section>
+
+    <section>
+      <main>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis aperiam
+          rerum similique dolorum iusto repellendus fuga rem illo harum qui ut
+          tempore tenetur laborum quaerat, dolore, atque animi enim numquam!
+        </p>
+        <h1>Soy un titulo</h1>
+        <a href="#">Soy un link</a>
+      </main>
+    </section>
+
+    <section>
+      <main>
+        <figure>
+          <img src="./img/Foto 1.jpg" alt="Foto 1" />
+          <figcaption>Es una imagen de un vato</figcaption>
+        </figure>
+        <figure>
+          <img src="./img/Foto 2.jpg" alt="Foto 2" />
+          <figcaption>Es una imagen de un casas</figcaption>
+        </figure>
+        <figure>
+          <img src="./img/Foto 3.jpg" alt="Foto 3" />
+          <figcaption>Es una imagen de un perrito</figcaption>
+        </figure>
+      </main>
+    </section>
+
+    <section>
+      <!-- El navegador tomará cada tipo de source y sólo cargará el primero que sea compatible -->
+      <video controls preload="auto">
+        <source src="./img/Video.mp4" />
+      </video>
+    </section>
+
+    <section>
+      <form action="" method="get">
+        <label for="nombre">
+          <span>Cuál es tu nombre?</span>
+          <input type="text" name="Nombre" id="nombre" />
+        </label>
+        <label for="dia">
+          <span>Que dia iniciaste?</span>
+          <input type="date" name="Fecha" id="dia" />
+        </label>
+        <label for="hora">
+          <span>Que horario te gusta mas?</span>
+          <input type="time" name="hora" id="hora" />
+        </label>
+      </form>
+    </section>
+
+    <section>
+      <form action="" method="get">
+        <label for="Hora">
+          <span>Hora</span>
+          <input type="time" name="Hora" id="Hora" />
+        </label>
+
+        <label for="Dia">
+          <span>Dia</span>
+          <input type="date" name="Dia" id="Dia" />
+        </label>
+
+        <label for="Semana">
+          <span>Semana</span>
+          <input type="week" name="Semana" id="Semana" />
+        </label>
+
+        <label for="Mes">
+          <span>Mes</span>
+          <input type="month" name="Mes" id="Mes" />
+        </label>
+
+        <input type="submit" value="Enviar" />
+      </form>
+    </section>
   </body>
 </html>
