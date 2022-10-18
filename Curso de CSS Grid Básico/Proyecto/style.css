@@ -1,0 +1,16 @@
+.Header {
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-auto-rows: 400px;
+}
+
+.info {
+  align-self: center;
+}
+
+.imagen-header {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
