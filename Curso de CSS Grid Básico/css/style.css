@@ -52,9 +52,9 @@
 
   /*-----Alinea cada item dentro del espacio asignado-----*/
   /*TIP: Cuando no se asigna el espacio del item, toma todo por defecto*/
-  justify-items: center;
+  /* justify-items: center;
   align-items: center;
-  place-items: center;
+  place-items: center; */
 }
 
 .contenedor-2 .item {
