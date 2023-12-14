@@ -8,7 +8,7 @@ setcookie(
     "Soy una cookie de ejemplo",
 
     // Tiempo de vida de la cookie
-    // Segundos * Minutos * Horas * Dias = 1 año
+    // Segundos * Minutos * Horas * Dias = 365 año
     time() + 60 * 60 * 24 * 365,
 
     // Ruta donde estará disponible la cookie
