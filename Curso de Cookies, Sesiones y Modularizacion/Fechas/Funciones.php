@@ -34,3 +34,27 @@ echo "timestampUnix7 : $timestampUnix7 \n";
 echo "timestampUnix8 : $timestampUnix8 \n";
 echo "lastThursday : $lastThursday \n";
 echo "nextWeek : $nextWeek \n";
+
+
+//Diferecia entre dos fechas
+$now = new DateTime();
+$pastDate = new DateTime('2024-01-01');
+
+//Retornar un objeto DateInterval
+$diff = $now->diff($pastDate);
+
+echo "Diferencia entre fechas: {$diff->format('%y años, %m meses, %d días')} \n";
+
+//Crear fecha desde un formato
+$fecha1 = DateTime::createFromFormat('d/m/Y', '20/10/2020');
+$fecha2 = DateTime::createFromFormat('d/m/Y H:i:s', '20/10/2020 10:30:00');
+$fecha3 = DateTime::createFromFormat('l j F Y', 'Sunday 17 April 2022');
+
+echo "fecha1 : {$fecha1->format('d-m-Y')} \n";
+echo "fecha2 : {$fecha2->format('d-m-Y H:i:s')} \n";
+echo "fecha3 : {$fecha3->format('d-m-Y H:i:s')} \n";
+
+//Sumar o restar fechas
+$fecha = new DateTime();
+$fecha->modify('+1 day +1 week -1 month +1 year');
+echo "fecha : {$fecha->format('d-m-Y H:i:s')} \n";
