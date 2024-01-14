@@ -1,0 +1,16 @@
+{
+  "name": "licda/psr4_composer",
+  "type": "project",
+  "authors": [
+    {
+      "name": "David Olvera",
+      "email": "licdavidob@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Animales\\": "Animales/"
+    }
+  },
+  "require": {}
+}
