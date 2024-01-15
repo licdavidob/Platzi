@@ -1,0 +1,94 @@
+----------- ¿Qué es el cómputo en la nube? -----------
+
+Modelo de entrega de servicios de computación a través de internet.
+Para que un servicio sea considerado de cómputo en la nube, debe cumplir con cinco características fundamentales:
+
+* Auto servicio y bajo demanda: No se requiere intervención humana para acceder a los recursos.
+* Conectado a internet.
+* Economías de escala: El proveedor comparte los recursos entre todos los clientes.
+* Elasticidad: Obtener recursos según sea lo necesario.
+* Servicio medido: Paga sólo lo que consumes.
+
+Puede verse como una computadora enorme de acceso global.
+
+
+----------- Partes del Data Center -----------
+
+Suelen estar cerca del agua ya que son necesarios para enfriar todos los dispositivos.
+
+* Networking Room: Aquí se conectan los clusters de Jupiter con el resto de
+Google Cloud a tráves de la red backbone de Google.
+
+* Jupiter Network Equipment: Equipo (software y hardware) desarrollado por Google, para conectar todos los
+servidores de los data centers, para que sean casi uno solo.
+
+* Maglev Load Balancers: Son Load Balancers Globales. Equilibran la carga a Google Compute Engine,
+para que así atender un millón de solicitudes por segundo sin pre-warming.
+
+*Custom Chips:
+
+ ** Titan: Microcontrolador seguro de bajo consumo diseñado teniendo en cuenta los requisitos y escenarios de
+ seguridad de hardware de Google.
+
+ ** Cloud TPUs: Chip diseñado para acelerar las cargas de trabajo de aprendizaje automático con TensorFlow.
+
+* Water Pipes: Agua fría que corre desde la planta de enfriamiento hasta el centro de datos, donde se utiliza
+para extraer calor del interior de las hot huts. Luego, el agua tibia se devuelve a la planta de enfriamiento
+donde se elimina el calor residual y el agua regresa al centro de datos.
+
+* HotHut: Sistemas de enfriamiento personalizados para los racks de servidores de Google. Sirven como hogares
+temporales para el aire caliente que sale de nuestros servidores, aislándolo del resto del piso del centro de datos.
+
+* Cooling Plant: En los centros de datos de Google, se usa el "enfriamiento gratuito" que proporciona el clima a
+través de un sistema de agua. Es decir, la planta de enfriamiento recibe agua caliente del centro de datos y agua
+fría de las torres de enfriamiento, el calor se transfiere del agua caliente al agua fría. El agua enfriada regresa
+al piso del centro de datos para extraer más calor del equipo allí, y el agua caliente fluye hacia las torres de
+enfriamiento para ser enfriada.
+
+
+----------- Historia del cómputo en la nube -----------
+
+* Era de las máquinas virtuales (VM): Empieza la nube, las startups se dan cuenta que no es necesario comprar
+toda la infraestructura, que hasta ese entonces era necesaria y que podían aprovechar la "nube".
+
+* Era de la infraestructura en la nube: Muchas empresas tradicionales se dan cuenta del potencial de la nube.
+
+* Era de la nube transformacional:
+
+ ** La nube mas limpia / Sustentabilidad.
+ ** Te ahorra dinero.
+ ** Facil de usar y se optimiza automaticamente.
+ ** Soluciones de industria a la medida.
+
+
+----------- Opciones de computo en Google Cloud Platform -----------
+----------- (Imagen Disponible) -----------
+
+* Compute Engine: 
+
+ ** Virtual Machines.
+ ** Bear Metal (servidores completos por el tea de licenciamiento especial).
+
+* Google Kubernetes Engine (GKE): Orquestrar diferentes tipos de contenedores.
+
+-- A partir de aqui entra 'Serverless' lo que indica que te preocupas más por tu app y menos por la admin. del servidor --
+
+* App Engine: Para correr aplicaciones web.
+
+* Cloud Run: Lo mismo que 'App Engine' pero enfocado en contenedores.
+
+* Cloud Function: Únicamente te enfocas en la app 
+
+* Firebase: Se conoce como Back-end as a Service. 
+
+
+----------- Cómputo Serverless -----------
+
+Desarrolla, implementa y escala aplicaciones de forma rapida y segura en un entorno totalmente gestionado.
+
+Beneficios:
+
+* Auto Escalado: El sistema jamás se va a caer.
+* Completamente Administrado: Tu no te preocupas por máquinas.
+* Spped to Market: Te permite llegar rápidamente al mercado.
+
