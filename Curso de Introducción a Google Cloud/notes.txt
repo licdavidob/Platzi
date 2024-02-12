@@ -73,13 +73,13 @@ toda la infraestructura, que hasta ese entonces era necesaria y que podían apro
 
 -- A partir de aqui entra 'Serverless' lo que indica que te preocupas más por tu app y menos por la admin. del servidor --
 
-* App Engine: Para correr aplicaciones web.
+* App Engine: Para correr aplicaciones web, generalmente para frameworks.
 
 * Cloud Run: Lo mismo que 'App Engine' pero enfocado en contenedores.
 
-* Cloud Function: Únicamente te enfocas en la app 
+* Cloud Function: Únicamente te enfocas en la app.
 
-* Firebase: Se conoce como Back-end as a Service. 
+* Firebase: Se conoce como Back-end as a Service. Sólo te enfocas en el front.
 
 
 ----------- Cómputo Serverless -----------
@@ -90,5 +90,117 @@ Beneficios:
 
 * Auto Escalado: El sistema jamás se va a caer.
 * Completamente Administrado: Tu no te preocupas por máquinas.
-* Spped to Market: Te permite llegar rápidamente al mercado.
+* Speed to Market: Te permite llegar rápidamente al mercado.
+
+
+----------- Regiones y zonas -----------
+
+Región: Es una zona geográfica que esta conformada por varias zonas.
+Zona: Separadas de otras por una distancía y dentro de una región, son edificios con data center.
+
+Las regiones y zonas solucionan el problema de tener alta disponibilidad y latencia, contra incidencias naturales o de configuración.
+
+
+----------- API Abiertas -----------
+
+Nube Híbrida: Composición de 2 omás nubes (privadas, comunitarias o públicas). Ofrecen beneficios de múltiples modelos de implementación.
+- Existen diversas alternativas de software que nos apoya con esta flexibilidad, ya que aprender todas las nubes suele ser complicado.
+
+Puedes tener diversos servicios de tu aplicación corriendo en diferentes nuebes.
+
+* Anthos: Es un servicio de Google Cloud y permite unificar la Google Cloud con otras nubes, inclusive con locales.
+
+* Big Query: Aprovecha la infraestructura de diversas nubes y nos permite agregar datos en diferentes data center de diversos servicios.
+
+1. Mandamos query en SQL.
+2. Punto de presencia: entra a la red de Google.
+3. Llegar al DataCenter más cercano, viajando por la private fiber network de Google.
+4. La query se encamina a un cluster dentro del data center. Podemos tener anchos de banda muy potentes como 1 petabyte por segundo de datos.
+5. Un nodo ejecutador convierte nuestra query en un plan ejecutador; es decir, divide nuestra query en pedacitos para procesarlos de manera paralela.
+6. Escogen máquinas que ejecutarán nuestros pedacitos de query de forma paralela.
+7. El resultado se junta y se regresa al usuario.
+
+
+
+----------- Beneficios Google Cloud vs Competencia -----------
+
+----------- (Imagen Disponible) -----------
+* IaaS: Infraestructura como servicios. Switches, máquinas, cables de red que puedes necesitar.
+
+* PaaS: Plataforma como servicio. Servicios adicionales para no administrar otras funciones salvo la de desarrollar la app.
+
+* SaaS: Software como servicio. Platzi. Google Docs, drive, meet, etc.
+
+
+El modelo de la Google Cloud esta hecha específicamente para desarrolladores.
+
+* Inteligente:
+    -Inteligencia artificial, aprendizaje automático y análisis avanzados.
+    -Automatizar procesos, realizar predicciones.
+
+* Abierta y Flexible:
+    -Utilizar datos cuando y donde quiera.
+    -Crear y modernizar aplicaciones en cualquier lugar.
+    -Proteger tu negocio del lock-in (Poder utilizar diversas alternativas en la nube)
+
+* Colaboración y Productividad:
+    -Workspace proporciona herramientas digitales para que tu negocio prospere.
+    -Trabajadores se mantienen conectados y las empresas crean nuevas experiencias.
+    -Trabajar desde cualquier lado.
+
+* Seguridad:
+    -Los datos se almacenan, procesan y protegen en la misma infraestructura.
+    -Cifra los datos en reposo. ()
+    -Los datos no se transfieren en redes públicas.
+
+* Sustentable:
+    -Compra de energia renovable.
+    -Costos más baratos por aprovechamiento de energía.
+
+* Ahorro Costos:
+    -Aumentar la eficiencia operativa y optimizar costos en TI.
+    -La migración de aplicaciones a Google Cloud puede ahorrar hasta un 32%. 
+
+* Fácil de usar:
+    -Fácil de utilizar y se optimiza automáticamente.
+    -Desarrollada por desarrolladores para desarrolladores.
+    -Implementar fácilmente servicios de la nube a gran escala.
+
+* Soluciones de Industria:
+    -Crear soluciones personalizadas para abordar sus mayores desafios.
+    -Reducir costos y capturar nuevas oportunidades de mercado.
+
+
+----------- Seguridad de el Cloud Computing -----------
+
+- Según el modelo de seguridad por el que hayas optado (IaaS, PaaS, SaaS) es el nivel de seguridad que tendras.
+
+- Seguridad de extremo a extremo:
+    - Imagenes Bases Seguridad.
+    - Analisis de Vulnerabilidades (De las dependencias que tenemos en las imagenes).
+    - Autorizacion binaria.
+    - Contenedores Escudados.
+    - Sandbox de Contenedores.
+    - Deteccion de amenazas a contenedores.
+
+- Estandares, regulaciones y certificaciones:
+    - Identidades seguras criptograficamente
+    - Identidad del usuario
+    - Identidad del Dispositivo
+    - Identidad de la maquina
+    - Identidad del Servicio
+    - Identidad del codigo
+
+
+----------- Presupuestos y Facturación -----------
+
+- Son el vehículo de pago para tus gastos en Google CLoud.
+    - Payments Profile: Métodos de pago con los que cuento.
+    - Billing Account:
+        - Self-Serve: 
+
+
+
+
+
 
