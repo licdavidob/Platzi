@@ -194,12 +194,29 @@ El modelo de la Google Cloud esta hecha específicamente para desarrolladores.
 
 ----------- Presupuestos y Facturación -----------
 
+---------- (Imagen Disponible) -----------
 - Son el vehículo de pago para tus gastos en Google CLoud.
     - Payments Profile: Métodos de pago con los que cuento.
     - Billing Account:
-        - Self-Serve: 
+        + Negociación con Google.
+        + Llega como una solicitud de pago.
+        + Puedes relacionarlo con varios proyectos.
 
+---------- (Imagen Disponible) -----------
+-Jerarquia de recursos:
+    - Su función es la de mapear como se distribuye el software.
+    - La jerarquia general es:
+        + Organización.
+        + Carpetas (Opcional).
+        + Proyecto.
+        + Recursos: Servicios ofrecidos por GCP que se pueden crear o utilizar.
 
+    - Buenas prácticas:
+        + Crear tu payment profile y asocialarlo a tu Billing Account.
+        + Dividir en diversos proyectos y no tener todos tus servicios en uno solo.
+        + En cada proyecto, mantener sólo lo que necesitas.
+        + SI divides tu app o servicios en diferentes proyectos, puedes saber con mayor control, cuánto te cuesta cada cosa.
+        + Exportar tus datos de facturación a Big Query.
 
 
 

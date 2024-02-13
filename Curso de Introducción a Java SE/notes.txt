@@ -22,3 +22,13 @@
     - JDK11 es gratis solo para ambientes de desarrollo y testing.
     - JDK: Es la versión open de Java SE.
     - JDK es impulsado por Sun Microsystems y Red Hat.
+
+*Main:
+    - Es el punto de entrada de la aplicación.
+    - Siempre debe estar definido.
+
+*Ciclo de vida de una clase en Java:
+    1. Creas una clasa .Java
+    2. El compilador (javac) se encarga de transformarlo a ByteCode.
+    3. La JVM se encarga de interpretar el ByteCode.
+
