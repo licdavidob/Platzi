@@ -1,0 +1,24 @@
+*Java:
+    - Lenguaje de programación de alto nivel
+    - Es Multiplataforma (puede correrse en diferentes sistemas operativos)
+    - Java tiene dos categorías:
+        + Standard Edition: Aplicaciones de escritorio o consola.
+        + Enterprise Edition: Empresas trabajen aplicaciones web de última generación
+    
+    - Java sigue filosofía de Write Once, Run Anywhere (WORA), por lo que todo lo que aprendas en Java SE lo podrás aplicar también con Java EE
+
+*Historia Java:
+    - Fue creado en 1991 por James Gosling mientras trabajaba en Sun Microsystems.
+    - Fue comprada por ORACLE en 2009.
+
+
+*Java Development Kit (JDK):
+    - Java Runtime Enviroment (JRE): Es la maquina virtual.
+    - Compilador: Transforma nuestro código a BiteCode.
+    - API Desarrollo: Base de programación para crear tus propios lenguajes/programas.
+
+*Open JDK:
+    - Java empieza a licenciar desde JDK11.
+    - JDK11 es gratis solo para ambientes de desarrollo y testing.
+    - JDK: Es la versión open de Java SE.
+    - JDK es impulsado por Sun Microsystems y Red Hat.
