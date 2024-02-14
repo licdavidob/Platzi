@@ -220,4 +220,80 @@ El modelo de la Google Cloud esta hecha específicamente para desarrolladores.
 
 
 
+---------- Jerarquía de Recursos -----------
+
+- Puede entenderse como un sistema de archivos.
+- En Google Cloud, TODO es un recurso:
+    * Una máquina virtual.
+    * Un contenedor.
+    * Un disco duro.
+    * Un switch de red.
+
+- Organización:
+    * Es el nodo principal de la jerarquia.
+    * Tiene el Billing Account.
+    * Los admin. puede acceder a este nodo.
+    * Todos los permisos que deban existir en la Organización, se pueden asignar aqui y heredarlos a nodos de abajo.
+    * Se asigna un dominio para identificarlo.
+
+- Cloud Identity:
+    * En caso de usar Google Workspace (SaaS):
+        + Son una forma de autentificar a los usuarios que pertenecen a la organicación.
+        + Estos usuarios suelen utilizar Drive, Sheets, Forms, etc...
+    
+    * Aún sin tener Google Workspace, puedes usarlo para gestionar usuarios hasta un máximo de 50 sin costo.
+
+- Folders:
+    * Pueden tener mas folders o un proyecto.
+    * Como buena práctica, se debe modelar los departamentos de las compañias.
+    * Poder dividir y agrupar en folder te permite:
+        + Crear grupos y asignar personas al mismo, a fin de que sólo ese grupo, pueda "manipular" ciertos folders.
+        + Discriminar Costos: Saber cuánto me cuesta app1 vs app2.
+
+- Proyectos: Son los que tienen los recursos de GCP.
+    * Contiene un grupo de recursos: BD, Contenedores, Alertas, Servicios, Kubernetes, VM, etc...
+    * Puedes crear un mega proyecto pero es buena práctica que cada proyecto sólo tenga una necesidad en mente
+    * Cada proyecto debe actuar como si fuese un microservicio, es decir, una tarea dedicada.
+
+
+---------- Identidad y Control de Acceso (IAM) -----------
+
+- Quien: Puede referirse a una persona o un subsistema.
+- Puede hacer: Los permisos
+- En cuál recurso: 
+
+
+- Zero Trust / Confianza Cero:
+    * Todo lo que esta dentro de un "perimetro" confiamos.
+    * Establecemos que apps se puede comunicar con otras apps.
+    * Determinamos que recursos pueden generar las apps.
+
+- Politicas de seguridad:
+    * Se asignan a los recursos.
+    * Se establecen los roles de los miembros.
+    * Roles son un conjunto de permisos.
+    * Se pueden entender las políticas mejor como:
+        "Ciertos miembros tienen ciertos roles sobre este cierto recurso."
+
+- Permisos:
+    *Se asignan directamente a los roles, no a los individuos.
+
+--- NOTA PERSONAL: ---
+La razón de que existan las políticas de seguridad es "complementar" a los roles, es decir,
+si bien es cierto que con un rol y permisos ya puedes tener control de lo que los usuarios
+o subsistemas pueden hacer en GCP, las políticas de seguridad permiten establecer "condiciones"
+en las que el usuario/sistema puede hacer uso de su rol y ejecutar sus permisos. 
+
+Ejemplo:
+
+Si tuviesemos un rol 'Consultar BD', aunque el rol ya define los permisos específicos que el usuario tiene sobre la BD,
+las políticas de seguridad nos ayudan a determinar:
+
+    * A qué base de datos específica tiene acceso el usuario.
+    * En qué condiciones se pueden realizar las consultas.
+    * Otras restricciones adicionales, como la ubicación IP desde la que el usuario puede acceder a la base de datos.
+
+
+
+
 
