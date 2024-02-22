@@ -274,9 +274,18 @@ El modelo de la Google Cloud esta hecha específicamente para desarrolladores.
     * Roles son un conjunto de permisos.
     * Se pueden entender las políticas mejor como:
         "Ciertos miembros tienen ciertos roles sobre este cierto recurso."
+    * Se pueden asignar a las jerarquias (organización, folder, proyecto, recurso)
+    * Una politica se compone de 2 partes:
+        - Roles
+        - Miembros:
+            * Usuarios individuales
+            * Un subsistema
+            * Un grupo de miembros
+            * Un dominio
 
 - Permisos:
     *Se asignan directamente a los roles, no a los individuos.
+    *Los roles no se asignan a personas, si no a grupos.
 
 --- NOTA PERSONAL: ---
 La razón de que existan las políticas de seguridad es "complementar" a los roles, es decir,
@@ -292,6 +301,27 @@ las políticas de seguridad nos ayudan a determinar:
     * A qué base de datos específica tiene acceso el usuario.
     * En qué condiciones se pueden realizar las consultas.
     * Otras restricciones adicionales, como la ubicación IP desde la que el usuario puede acceder a la base de datos.
+
+
+---------- Roles (IAM) -----------
+
+- Buena práctica: SI O SI se deben asignar roles a grupos de usuarios y no a usuarios.
+
+---------- (Imagen Disponible) -----------
+- Existen 4 grupos a nivel organización (al menos los de cajón):
+    + Org. Admin
+    + Network Admin
+    + Security Admin
+    + Billing Admin
+
+
+---------- Interacción con GCP -----------
+
+- Todo en GCP es una API, por lo que hay una gran documentación.
+- Existen 3 formas tradicionales:
+    + Aplicación Web
+    + Aplicación Movil
+    + CLI para terminal
 
 
 
