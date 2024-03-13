@@ -324,6 +324,12 @@ las políticas de seguridad nos ayudan a determinar:
     + CLI para terminal
 
 
+---------- Google Cloud Marketplace -----------
+
+- Es igual a la app store o google play; es una tienda de apps enfocadas para la nube y para empresas.
+- Es de fácil instalación y te permite ahorrar tiempo.
+- Los servicios aumque sean de terceros, te vienen en la misma factura de Google Billing
+- Los precios son de lista o bien, pueden negociarse con el tercero del servicio.
 
 
 
