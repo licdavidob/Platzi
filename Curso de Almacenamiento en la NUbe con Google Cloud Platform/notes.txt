@@ -1,0 +1,44 @@
+----------- Cloud Storage -----------
+    * Servicio de almacenamiento de objetos:
+        + Objeto:
+            - Conjunto inmutable de datos.
+            - Puede entenderse como un conjunto de bits o un archivo.
+            - Es inmutable por que una vez almacenado en la nube, no puede cambiar.
+        + Bucket:
+            - Contenedor de objetos.
+            - Se identifica mediante un nombre.
+    
+    * Cloud Storage tiene las siguientes caracterísitcas
+        + Simple: Facíl de utilizar
+        + Seguro: Listado de objetos siempre actualizada
+        + Costo efectivo: Suele ser barato (1.20 dolares / 2023)
+        + Confiable 
+        + Geo Redundante: Diferentes objetos en diferentes partes del mundo, por lo que si ocurre un incidente, seguimos con esa información en otra parte del mundo.
+
+----------- ¿Donde podemos usar Cloud Storage? -----------
+    * Almacenamiento y entrega de contenido:
+        + Imagenes/Videos de un sitio web.
+        + Almacenar streaming.
+    * Cómputo, analítica y ML.
+        + Grandes volúmenes de información para analizar.
+    * Respaldo y archivado
+        + Bases de datos.
+        + Maquinas virtuales.
+        + Sistemas de Información.
+
+    --------- (Imagen Disponible) -----------
+    * Estructura típica de Cloud Storage
+
+    * Seguridad:
+        + Gestionar los permisos y políticas con IAM.
+        + Todos los objetos en GCP están cifrados.
+        + Retención: Tiempo que garantizamos que un objeto puede ser almacenado.
+        + Control de versiones: 'Reescribir' objetos y conservar el historial de cambios.
+    * Cifrado:
+        + Default: Google gestiona las claves de forma transparente.
+        + Customer-managed(CMEK): Es un gestor de llaves de GCP, generas tus propias llaves.
+        + Customer-supplied (CSEK): Si yo tuviera mi propio gestor de llaves, puedo usar este servicio para almacenar mis llaves fuera de GCP.
+    *Como se usa:
+        + Usar las API's con nuestras propias aplicaciones.
+        + Consola de GCP
+        + GCP Shell (gsutil)
