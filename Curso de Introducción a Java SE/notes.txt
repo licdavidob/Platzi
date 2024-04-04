@@ -32,3 +32,11 @@
     2. El compilador (javac) se encarga de transformarlo a ByteCode.
     3. La JVM se encarga de interpretar el ByteCode.
 
+*Jshell:
+    - Herramienta que te permite probar segmentos de código.
+
+*Variables:
+    - Espacio en memoria al que le puedo dar un valor.
+    - Espacio ocupado de la memoria RAM.
+    - Esa localidad de memoria se identifica mediante un nombre.
+    
