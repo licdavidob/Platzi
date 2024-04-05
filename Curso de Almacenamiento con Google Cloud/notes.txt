@@ -28,6 +28,7 @@
 
     --------- (Imagen Disponible) -----------
     * Estructura típica de Cloud Storage
+        * Objeto > Bucket > Proyecto > Organización. 
 
     * Seguridad:
         + Gestionar los permisos y políticas con IAM.
@@ -89,3 +90,4 @@
             - Coldline: Duración mínima de 90 días.
             - Archive: Duración mínima de 365 días.
 
+    

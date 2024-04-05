@@ -1,4 +1,4 @@
-*Java:
+* Java:
     - Lenguaje de programación de alto nivel
     - Es Multiplataforma (puede correrse en diferentes sistemas operativos)
     - Java tiene dos categorías:
@@ -7,36 +7,62 @@
     
     - Java sigue filosofía de Write Once, Run Anywhere (WORA), por lo que todo lo que aprendas en Java SE lo podrás aplicar también con Java EE
 
-*Historia Java:
+* Historia Java:
     - Fue creado en 1991 por James Gosling mientras trabajaba en Sun Microsystems.
     - Fue comprada por ORACLE en 2009.
 
 
-*Java Development Kit (JDK):
+* Java Development Kit (JDK):
     - Java Runtime Enviroment (JRE): Es la maquina virtual.
     - Compilador: Transforma nuestro código a BiteCode.
     - API Desarrollo: Base de programación para crear tus propios lenguajes/programas.
 
-*Open JDK:
+* Open JDK:
     - Java empieza a licenciar desde JDK11.
     - JDK11 es gratis solo para ambientes de desarrollo y testing.
     - JDK: Es la versión open de Java SE.
     - JDK es impulsado por Sun Microsystems y Red Hat.
 
-*Main:
+* Main:
     - Es el punto de entrada de la aplicación.
     - Siempre debe estar definido.
 
-*Ciclo de vida de una clase en Java:
+* Ciclo de vida de una clase en Java:
     1. Creas una clasa .Java
     2. El compilador (javac) se encarga de transformarlo a ByteCode.
     3. La JVM se encarga de interpretar el ByteCode.
 
-*Jshell:
+* Jshell:
     - Herramienta que te permite probar segmentos de código.
 
-*Variables:
+* Variables:
     - Espacio en memoria al que le puedo dar un valor.
     - Espacio ocupado de la memoria RAM.
     - Esa localidad de memoria se identifica mediante un nombre.
+    - Al declarar una variable, se deben usar nombres únicos.
+    - A partir de Java 10 ya existe la inferencia de datos con la palabra 'var'
+
+* Tipos de Variables (Ordenados por rango):
+    - Enteros:
+        + byte
+        + short
+        + int
+        + long: Debo poner una 'L' al final de dato numérico.
+    - Decimales:
+        + float: Debo poner una 'F' al final de dato numérico.
+        + double
+    - Caracteres:
+        + char: Se usan comillas simples.
+        + string: Se usan comillas dobles.
+    - Lógicos:
+        + bool
+        
+* Convención de nombres (estándar):
+    - Java es sensible a mayúsculas y minúsculas.
+    - Las variables comienzan siempre con una letra, '$' o '_'.
+    - Tecnica más utilizada: Camel Case.
+        + Upper Camel Case: Clases e Interfaces.
+        + Lower Camel Case: Métodos y Variables.
+    - Tecnica Adicional: Snake Case
+        + Constantes
     
