@@ -39,7 +39,7 @@ public class Variables {
 
         // Inferiendo el tipo de dato
         // Esto es una característica de Java 10 en adelante
-        var myVar = 10;
+//        var myVar = 10;
 
         System.out.println("Valor Byte: " + myByte);
         System.out.println("Valor Short: " + myShort);
@@ -51,6 +51,35 @@ public class Variables {
         System.out.println("Valor Boolean: " + myBoolean);
         System.out.println("Valor String: " + myString);
         System.out.println("Valor Constante PI: " + PI);
-        System.out.println("Dato inferido: " + myVar);
+//        System.out.println("Dato inferido: " + myVar);
+    }
+
+    public static void incremento_decremento() {
+        int myNumber = 10;
+        System.out.println("Valor original: " + myNumber);
+
+        // Incrementar en 1
+        myNumber++;
+        System.out.println("Incremento en 1: " + myNumber);
+
+        // Incrementar en 2
+        myNumber += 2;
+        System.out.println("Incremento en 2: " + myNumber);
+
+        // Decrementar en 1
+        myNumber--;
+        System.out.println("Decremento en 1: " + myNumber);
+
+        // Decrementar en 2
+        myNumber -= 2;
+        System.out.println("Decremento en 2: " + myNumber);
+
+        // Incremento prefijo
+        // Explicacion: primero se incrementa y luego se imprime
+        System.out.println("Incremento prefijo: " + ++myNumber);
+
+        // Incremento sufijo
+        // Explicacion: primero se imprime y luego se incrementa
+        System.out.println("Incremento sufijo: " + myNumber++);
     }
 }

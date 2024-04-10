@@ -1,0 +1,47 @@
+* Contenedor Docker:
+    - Es empaquetar nuestras apps y sus dependencias.
+
+* Caracterisiticas de Docker:
+    - Portable
+    - Ligero
+    - Escalable
+    - Seguro
+
+* Se almacenan en repositorios privados o públicos.
+    - Públicos: Docker Hub.
+
+* Que es una imagen en Docker:
+    - Es un paquete que contiene una aplicación y todas sus dependencias.
+    - Se pueden crear imágenes a partir de un archivo Dockerfile.
+    - Una imagen puede estar construida a partir de otra imagen.
+    - Generalemnte, todas las imagenes son capas de otras imagenes.
+        + Se puede visualizar esto cuando descargas una imagen, todas las descargar que comienza a hacer, son una capa de la imagen base.
+    - Si descargo una imagen, y luego descargo otra imagen que tiene la misma capa que la imagen anterior, no se vuelve a descargar la capa, ya que la capa ya esta descargada.
+
+* Que es Docker Desktop:
+    - Es una máquina virtual que corre sobre Linux.
+    - Permite ejecutar contenedores.
+    - Contiene Docker Engine, Docker CLI y Docker Compose.
+    - Corre nativo sobre Windows gracias a WSL2.
+
+* Comandos:
+    - docker images: Muestra las imagenes que tenemos en nuestro sistema.
+        + Repository: Nombre de la imagen.
+        + Tag: Versión de la imagen.
+        + Image ID: Identificador de la imagen.
+        + Created: Fecha de creación de la imagen.
+        + Size: Tamaño de la imagen.
+
+    - docker pull: Descarga una imagen de un repositorio.
+        + Ejemplo: docker pull ubuntu (Descarga la ultima versión de ubuntu).
+        + Ejemplo: docker pull ubuntu:18.04 (Descarga la versión 18.04 de ubuntu).
+    
+    - docker image rm <image_id>: Elimina una imagen de nuestro sistema.
+        + Ejemplo: docker image rm 1234567890 (Elimina la imagen con el id 1234567890).
+
+    - docker create <image>: Crea un contenedor a partir de una imagen.
+        + Ejemplo: docker create ubuntu (Crea un contenedor a partir de la imagen de ubuntu).
+        + Este comando devolverá el id del contenedor creado.
+    
+    - docker start <container_id>: Inicia un contenedor.
+        + Ejemplo: docker start 1234567890 (Inicia el contenedor con el id 1234567890).

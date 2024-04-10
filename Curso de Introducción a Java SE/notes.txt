@@ -65,4 +65,8 @@
         + Lower Camel Case: Métodos y Variables.
     - Tecnica Adicional: Snake Case
         + Constantes
-    
+
+* Casting de Variables:
+    - Conversión de un tipo de dato a otro.
+    - Se debe tener en cuenta que no se puede convertir de un tipo de dato a otro si no es compatible.
+    - Se puede hacer de manera implícita o explícita.
