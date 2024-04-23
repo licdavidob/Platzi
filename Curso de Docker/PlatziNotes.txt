@@ -1,0 +1,31 @@
+---- Imagen Disponible ----
+* ¿Qué es Docker?
+    - Docker Daemon: Es un proceso que corre en el host y es el encargado de crear y manejar los contenedores.
+    - Docker Client (CLI): Es la interfaz de línea de comandos que se comunica con el daemon.
+
+* Arquitectura de Docker:
+    - Contenedores: Son instancias de imágenes que se ejecutan en un ambiente aislado.
+    - Imágenes: Son plantillas de solo lectura con instrucciones para crear un contenedor.
+    - Network: Permite la comunicación entre contenedores.
+    - Volumes: Permite persistir datos en el host.
+
+* Contenedor:
+    - Es una agrupación de procesos.
+    - Es una entidad lógica creado a partir de una imágen.
+    - Ejecuta procesos de forma nativa.
+    - Los procesos que se ejecutan adentro de los contenedores ven su universo como el contenedor lo define.
+
+* Command:
+    - Es la instrucción que se ejecuta al iniciar un contenedor.
+
+* Ciclo de vida de un contenedor:
+    - Cada que se ejecuta un contenedor, en realidad se ejecuta un proceso del S.O. A este proceso se le conoce como 'Main Process'.
+
+    - El 'Main Process' determina la vida del contenedor. Si el Main Process termina, el contenedor también termina.
+
+    - El 'Sub Process' es un proceso que se ejecuta dentro del contenedor. Si algún sub process termina o falla, el contenedor sigue vivo.
+
+    - Se puede matar un Main Process desde fuera del contenedor conociendo el PID del proceso que esta corriendo en nuestro host.
+        1. docker inspect --format '{{.State.Pid}}' <container_id>
+        2. kill -9 <pid>
+
