@@ -11,7 +11,7 @@ import javax.xml.bind.DatatypeConverter;
 
 public class Encript {
     public static void main(String[] args) {
-        String textDesencriptado = Desencriptar("Mfer5Xyr7Jw=");
+        String textDesencriptado = Desencriptar("viJ65/KQkaXcrtfP50TEhw==");
         System.out.println("Texto desencriptado: " + textDesencriptado);
         Encriptar(textDesencriptado);
     }

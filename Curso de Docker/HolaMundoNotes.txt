@@ -39,9 +39,142 @@
     - docker image rm <image_id>: Elimina una imagen de nuestro sistema.
         + Ejemplo: docker image rm 1234567890 (Elimina la imagen con el id 1234567890).
 
-    - docker create <image>: Crea un contenedor a partir de una imagen.
-        + Ejemplo: docker create ubuntu (Crea un contenedor a partir de la imagen de ubuntu).
-        + Este comando devolverá el id del contenedor creado.
+    - docker create [options] <image>: Crea un contenedor a partir de una imagen.
+        + --name: Permite asignar un nombre al contenedor.
+        + --network: Permite asignar un contenedor a una red.
+        + -p: Permite mapear un puerto del contenedor al puerto del host.
+        + -v: Permite mapear un volumen del contenedor al host.
+        + -e: Permite asignar variables de entorno al contenedor.
+        + -d: Permite ejecutar el contenedor en segundo plano.
+
+    - docker ps [options]: Muestra los contenedores que se están ejecutando.
+        + -a: Muestra todos los contenedores que se han creado.
+        + -q: Muestra solo los ids de los contenedores.
+        + -l: Muestra el último contenedor que se ha creado.
     
     - docker start <container_id>: Inicia un contenedor.
         + Ejemplo: docker start 1234567890 (Inicia el contenedor con el id 1234567890).
+    
+    - docker stop <container_id>: Detiene un contenedor.
+        + Ejemplo: docker stop 1234567890 (Detiene el contenedor con el id 1234567890).
+    
+    -docker rm <container_id>/<container_name>: Elimina un contenedor.
+        + Ejemplo: docker rm 1234567890 (Elimina el contenedor con el id 1234567890).
+
+    - docker logs <container_id>: Muestra los logs de un contenedor.
+        + -f: Muestra los logs en tiempo real.
+
+    - docker run [options] <image>: Es la combinación de los comandos de 'docker pull' 'docker create' y 'docker start'.
+        + Ejemplo: docker run -d --name monguito -p 27017:27017 mongo (Crea un contenedor de mongo, con el nombre monguito, mapeando el puerto 27017 del contenedor al puerto 27017 del host).
+
+    - docker build [options] <path>: Construye una imagen a partir de un Dockerfile.
+        + -t: Permite asignar un nombre y un tag a la imagen.
+        + Ejemplo: docker build -t my-image:1.0 .
+
+    - docker network create [options] <network_name>: Crea una red personalizada.
+        + -ls: Muestra las redes que se han creado.
+        + -d: Permite asignar un driver a la red.
+        + -rm: Elimina una red.
+
+    - docker compose [options]: Permite definir y ejecutar aplicaciones multi-contenedor.
+        + up: Crea y ejecuta los contenedores.
+        + down: Detiene y elimina los contenedores.
+        + -f: Permite indicar el archivo docker-compose.yml.
+        + -d: Permite ejecutar los contenedores en segundo plano.
+
+* Port Mapping:
+    - Permite mapear un puerto del contenedor docker a un puerto físico de mi pc.
+    - Se hace con el parametro -p al crear el contenedor.
+    - El primer puerto es el puerto del host, y el segundo puerto es el puerto del contenedor.
+    - Ejemplo: docker create -p 8080:80 nginx (Crea un contenedor de nginx, mapeando el puerto 80 del contenedor al puerto 8080 del host).
+
+* Dockerfile:
+    - Es un archivo que contiene las instrucciones para construir nuestras imágenes y posteriormente nuestros contenedores.
+    - Todas las imágenes que vayamos a crear se basan en una imagen base.
+    - Se puede crear una imagen a partir de un Dockerfile con el comando 'docker build'.
+    - Ejemplo de un Dockerfile:
+
+        FROM node:18
+        RUN mkdir -p /home/app
+        COPY . /home/app
+        EXPOSE 3000
+        CMD ["node", "/home/app/index.js"]
+
+    - FROM: Indica la imagen base.
+    - RUN: Ejecuta un comando en la imagen.
+    - COPY: Copia archivos de la máquina host a la imagen.
+    - EXPOSE: Indica el puerto que expone la imagen.
+    - CMD: Indica el comando que se ejecuta al iniciar un contenedor.
+
+* Docker networking:
+    - Permite que los contenedores se comuniquen entre sí.
+    - Se pueden crear redes personalizadas.
+    - Se pueden mapear puertos de un contenedor a otro.
+    - La manera de comunicarse entre contenedores es a través de los nombres de los contenedores.
+    - Ejemplo de creación de una red personalizada:
+
+        docker network create --driver bridge my-network
+
+    - Ejemplo de creación de un contenedor en una red personalizada:
+
+        docker run -d --name my-container --network my-network my-image
+
+* Docker Compose:
+    - Permite definir y ejecutar aplicaciones multi-contenedor.
+    - Se define en un archivo 'docker-compose.yml'.
+    - Se ejecuta con el comando 'docker compose up'.
+    - Ejecutar docker compose puede crear:
+        + Imagenes en caso de haber especificado un Dockerfile mediante el build.
+        + Contenedores segun los servicios que se hayan definido.
+        + Red Personalizada: Por defecto se crea una red personalizada para los contenedores que se crean con docker compose.
+    
+    - Los pasos para crear y ejecutar nuestros contenedores SIN Docker Compose son:
+        + Descargar las imágenes.
+        + Crear una red personalizada.
+        + Crear los contenedores.
+            * Mapear los puertos.
+            * Asignar nombre a los contenedores.
+            * Asignar los contenedores a la red personalizada.
+            * Asignar variables de entorno.
+            * Indicar la imagen a utilizar.
+
+    - Los pasos para crear y ejecutar nuestros contenedores CON Docker Compose son:
+        + Crear un archivo 'docker-compose.yml'.
+        + Definir los servicios.
+        + Ejecutar el comando 'docker-compose up'.
+
+    - NOTA: En un docker compose, las tabulaciones son importantes.
+
+    - Ejemplo de un archivo 'docker-compose.yml':
+    
+            version: "3.9"
+            services:
+                chanchito:
+                    build: .
+                    ports:
+                        - "3000:3000"
+                    links:
+                        - monguito
+                monguito:
+                    image: mongo
+                    ports:
+                        - "27017:27017"
+                    environment:
+                        - MONGO_INITDB_ROOT_USERNAME=nico
+                        - MONGO_INITDB_ROOT_PASSWORD=password
+                    volumes:
+                        - mongo-data:/data/db
+                        # mysql -> /var/lib/mysql
+                        # postgres -> /var/lib/postgresql/data
+            volumes:
+                mongo-data:
+        
+    - Donde:
+        + version: Indica la versión de Docker Compose.
+        + services: Indica los servicios que vamos a crear. Son los nombres de los contenedores.
+        + build: Indica la ruta donde se encuentra el Dockerfile.
+        + image: Indica la imagen que se va a utilizar.
+        + ports: Indica los puertos que se van a mapear.
+        + links: Indica los contenedores con los que se va a comunicar.
+        + environment: Indica las variables de entorno.
+        + volumes: Indica los volúmenes que se van a mapear.
