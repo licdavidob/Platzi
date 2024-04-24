@@ -50,7 +50,17 @@
     - docker run [options] <image>: Es la combinación de los comandos de 'docker pull' 'docker create' y 'docker start'.
         + -it: Modo interactivo. Permite ejecutar un contenedor en modo interactivo.
         + -p: Permite mapear un puerto del contenedor al puerto del host.
-        + -v: Permite mapear un volumen del contenedor al host.
+        + -v: Permite mapear un directorio del contenedor a un directorio del host.
+        + -e: Permite asignar variables de entorno al contenedor.
+        + -d: Permite ejecutar el contenedor en segundo plano.
+        + --name: Permite asignar un nombre al contenedor.
+        + --network: Permite asignar un contenedor a una red.
+        + --mount: Permite montar un volumen en el contenedor.
+            * src=<host_path>,dst=<container_path>
+            * Ejemplo: --mount src=dataPrueba,dst=/data
+                - Donde:
+                    + src: Es el directorio del host o nombre del volumen.
+                    + dst: Es el directorio del contenedor que quiero se replique.
 
     -docker exec [options] <container_id> <command>: Permite ejecutar un comando en un contenedor que se está ejecutando.
         + -it: Modo interactivo.
@@ -64,6 +74,16 @@
         + -ls: Muestra las redes que se han creado.
         + -d: Permite asignar un driver a la red.
         + -rm: Elimina una red.
+
+    - docker volume [options]: Permite crear y administrar volúmenes.
+        + create: Crea un volumen.
+        + ls: Muestra los volúmenes que se han creado.
+        + rm: Elimina un volumen.
+
+    - docker cp [options] <container_id>: Permite copiar archivos entre el host y el contenedor.
+        + -a: Permite copiar directorios.
+        + Ejemplo (Insertar): docker cp file.txt 1234567890:/path (Copia el archivo file.txt al contenedor con el id 1234567890).
+        + Ejemplo (Extraer): docker cp 1234567890:/path/file.txt . (Copia el archivo file.txt del contenedor con el id 1234567890 al host).
 
     - docker compose [options]: Permite definir y ejecutar aplicaciones multi-contenedor.
         + up: Crea y ejecuta los contenedores.

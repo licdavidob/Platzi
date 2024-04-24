@@ -28,5 +28,25 @@
 
 * Bind Mounts:
     - Permite montar un directorio del host en un contenedor.
-    - Un contenedor representa el universo de un proceso. POr lo que si el contenedor se elimina, toda su información se pierde.
-    
+    - Un contenedor representa el universo de un proceso. Por lo que si el contenedor se elimina, toda su información se pierde.
+    - Un Bind Mount no es que mas que atar un directorio del host a un directorio del contenedor.
+    - Todo lo que haya en el contenido del directorio del contenedor se verá reflejado en el directorio del host y viceversa.
+
+* Volumen:
+    - Un Volumen es un directorio que se encuentra en el host y que es montado en un contenedor.
+    - Un Volumen es persistente, es decir, si se elimina un contenedor, el volumen sigue existiendo.
+    - Docker gestiona los volúmenes, desde mi dispositivo es dificil acceder a ellos.
+
+--- Imagen Disponible ----
+* Bind Mount vs Volumen:
+    - Ambos permiten persistir datos.
+    - Los Bind Mounts son más fáciles de acceder desde el host.
+    - Los Volumenes son más seguros y fáciles de gestionar. Solo Docker tiene acceso a ellos.
+
+* Insertar y extraer archivos de un contenedor:
+    - Para insertar un archivo en un contenedor se puede hacer de dos formas:
+        1. docker cp <archivo> <container_id>:<directorio>
+        2. docker exec -it <container_id> bash
+    - Para extraer un archivo de un contenedor se puede hacer de dos formas:
+        1. docker cp <container_id>:<directorio> <archivo>
+        2. docker exec -it <container_id> bash
