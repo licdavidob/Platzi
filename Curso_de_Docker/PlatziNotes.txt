@@ -20,12 +20,13 @@
 
 * Ciclo de vida de un contenedor:
     - Cada que se ejecuta un contenedor, en realidad se ejecuta un proceso del S.O. A este proceso se le conoce como 'Main Process'.
-
     - El 'Main Process' determina la vida del contenedor. Si el Main Process termina, el contenedor también termina.
-
     - El 'Sub Process' es un proceso que se ejecuta dentro del contenedor. Si algún sub process termina o falla, el contenedor sigue vivo.
-
     - Se puede matar un Main Process desde fuera del contenedor conociendo el PID del proceso que esta corriendo en nuestro host.
         1. docker inspect --format '{{.State.Pid}}' <container_id>
         2. kill -9 <pid>
 
+* Bind Mounts:
+    - Permite montar un directorio del host en un contenedor.
+    - Un contenedor representa el universo de un proceso. POr lo que si el contenedor se elimina, toda su información se pierde.
+    
