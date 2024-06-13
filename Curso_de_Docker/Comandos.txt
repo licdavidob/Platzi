@@ -22,6 +22,8 @@
         + -e: Permite asignar variables de entorno al contenedor.
         + -d: Permite ejecutar el contenedor en segundo plano.
 
+        + Ejemplo: docker create --name my-container -p8080:80 my-image:1.0
+
     - docker ps [options]: Muestra los contenedores que se están ejecutando.
         + -a: Muestra todos los contenedores que se han creado.
         + -q: Muestra solo los ids de los contenedores.
@@ -51,6 +53,7 @@
         + -it: Modo interactivo. Permite ejecutar un contenedor en modo interactivo.
         + -p: Permite mapear un puerto del contenedor al puerto del host.
         + -v: Permite mapear un directorio del contenedor a un directorio del host.
+            * Ejemplo: -v /path/host:/path/container
         + -e: Permite asignar variables de entorno al contenedor.
         + -d: Permite ejecutar el contenedor en segundo plano.
         + --name: Permite asignar un nombre al contenedor.
@@ -61,19 +64,28 @@
                 - Donde:
                     + src: Es el directorio del host o nombre del volumen.
                     + dst: Es el directorio del contenedor que quiero se replique.
+        + --memory: Permite asignar la cantidad de memoria que puede utilizar el contenedor.
+        + --cpus: Permite asignar la cantidad de CPUs que puede utilizar el contenedor.
 
-    -docker exec [options] <container_id> <command>: Permite ejecutar un comando en un contenedor que se está ejecutando.
+    - docker exec [options] <container_id> <command>: Permite ejecutar un comando en un contenedor que se está ejecutando.
         + -it: Modo interactivo.
         + Ejemplo: docker exec -it 1234567890 bash (Ejecuta el bash en el contenedor con el id 1234567890).
 
     - docker build [options] <path>: Construye una imagen a partir de un Dockerfile.
         + -t: Permite asignar un nombre y un tag a la imagen.
-        + Ejemplo: docker build -t my-image:1.0 .
+        + -f: Permite indicar el archivo Dockerfile.
+        + Ejemplo: docker build -t my-image:1.0 -f mi.dockerfile
 
     - docker network create [options] <network_name>: Crea una red personalizada.
         + -ls: Muestra las redes que se han creado.
         + -d: Permite asignar un driver a la red.
         + -rm: Elimina una red.
+        + --atachable: Permite que los contenedores se puedan conectar a la red.
+
+    - docker network inspect <network_name>: Muestra información detallada de una red.
+
+    - docker network connect <network_name> <container_id>: Permite conectar un contenedor a una red.
+        + Ejemplo: docker network connect my-network 1234567890 (Conecta el contenedor con el id 1234567890 a la red my-network).
 
     - docker volume [options]: Permite crear y administrar volúmenes.
         + create: Crea un volumen.
@@ -90,3 +102,18 @@
         + down: Detiene y elimina los contenedores.
         + -f: Permite indicar el archivo docker-compose.yml.
         + -d: Permite ejecutar los contenedores en segundo plano.
+
+    - docker tag <image_id> <repository>: Permite etiquetar una imagen.
+        + Ejemplo: docker tag 1234567890 my-image:1.0.
+
+    - docker history <image_id>: Muestra el historial de una imagen.
+
+    - docker container prune: Elimina todos los contenedores que no se están ejecutando.
+
+    - docker rm -f $(docker ps -a -q): Elimina todos los contenedores que se han creado, ejecutandose o no.
+
+    - docker rmi $(docker images -q): Elimina todas las imágenes que se han descargado.
+
+    - docker system prune: Elimina todos los contenedores, imágenes y volúmenes que no se están utilizando.
+
+    - docker stats: Muestra el uso de recursos de los contenedores que se están ejecutando.
