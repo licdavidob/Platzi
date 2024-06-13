@@ -1,6 +1,10 @@
 ---- Imagen Disponible ----
 * ¿Qué es Docker?
     - Docker Daemon: Es un proceso que corre en el host y es el encargado de crear y manejar los contenedores.
+        - Se comunica mediante una API Rest que puede ser accedida por:
+            + Docker Client (CLI).
+            + Equipos remotos.
+            + Protocolo HTTP.
     - Docker Client (CLI): Es la interfaz de línea de comandos que se comunica con el daemon.
 
 * Arquitectura de Docker:
@@ -50,3 +54,98 @@
     - Para extraer un archivo de un contenedor se puede hacer de dos formas:
         1. docker cp <container_id>:<directorio> <archivo>
         2. docker exec -it <container_id> bash
+
+--- Imagen Disponible ----
+* Imagenes:
+    - Son plantillas o moldes de las que docker crea contenedores.
+    - Contienen lo necesario para que un contenedor pueda ejecutarse.
+    - Se componen de diferentes capas que se van apilando.
+    - Cada capa es una 'personalización' en base a la capa anterior.
+
+* Redes Docker:
+    - Por defecto, Docker crea redes por default:
+        1. bridge: Es la red por defecto.
+        2. host: Conecta el contenedor a la red del host.
+        3. none: No conecta el contenedor a ninguna red.
+    - Cada contenedor que se crea se conecta a esta red.
+    - Se puede crear una red personalizada con el comando 'docker network create <network_name>'.
+    - Se puede asignar un contenedor a una red con el comando 'docker run --network <network_name> <image>'.
+    - Se puede asignar un alias a un contenedor con el comando 'docker run --network <network_name> --name <alias> <image>'.
+    - Se puede asignar un nombre a un contenedor con el comando 'docker run --network <network_name> --name <name> <image>'.
+    - Se puede asignar un driver a una red con el comando 'docker network create --driver <driver> <network_name>'.
+    - Se puede eliminar una red con el comando 'docker network rm <network_name>'.
+
+* Docker Compose:
+    - Permite definir y ejecutar aplicaciones multi-contenedor.
+    - En un docker compose permite describir de forma declarativa la arquitectura de servicios.
+    - Se define en un archivo 'docker-compose.yml'.
+    - Se ejecuta con el comando 'docker compose up'.
+    - Ejecutar docker compose puede crear:
+        + Imagenes en caso de haber especificado un Dockerfile mediante el build.
+        + Contenedores segun los servicios que se hayan definido.
+        + Red Personalizada: Por defecto se crea una red personalizada para los contenedores que se crean con docker compose.
+    
+    - Ejemplo:
+        version: "3.9"
+        services: //Los servicios que componen la aplicación.
+            chanchito:
+                image: platziapp
+                environment: //Variables de entorno.
+                    MONGO_URL = "monguito:27017"
+                ports:
+                    - "3000:3000"
+                depends_on: //Indica que el contenedor chanchito depende del contenedor monguito.
+                    - monguito
+                volumes: //Indica que se va a montar un volumen.
+                    - <directorio_host>:<directorio_contenedor> //Copiara el contenido del directorio del host al directorio del contenedor.
+                    - <directorio_contenedor> //Indica que ficheros debe ignorar.
+                command: //Indica el comando que se ejecutará al iniciar el contenedor.
+                    - "npm"
+                    - "start"
+            monguito:
+                image: mongo
+                ports:
+                    - "27017:27017"
+            paquito:
+                build: . //Indica que se va a construir una imagen a partir de un Dockerfile.
+
+
+* Detener Contenedores (Shell vs Exec):
+    - Shell: Ejecuta el proceso como hijo del shell.
+    - Exec: Ejecuta el proceso como el principal.
+
+    - Docker mediante el comando 'docker stop <container_id>' detiene el contenedor de forma segura.
+        1. Envia una señal al proceso principal del contenedor (SIGTERM).
+        2. Espera un tiempo para que el proceso termine.
+        3. Si el proceso no termina, envia una señal más fuerte (SIGKILL).
+        4. El proceso termina de forma inmediata.
+
+    - Docker mediante el comando 'docker kill <container_id>' detiene el contenedor de forma inmediata.
+        1. Envia una señal al proceso principal del contenedor (SIGKILL).
+        2. El proceso termina de forma inmediata.
+
+    - El Main Process de un Docker suele ejecutarse en el PID 1. Si yo ejecuto mi CMD en un shell, el shell se convierte en el Main Process y el CMD se convierte en un Sub Process.
+
+    - Sintaxis SHELL: //CMD se vuelve un sub process.
+        FROM ubuntu:trusty
+        COPY ["loop.sh", "/"]
+        CMD /loop.sh
+    
+    - Sintaxis EXEC: //CMD se vuelve un main process. (Recomendado)
+        FROM ubuntu:trusty
+        COPY ["loop.sh", "/"]
+        CMD ["/loop.sh"]
+
+* Docker Ignore:
+    - Permite ignorar archivos o directorios al momento de construir una imagen.
+
+* Multi Stage Build:
+    - Permite reducir el tamaño de una imagen.
+    - Se pueden tener multiples FROM en un Dockerfile.
+    - Se pueden copiar archivos de una imagen a otra.
+    - Se pueden copiar archivos de una imagen a otra sin necesidad de tener una imagen intermedia.
+    - Permite montar en las imagenes solo lo necesario para que la aplicación funcione.
+
+* Docker in Docker:
+    - Permite ejecutar Docker dentro de un contenedor.
+    - Se puede ejecutar Docker en un contenedor con el comando 'docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock docker'.
