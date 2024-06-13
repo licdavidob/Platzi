@@ -37,6 +37,22 @@
     - Un Volumen es persistente, es decir, si se elimina un contenedor, el volumen sigue existiendo.
     - Docker gestiona los volúmenes, desde mi dispositivo es dificil acceder a ellos.
 
+--- Expose vs Publish ---
+
+* Expose:
+    - Es una instrucción que se coloca en el Dockerfile.
+    - Indica el puerto que expone la imagen.
+    - No mapea el puerto del contenedor al puerto del host.
+    - Es una buena práctica para documentar el puerto que expone la imagen.
+
+* Publish:
+    - Es una instrucción que se coloca al crear un contenedor.
+    - Mapea un puerto del contenedor al puerto del host.
+    - Se hace con el parámetro -p al crear un contenedor.
+    - Ejemplo: docker run -p 8080:80 nginx (Mapea el puerto 80 del contenedor al puerto 8080 del host).
+
+Link de referencia: https://stackoverflow.com/questions/22111060/what-is-the-difference-between-expose-and-publish-in-docker/
+
 --- Imagen Disponible ----
 * Bind Mount vs Volumen:
     - Ambos permiten persistir datos.
