@@ -1,0 +1,190 @@
+------ Historia de la web ------
+
+Fase 1:
+    - El cliente muestra una página web con información estructurada.
+    - Funcionaba de manera simple, el usuario solo podía leer.
+    - El servidor solo contenía texto plano.
+    - El administrador procura mantener el servidor funcionando.
+
+Fase 2:
+    - Nacen lenguajes de programación del lado del servidor.
+    - El cliente puede interactuar con la página.
+
+Fase 3:
+    - Se conforma un equipo de desarrollo. (Ya no es suficiente una sola persona)
+    - El servidor es cosumido por un gran número de usuarios.
+    - NUestra app comienza a consumir otros servicios.
+
+Fase 4:
+    - Se necesita tener un servidor estable, por lo que se crean ambientes: desarrollo, pruebas y producción.
+
+Fase 5:
+    - Las apps 'monolito' se dividen en microservicios.
+    - Se vuelve más caro utilizar microservicios (varios servidores) que un servidor monolítico.
+    - Aparece Docker y nos permite tener microservicios configurados para consumir sólo los recursos necesarios.
+
+------ Conceptos de DevOps ------
+
+* DevOps: Cultura que busca la colaboración entre los equipos de desarrollo y operaciones mediante la mejora continua.
+    - Dev: Desarrollo
+    - Ops: Operaciones
+
+* Involucra herramientas y/o técnicas para mejorar los procesos de desarrollo.
+
+------ Nivel de madurez de una empresa ------
+
+* El rol de un DevOps siempre se verá afectado por la cultura y constumbres de la empresa.
+
+1. Empresa iniciando con DevOps: No tiene herramientas ni equipo enfocado en mejora continua.
+    - No hay colaboración entre los equipos de desarrollo y operaciones.
+    - No hay automatización.
+    - No hay monitoreo.
+    - Convencer a los equipos de realizar cambios.
+
+2. Empresa migrando a Cloud: Saben que existe DevOps.
+    - Se comienza a automatizar.
+    - Se comienza a monitorear.
+    - Ayudar a los equipos a migrar a la nube.
+
+3. Empresa busca asegurar la calidad del software: Implementar nuevas herramientas.
+    - Se automatizan pruebas (No permite llevar el código a producción).
+    - Se automatiza el despliegue.
+    - Se automatiza el monitoreo.
+
+4. Empresa inicia nuevo proyecto: Se busca mejorar la velocidad de entrega.
+    - Se automatiza todo el proceso.
+    - Se automatiza la infraestructura.
+    - Se automatiza el monitoreo.
+    - Listar necesidades para usar buenas prácticas.
+
+------ Tipos de Empresas: Como afectan a un DevOps ------
+
+1. Mantiene un sólo software:
+    - Herramientas enfocadas para un solo software.
+2. Mantiene varios software:
+    - Pueden existir lenguajes de programación diferentes.
+    - Pueden existir diferentes bases de datos.
+    - Se vuelve más complicado mantener la infraestructura.
+
+Las herramientas y tareas de un DevOps dependerán del tipo de empresa, servicio y/o productos que se ofrezcan.
+
+------ Tareas de un DevOps ------
+
+* Sus tareas están enfocadas en ayudar y AUTOMATIZAR.
+
+1. Automatización de Despliegue:
+    - Tomar el código desde los repositorios del desarrollador y llevarlo a diferentes ambientes.
+
+2. Automatización de Infraestructura:
+    - Abstrae la infraestructura física, describirla en un archivo y ejecutarla en Cloud.
+    - Aumentar o disminuir recursos de manera automática.
+
+3. Herramientas de Monitoreo:
+    - Monitorear la infraestructura y aplicaciones.
+    - Alertar en caso de que algo falle.
+
+4. Seguridad y Pruebas:
+    - Bloqueo de puertos.
+    - Escaneo de vulnerabilidades.
+    - Evitar filtración de credenciales.
+
+------ Habilidades y Conocimientos de un DevOps ------
+
+1. Administración de sistemas generalmente en Linux
+    - Sistema de carpetas
+    - Gestión de paquetes
+    - Gestión de variables de entorno
+    - Manipulación de archivos (copiar, mover, eliminar)
+
+2. Saber programar en nivel básico (Python, Go, Scripting Bash)
+    - Ciclos
+    - Rutinas
+    - Declaración de variables
+    - Comandos de construcción en el lenguaje usado
+    - Leer logs de esos lenguajes
+
+3. Conocimientos de servicios web
+    - Protocolos
+    - Puertos
+    - Levantar aplicación web
+    - Pruebas
+
+4. Servicios en la nube
+    - Crear VM
+    - Crear redes
+    - Gestión de permisos (entre servicios, a personas)
+    - Gestión de almacenamiento
+    - CLI de las nubes
+
+5. Docker para virtualización
+    - Comandos básicos (run, pull, build, push)
+        + Crear Dockerfiles
+        + Manipular Docker registry
+        + Leer logs de Docker
+    - Imágenes
+    - Contenedores
+    - Redes
+    - Volúmenes
+
+6. Procesos de despliegue
+    - Herramientas de orquestación
+    - Manipulación de ambientes y sus variables
+    - Leer logs
+
+------ Ciclo de vida del software ------
+
+* Es una forma de representar las fases de desarrollo, pero no siempre reflejan la realidad.
+
+1. Plan: Planificar qué se va a hacer y cómo, salen documentos y listas de tareas.
+
+2. Code: Tomar las tareas e ideas y plasmarlas en código funcional.
+
+3. Build: Creación de procesos automáticos para compilar el código construido por los desarrolladores, sale un artefacto o ejecutable.
+
+4.Test: Tomar esos artefactos y realizarle pruebas para garantizar la calidad del código, sale un reporte y el artefacto testeado.
+    - Pruebas unitarias
+    - Pruebas de integración
+    - Pruebas de estrés.
+
+5. Release: Guardar ese artefacto testeado dentro de algún sitio para que se consuma posteriormente.
+
+6. Deploy: Tomar el artefacto y desplegarlo dentro de algún servicio que permita correr la aplicación y que los usuarios la consuman.
+
+7. Operate: Se construye o se mantiene la infraestructura que tiene la aplicación desplegada.
+
+8. Monitor: Analizar esa infraestructura que tiene la aplicación desplegada.
+
+------ Herramientas de un DevOps ------
+
+1. Cloud: AWS, Azure, Google Cloud.
+    - Todas las nubes tiene un modelo de responsabilidad:
+        + On-Premise (Local): Tú eres responsable de todo.
+        + IaaS (Infraestructura como servicio): La nube es responsable de la infraestructura.
+        + PaaS (Plataforma como servicio): La nube es responsable de la infraestructura y tú de la aplicación.
+        + SaaS (Software como servicio): La nube es responsable de todo.
+    - Cada proveedor de la nube tiene sus propias herramientas pero mantienen similitudes entre ellas.
+
+2. Control de Versiones.
+    - Centralizan el código fuente de los desarrolladores y evitan conflictos.
+    - GIT: Es de las más usadas y permite trabajar en equipo.
+    - Repositorios basados en GIT: GitHub, GitLab, Bitbucket, AWS CodeCommit.
+
+3. Orquestación.
+    - Son herramientas que permiten automatizar procesos e intercambian información con diferentes servicios.
+        + Despliegue de aplicaciones.
+        + Despliegue de infraestructura.
+        + Escalamiento de aplicaciones.
+    - Instaladas en máquinas: Jenkins, CircleCI, TravisCI.
+    - Basadas en la nube: AWS CodePipeline, Azure DevOps, Google Cloud Build.
+
+4. Cluster.
+    - Sistemas que administran recursos de hardware y software.
+    - Algunos más populares: Kubernetes, Docker Swarm, AWS ECS, Google Kubernetes Engine.
+
+5. IaC (Infraestructura como Código).
+    - Archivos de código y llevarlos a programas que crean infraestructura.
+    - Herramientas: Terraform, AWS CloudFormation, Azure ARM Templates, Google Deployment Manager.
+        + Terraform: Crea infraestructura en la nube.
+            - Multinube: Facilita conceptos de infraestructura en diferentes nubes.
+            - Declarativo: Describe la infraestructura que se quiere.
+            - Replica: Crea la infraestructura en diferentes ambientes.

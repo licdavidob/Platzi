@@ -56,6 +56,7 @@
             * Ejemplo: -v /path/host:/path/container
         + -e: Permite asignar variables de entorno al contenedor.
         + -d: Permite ejecutar el contenedor en segundo plano.
+        + --rm: Elimina el contenedor cuando se haya detenido.
         + --name: Permite asignar un nombre al contenedor.
         + --network: Permite asignar un contenedor a una red.
         + --mount: Permite montar un volumen en el contenedor.
