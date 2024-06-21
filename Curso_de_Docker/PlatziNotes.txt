@@ -106,6 +106,7 @@ Link de referencia: https://stackoverflow.com/questions/22111060/what-is-the-dif
         services: //Los servicios que componen la aplicación.
             chanchito:
                 image: platziapp
+                name: chanchito_name
                 environment: //Variables de entorno.
                     MONGO_URL = "monguito:27017"
                 ports:

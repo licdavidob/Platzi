@@ -1,0 +1,56 @@
+------ Docker Swarm ------
+* Es una herramienta de orquestación de contenedores que permite administrar múltiples contenedores de Docker.
+
+* Lo que hace, es tener un cluster de muchas máquinas, pero desde afuera, se ve como una sola máquina.
+
+* Pareciera que estamos usando Docker local pero en realidad tenemos acceso a muchas máquinas que están trabajando en conjunto.
+
+* Docker Swarm facilita la administración de contenedores, ya que permite desplegar, escalar y administrar aplicaciones en contenedores de Docker.
+
+------ Escabilidad ------
+* Es la capacidad para aumentar la potencia de un sistema, ya sea añadiendo más recursos o dividiendo el trabajo entre varios componentes.
+
+* Escabilidad Vertical: Aumentar la potencia de un sistema añadiendo más recursos a una sola máquina.
+
+* Escabilidad Horizontal: Aumentar la potencia de un sistema añadiendo más máquinas.
+
+* Escabilidad horizontal y disponibilidad son dos conceptos que van de la mano <3.
+
+------ Docker Swarm: Arquitectura ------
+
+* NOTA: 'Nodes' es sinónimo de 'máquinas'.
+
+* Docker Swarm es un conjunto de máquinas que trabajan juntas para ejecutar contenedores.
+
+* Manager Nodes: Deciden donde se corren los contenedores, como se comunican, donde hay recursos y monitorea el estado del cluster.
+
+* Worker Nodes: Corren los contenedores y ejecutan las tareas que les asigna el manager. Deben tener el mismo Docker Daemon y estar en la misma red.
+
+* Un nodo puede ser manager y worker al mismo tiempo, pero no es recomendable ya que los manager estan ocupados con tareas de administración.
+
+------ Software as a Service: The twelve factor app ------
+* Es una metodología que se basa en 12 principios para desarrollar aplicaciones en la nube.
+
+1. Codebase: Un código debe estar en un repositorio
+
+2. Dependencias: Las dependencias deben estar explícitas en un archivo de formato versionable.
+
+3. Configuración: La configuración debe estar en variables de entorno.
+
+4. Backing services: Tratar a los servicios externos como recursos adjuntos.
+
+5. Build, release, run: Separar los procesos de construcción, lanzamiento y ejecución.
+
+6. Processes: Todos los procesos los puede hacer como una unidad atómica.
+
+7. Port binding: Exponer servicios a través de puertos.
+
+8. Concurrency: Escalar a través de procesos, que pueda correr con múltiples instancias en paralelo
+
+9. Disposability: Debe estar diseñada para que sea fácilmente destruible.
+
+10. Dev/prod parity: La app debe ser los más parecida entre los entornos de desarrollo, prueba y producción.
+
+11. Logs: Todos los logs deben tratarse como flujos de bytes.
+
+12. Admin processes: Tiene que poder ser ejecutable como procesos independientes de la aplicación
