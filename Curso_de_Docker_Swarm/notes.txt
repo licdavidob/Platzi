@@ -1,5 +1,8 @@
 ------ Docker Swarm ------
+
 * Es una herramienta de orquestación de contenedores que permite administrar múltiples contenedores de Docker.
+
+* A diferencia de Docker Compose que se instala como un servicio adicional a Docker, Docker Swarm viene incluido en Docker.
 
 * Lo que hace, es tener un cluster de muchas máquinas, pero desde afuera, se ve como una sola máquina.
 
@@ -7,7 +10,10 @@
 
 * Docker Swarm facilita la administración de contenedores, ya que permite desplegar, escalar y administrar aplicaciones en contenedores de Docker.
 
+* Todas las comunicaciones entre nodos está encriptada usando certificados TLS.
+
 ------ Escabilidad ------
+
 * Es la capacidad para aumentar la potencia de un sistema, ya sea añadiendo más recursos o dividiendo el trabajo entre varios componentes.
 
 * Escabilidad Vertical: Aumentar la potencia de un sistema añadiendo más recursos a una sola máquina.
@@ -29,6 +35,7 @@
 * Un nodo puede ser manager y worker al mismo tiempo, pero no es recomendable ya que los manager estan ocupados con tareas de administración.
 
 ------ Software as a Service: The twelve factor app ------
+
 * Es una metodología que se basa en 12 principios para desarrollar aplicaciones en la nube.
 
 1. Codebase: Un código debe estar en un repositorio
@@ -41,16 +48,20 @@
 
 5. Build, release, run: Separar los procesos de construcción, lanzamiento y ejecución.
 
-6. Processes: Todos los procesos los puede hacer como una unidad atómica.
+6. Processes: Se basa en la idea 'stayless' que consiste en que nuestra app no almacene información en la memoria de la que dependa. En vez de eso, debe almacenarla en una base de datos. Esto ya que si la instancia muere, la información se pierde. 
 
 7. Port binding: Exponer servicios a través de puertos.
 
 8. Concurrency: Escalar a través de procesos, que pueda correr con múltiples instancias en paralelo
 
-9. Disposability: Debe estar diseñada para que sea fácilmente destruible.
+9. Disposability: Debe estar diseñada para que sea fácilmente destruible y que pueda levantar una nueva instancia en cualquier momento de manera rápida.
 
 10. Dev/prod parity: La app debe ser los más parecida entre los entornos de desarrollo, prueba y producción.
 
 11. Logs: Todos los logs deben tratarse como flujos de bytes.
 
 12. Admin processes: Tiene que poder ser ejecutable como procesos independientes de la aplicación
+
+------ Docker Swarm: Servicios ------
+
+* Un servicio es una abstracción que representa una aplicación o un conjunto de contenedores que se ejecutan juntos como una unidad.

@@ -1,0 +1,26 @@
+-- docker swarm init: Inicializa el Docker Engine en modo Swarm, por defecto el nodo se convierte en manager.
+
+-- docker node ls: Lista los nodos del Swarm, donde:
+    + ID: Identificador del nodo
+    + HOSTNAME: Nombre del nodo
+    + STATUS: Estado del nodo
+    + AVAILABILITY: Disponibilidad del nodo
+    + MANAGER STATUS: Indica si el nodo es manager o worker
+
+-- docker swarm join-token manager: Genera un token para unir nodos como manager.
+
+-- docker swarm join-token worker: Genera un token para unir nodos como worker.
+
+-- docker swarm join --token <TOKEN> <IP>:<PUERTO>: Este comando se corre en los nodos que se quieran unir al Swarm, donde:
+    + TOKEN: Token de autenticación (obtenido con docker swarm join-token)
+    + IP: Dirección IP del nodo manager
+    + PUERTO: Puerto de conexión
+
+-- docker node inspect <ID>: Muestra información detallada de un nodo.
+    + --pretty: Muestra la información de forma más legible.
+
+-- docker swarm leave: Abandona el Swarm, donde:
+    + --force: Abandona el Swarm forzadamente.
+    + NOTA: En ocasiones puede mandar un mensaje de error ya que el nodo es manager y podría haber conflictos al abandonar el Swarm. Para evitar esto, se puede usar el comando docker swarm leave --force.
+
+-- docker service create --name <NOMBRE> <IMAGEN>: Crea un servicio en el Swarm.
