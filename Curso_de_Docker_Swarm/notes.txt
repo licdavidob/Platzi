@@ -34,6 +34,8 @@
 
 * Un nodo puede ser manager y worker al mismo tiempo, pero no es recomendable ya que los manager estan ocupados con tareas de administración.
 
+* Todo lo que tenga que ver con la administración del cluster, se hace a través de los manager nodes. Por seguridad, en un worker node no se puede hacer nada.
+
 ------ Software as a Service: The twelve factor app ------
 
 * Es una metodología que se basa en 12 principios para desarrollar aplicaciones en la nube.
@@ -62,6 +64,40 @@
 
 12. Admin processes: Tiene que poder ser ejecutable como procesos independientes de la aplicación
 
------- Docker Swarm: Servicios ------
+------ Docker Swarm: Servicios, Tareas, Contenedores ------
+------ Imagen Disponible ------
+
+* Link Referencia: https://docs.docker.com/engine/swarm/how-swarm-mode-works/services/
 
 * Un servicio es una abstracción que representa una aplicación o un conjunto de contenedores que se ejecutan juntos como una unidad.
+
+* Docker Swarm planifica que nodo (dentro hay uno o varios contenedores) ejecutara la petición que tenga que realizar el servicio. Una tarea no es más que la petición.
+
+* La tarea es el elemento intermedio entre el servicio y el contenedor. Es la unidad de trabajo que se le asigna a un nodo.
+
+* Un contenedor es una instancia de una imagen de Docker que se ejecuta en un nodo.
+
+------ play-with-docker.com ------
+
+* Link Referencia: https://labs.play-with-docker.com/
+
+* Es una herramienta que permite probar Docker y Docker Swarm en un entorno virtual.
+
+------ Docker Swarm: docker service inspect <ID> ------
+
+* Muestra información detallada de un servicio.
+    + Se puede utilizar --pretty para mostrar la información de forma más legible.
+
+* updateConfig: Configuración de actualización del servicio (docker service update).
+    + parallelism: Número de tareas que se actualizan en paralelo. Por defecto, se levanta cada tarea una por una.
+    + delay: Tiempo de espera entre actualizaciones.
+    + failureAction: Acción a realizar en caso de fallo.
+        * pause: Pausa la actualización.
+        * continue: Continua con la actualización.
+        * rollback: Realiza un rollback a la versión anterior.
+    + monitor: Tiempo de espera para monitorear la actualización.
+    + maxFailureRatio: Porcentaje máximo de fallos permitidos. Es decir, si el porcentaje de fallos es mayor al permitido, la actualización se detiene y procede a realizar la acción de failureAction.
+    + order: Orden de actualización, donde:
+        * start-first: Inicia primero las nuevas replicas.
+        * stop-first: Detiene primero las replicas antiguas.
+        * random: Actualiza las replicas en un orden aleatorio.

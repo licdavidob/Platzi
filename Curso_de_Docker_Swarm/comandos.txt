@@ -1,4 +1,5 @@
 -- docker swarm init: Inicializa el Docker Engine en modo Swarm, por defecto el nodo se convierte en manager.
+    + --advertise-addr <IP>:<PUERTO>: Indica la dirección IP y puerto que se usará para la comunicación entre los nodos.
 
 -- docker node ls: Lista los nodos del Swarm, donde:
     + ID: Identificador del nodo
@@ -23,4 +24,38 @@
     + --force: Abandona el Swarm forzadamente.
     + NOTA: En ocasiones puede mandar un mensaje de error ya que el nodo es manager y podría haber conflictos al abandonar el Swarm. Para evitar esto, se puede usar el comando docker swarm leave --force.
 
--- docker service create --name <NOMBRE> <IMAGEN>: Crea un servicio en el Swarm.
+-- docker service create <OPTIONS> <IMAGEN>: Crea un servicio en el Swarm:
+    + --name <NOMBRE>: Nombre del servicio.
+    + --replicas <N>: Número de replicas del servicio.
+    + --publish <PUERTO>:<PUERTO>: Publica un puerto del servicio.
+
+-- docker service ls: Lista los servicios del Swarm.
+
+-- docker service ps <ID>: Muestra las tareas de un servicio.
+
+-- docker service inspect <ID>: Muestra información detallada de un servicio.
+    + --pretty: Muestra la información de forma más legible.
+
+-- docker service logs <ID>: Muestra los logs de un servicio.
+
+-- docker service rm <ID>: Elimina un servicio.
+
+-- docker service scale <ID>=<N>: Escala un servicio a N replicas.
+
+-- docker service update <OPTIONS> <ID>: Permite actualizar en caliente un servicio, donde:
+    + --replicas=<N>: Actualiza el número de replicas.
+    + --image <IMAGEN>: Actualiza la imagen del servicio.
+    + --force: Fuerza la actualización del servicio.
+    + --rollback: Realiza un rollback a la versión anterior del servicio.
+    + --arg <ARG>: Permite pasar argumentos a la imagen.
+    + --update-paralellism <N>: Actualiza el número de replicas en paralelo.
+    + --update-order <ORDER>: Actualiza el orden de actualización:
+        * start-first: Inicia primero las nuevas replicas y detiene las antiguas.
+        * stop-first: Detiene primero las replicas antiguas y levanta las nuevas.
+        * random: Actualiza las replicas en un orden aleatorio.
+    + --update-failure-action <ACTION>: Acción a realizar en caso de fallo:
+        * pause: Pausa la actualización.
+        * continue: Continua con la actualización.
+        * rollback: Realiza un rollback a la versión anterior.
+    + --update-max-failure-ratio <N>: Porcentaje máximo de fallos permitidos.
+

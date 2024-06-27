@@ -31,6 +31,8 @@ Fase 5:
 
 * Involucra herramientas y/o técnicas para mejorar los procesos de desarrollo.
 
+* SRE (Site Reliability Engineering) es el puesto de trabajo mientras que DevOps es la cultura.
+
 ------ Nivel de madurez de una empresa ------
 
 * El rol de un DevOps siempre se verá afectado por la cultura y constumbres de la empresa.
@@ -188,3 +190,38 @@ Las herramientas y tareas de un DevOps dependerán del tipo de empresa, servicio
             - Multinube: Facilita conceptos de infraestructura en diferentes nubes.
             - Declarativo: Describe la infraestructura que se quiere.
             - Replica: Crea la infraestructura en diferentes ambientes.
+
+------ Arquitectura de Alta Concurrencia ------
+
+* Cuando un servidor ya no puede manejar una cantidad de peticiones de usuarios, se necesita una arquitectura de alta concurrencia.
+    + Monolito: Un solo servidor que maneja todo.
+    + Microservicios: Dividir la aplicación en varios servicios que se comunican entre sí.
+
+* Escabilidad: Capacidad de un sistema para manejar un aumento de carga.
+    + Escalabilidad Vertical: Aumentar recursos en un solo servidor.
+    + Escalabilidad Horizontal: Aumentar servidores.
+    + NOTA: En ocasiones se necesita ambas.
+
+* Stateless y Stateful:
+    + Stateless: El estado de la aplicación no depende de la sesión del usuario.
+        - Escalabilidad Horizontal.
+    + Stateful: El estado de la aplicación depende de la sesión del usuario.
+        - Escalabilidad Vertical.
+    + Es recomendable que los datos de la aplicación se almacenen en una base de datos.
+
+* Resiliencia: Capacidad de un sistema para recuperarse de un fallo.
+    + Balanceador de carga: Distribuye la carga entre los servidores.
+    + Proxy Inverso: Recibe las peticiones de los usuarios y las envía a los servidores.
+    + CDN (Content Delivery Network): Almacena contenido estático y lo distribuye a los usuarios.
+
+* Testing: Proceso de verificar que el software funciona correctamente.
+
+     + Functional Testing: Son los tests que se llevan acabo para probar la funcionalidad de los features desarrollados de la app:
+        - Unit Testing
+        - Integration Testing
+        - end to end testing
+    
+    + Non-Functional Testing: Estos son los tests que se llevan acabo en la aplicacion ya desplegada, no en produccion sino un hambiente controlado, lo mas parecido a producción:
+        - Performance Testing o pruebas de stress: donde medimos la capacidad de nuestra app de respodenr normalmente bajo una carga de stress
+        - Recovery Testing: comprobamos que tan bien un sistema se recupera de un fallo de hardware
+        - Security testing
