@@ -96,8 +96,14 @@
         * continue: Continua con la actualización.
         * rollback: Realiza un rollback a la versión anterior.
     + monitor: Tiempo de espera para monitorear la actualización.
-    + maxFailureRatio: Porcentaje máximo de fallos permitidos. Es decir, si el porcentaje de fallos es mayor al permitido, la actualización se detiene y procede a realizar la acción de failureAction.
+    + maxFailureRatio: Porcentaje máximo de fallos permitidos. Es decir, si el porcentaje de fallos es mayor al permitido, la actualización se detiene y procede a realizar la acción definida en failureAction.
     + order: Orden de actualización, donde:
         * start-first: Inicia primero las nuevas replicas.
         * stop-first: Detiene primero las replicas antiguas.
         * random: Actualiza las replicas en un orden aleatorio.
+
+------ Docker Swarm: Routing Mesh ------
+
+* Es una característica de Docker Swarm que permite que los servicios sean accesibles a través de cualquier nodo del Swarm.
+
+* Habilita cada nodo de swarm para aceptar conexiones en puertos publicados para cualquier servicio corriendo en swarm, incluso si no hay tareas corriendo en el nodo.

@@ -26,8 +26,14 @@
 
 -- docker service create <OPTIONS> <IMAGEN>: Crea un servicio en el Swarm:
     + --name <NOMBRE>: Nombre del servicio.
-    + --replicas <N>: Número de replicas del servicio.
+    + --replicas=<N>: Número de replicas del servicio.
     + --publish <PUERTO>:<PUERTO>: Publica un puerto del servicio.
+    + --detach: Ejecuta el servicio en segundo plano.
+    + --constraint <CONDICION>: Restricción de despliegue.
+        * node.role==worker: Restringe el despliegue a nodos workers.
+        * node.role==manager: Restringe el despliegue a nodos managers.
+    + --mount=<TYPE>=<SOURCE>,<TARGET>: Monta un volumen en el servicio.
+        * TYPE: Tipo de montaje (bind, volume, tmpfs).
 
 -- docker service ls: Lista los servicios del Swarm.
 
@@ -58,4 +64,10 @@
         * continue: Continua con la actualización.
         * rollback: Realiza un rollback a la versión anterior.
     + --update-max-failure-ratio <N>: Porcentaje máximo de fallos permitidos.
+    + --constraint-add <CONDICION>: Agrega una restricción de despliegue.
+        * node.role==worker: Restringe el despliegue a nodos workers.
+        * node.role==manager: Restringe el despliegue a nodos managers.
+    + --constraint-rm <CONDICION>: Elimina una restricción de despliegue.
+    + --mount-add=<TYPE>=<SOURCE>,<TARGET>: Agrega un volumen al servicio.
+        * TYPE: Tipo de montaje (bind, volume, tmpfs).
 
