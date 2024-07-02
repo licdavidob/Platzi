@@ -107,3 +107,52 @@
 * Es una característica de Docker Swarm que permite que los servicios sean accesibles a través de cualquier nodo del Swarm.
 
 * Habilita cada nodo de swarm para aceptar conexiones en puertos publicados para cualquier servicio corriendo en swarm, incluso si no hay tareas corriendo en el nodo.
+
+------ Docker Swarm: Restricciones de Despliegue ------
+
+* Se pueden agregar restricciones de despliegue a un servicio para especificar en qué nodos se pueden correr las tareas.
+
+* node.role: Permite restringir el despliegue a nodos managers o workers.
+    + node.role==worker: Restringe el despliegue a nodos workers.
+    + node.role==manager: Restringe el despliegue a nodos managers.
+
+* node.hostname: Permite restringir el despliegue a un nodo específico.
+    + node.hostname==<NOMBRE>: Restringe el despliegue a un nodo con un nombre específico.
+
+* En caso de que se quiera cambiar la disponibilidad de un nodo, se puede hacer con el comando docker node update <ID> --availability <AVAILABILITY>, donde:
+    + active: Activa el nodo.
+    + pause: Pausa el nodo.
+    + drain: Drena el nodo. (No se le asignan nuevas tareas y se detienen las tareas que estén corriendo en el nodo).
+
+* Si yo tengo un nodo que está en estado de drenado y quiero que vuelva a estar activo, se puede hacer con el comando docker node update <ID> --availability active. Sin embargo, esto no significa que Docker Swarm le asigne tareas de inmediato, sino que está disponible para recibir tareas.
+
+* TIP: Si quisiera que Docker Swarm distribuya de nuevo las tareas entre los nodos, puedo mandar una variable de entonrno al servicio mediante un update. Ej. docker service update --env-add <NOMBRE>=<VALOR> --paralellism= <N> <ID>.
+
+------ Docker Swarm: Networking y Service Discovery ------
+
+* Docker Swarm tiene un DNS interno que permite a los servicios comunicarse entre sí.
+
+* Cada servicio en Docker Swarm tiene un nombre que se puede usar para comunicarse con otros servicios.
+
+* Cuando usar Docker en local, tienes 3 redes por defecto:
+    + bridge: Permite que los contenedores se comuniquen entre sí.
+    + host: Permite que los contenedores se comuniquen con el host.
+    + none: No permite que los contenedores se comuniquen con nada.
+
+* Cuando usas Docker Swarm, se crea una red por defecto llamada *ingress* con el driver overlay. Esta red permite que todas las tareas de los servicios se comuniquen entre sí. Cuando quieras comunicar servicios, se recomienda usar esta red.
+
+------ Docker Swarm: Stack ------
+
+* Es un conjunto de servicios que se ejecutan juntos en un Docker Swarm. Es similar a un archivo docker-compose.yml.
+
+* El nombre del archivo debe ser docker-stack.yml
+
+* Si deseo actualizar un stack, puedo hacerlo con el mismo comando con el que levanto un servicio y Docker Swarm se encargará de actualizar los servicios.
+
+------ Reverse Proxy: Traefik ------
+
+* Es un reverse proxy y balanceador de carga que se puede usar con Docker Swarm.
+
+* Permite que los servicios de Docker Swarm sean accesibles desde el exterior.
+
+* Se puede configurar para que los servicios sean accesibles a través de un nombre de dominio.

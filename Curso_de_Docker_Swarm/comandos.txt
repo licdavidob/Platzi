@@ -34,6 +34,7 @@
         * node.role==manager: Restringe el despliegue a nodos managers.
     + --mount=<TYPE>=<SOURCE>,<TARGET>: Monta un volumen en el servicio.
         * TYPE: Tipo de montaje (bind, volume, tmpfs).
+    + --network <RED>: Red a la que se conectará el servicio.
 
 -- docker service ls: Lista los servicios del Swarm.
 
@@ -71,3 +72,16 @@
     + --mount-add=<TYPE>=<SOURCE>,<TARGET>: Agrega un volumen al servicio.
         * TYPE: Tipo de montaje (bind, volume, tmpfs).
 
+-- docker node update <OPTIONS> <ID>: Permite actualizar un nodo del Swarm, donde:
+    + --availability <AVAILABILITY>: Actualiza la disponibilidad del nodo.
+        * active: Activa el nodo.
+        * pause: Pausa el nodo.
+        * drain: Drena el nodo.
+    + --label-add <KEY>=<VALUE>: Agrega una etiqueta al nodo.
+    + --label-rm <KEY>: Elimina una etiqueta del nodo.
+
+-- docker network create --driver overlay <NOMBRE>: Crea una red para el Swarm.
+
+-- docker stack deploy -c <ARCHIVO> <NOMBRE>: Despliega un stack en el Swarm, donde:
+    + <ARCHIVO>: Archivo de configuración del stack.
+    + <NOMBRE>: Nombre del stack.
