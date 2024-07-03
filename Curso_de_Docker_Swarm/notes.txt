@@ -36,6 +36,10 @@
 
 * Todo lo que tenga que ver con la administración del cluster, se hace a través de los manager nodes. Por seguridad, en un worker node no se puede hacer nada.
 
+* Cuando tienes varios nodos manager, uno de ellos es el líder (Leader) y los demás son seguidores (Reachable). El líder es el que toma las decisiones.
+
+* Algoritmo Raft: Es el algoritmo que se usa para elegir al líder en Docker Swarm. Gracias a este algoritmo, si el líder muere, se elige a un nuevo líder. Sin embargo, se recomienda tener un número impar de nodos manager para evitar conflictos.
+
 ------ Software as a Service: The twelve factor app ------
 
 * Es una metodología que se basa en 12 principios para desarrollar aplicaciones en la nube.
@@ -156,3 +160,58 @@
 * Permite que los servicios de Docker Swarm sean accesibles desde el exterior.
 
 * Se puede configurar para que los servicios sean accesibles a través de un nombre de dominio.
+
+------ Docker Swarm: Volumenes ------
+
+* Los volúmenes son una forma de persistir datos en Docker.
+
+* Se pueden montar volúmenes en los servicios de Docker Swarm.
+
+* Por defecto, los volumenes se almacenan en el nodo donde se crean, por lo que si el nodo muere, los datos se pierden. Existen plugins de almacenamiento que permiten almacenar los datos en un lugar seguro diferente al nodo.
+    + Link: https://docs.docker.com/engine/extend/legacy_plugins/
+
+------ Docker Swarm: Herramientas de Administración ------
+
+* Generalmente las herramientas de administración se montan sólo en los nodos manager y puede que se conecten al Daemon Socket de Docker.
+    + --mount type=bind,src=/var/run/docker.sock,dst=/var/run/docker.sock
+    + --constraint node.role==manager
+
+* Un repositorio publico para levantar una app completa y probar diferentes herramientas de administración es:
+    + Link: https://github.com/dockersamples/example-voting-app
+
+* Portainer: Es una interfaz web para administrar Docker.
+    + Link: https://www.portainer.io/
+
+
+------ Docker Swarm: Consideraciones en Producción ------
+
+* En producción, se recomienda tener un número impar de nodos manager para evitar conflictos.
+
+* House Keeping: Es importante tener un plan de mantenimiento para limpiar los nodos y mantener el cluster en buen estado. Ej. Eliminar contenedores, imágenes y volúmenes que no se estén utilizando.
+    + Con el siguiente servicio, se limpian los contenedores, imágenes y volúmenes que no se estén utilizando:
+        * docker service create -d \
+            -e CLEAN_PERIOD=900 \
+            -e DELAY_TIME=600 \
+            --log-driver json-file \
+            --log-opt max-size=1m \
+            --log-opt max-file=2 \
+            --name=cleanup \
+            --mode global \
+            --mount type=bind,source=/var/run/docker.sock,target=/var/run/docker.sock \
+            meltwater/docker-cleanup:latest
+
+        *Donde:
+            + CLEAN_PERIOD: Tiempo en segundos para limpiar los contenedores, imágenes y volúmenes.
+            + DELAY_TIME: Tiempo en segundos para esperar antes de limpiar.
+            + --log-driver: Driver de logs.
+            + --log-opt: Opciones de logs.
+            + --name: Nombre del servicio.
+            + --mode: Modo de despliegue.
+            + --mount: Montaje del socket de Docker.
+
+* Monitoreo: Es importante monitorear el estado del cluster para detectar problemas y tomar acciones antes de que afecten a los usuarios.
+    + Algunas herramientas de monitoreo son:
+        * Prometheus: https://prometheus.io/
+        * Grafana: https://grafana.com/
+        * DataDog: https://www.datadoghq.com/
+    

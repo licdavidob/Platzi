@@ -69,8 +69,7 @@
         * node.role==worker: Restringe el despliegue a nodos workers.
         * node.role==manager: Restringe el despliegue a nodos managers.
     + --constraint-rm <CONDICION>: Elimina una restricción de despliegue.
-    + --mount-add=<TYPE>=<SOURCE>,<TARGET>: Agrega un volumen al servicio.
-        * TYPE: Tipo de montaje (bind, volume, tmpfs).
+    + --mount type=bind,src=<SOURCE>,dst=<TARGET>: Monta un volumen en el servicio.
 
 -- docker node update <OPTIONS> <ID>: Permite actualizar un nodo del Swarm, donde:
     + --availability <AVAILABILITY>: Actualiza la disponibilidad del nodo.
@@ -85,3 +84,4 @@
 -- docker stack deploy -c <ARCHIVO> <NOMBRE>: Despliega un stack en el Swarm, donde:
     + <ARCHIVO>: Archivo de configuración del stack.
     + <NOMBRE>: Nombre del stack.
+
