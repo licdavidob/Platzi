@@ -1,0 +1,68 @@
+------ Despliegues de Apps Estaticas ------
+
+* GitHub Pages: https://pages.github.com/
+    + Permite desplegar páginas web estáticas.
+    + Instrucciones:
+        1. Crear un repositorio en GitHub con el nombre de <usuario>.github.io
+        2. Debe ser público el repositorio.
+        3. Crear un archivo index.html en la raíz del repositorio.
+        4. Settings -> GitHub Pages
+
+* Surge: https://surge.sh/
+    + Permite desplegar páginas web estáticas.
+    + Instrucciones:
+        1. Instalar Surge: npm install -g surge
+        2. En consola: surge
+        3. Crear una cuenta en Surge.
+        4. Indicar el directorio a desplegar.
+        5. Surge genera una URL única.
+
+* Netlify: https://www.netlify.com/
+    + Permite desplegar páginas web estáticas.
+    + Instrucciones:
+        1. Crear una cuenta en Netlify.
+        2. Arrastrar el directorio a desplegar.
+        3. Netlify genera una URL única.
+
+* Vercel: https://vercel.com/
+    + Permite desplegar aplicaciones web.
+    + Instrucciones:
+        1. Crear una cuenta en Vercel.
+        2. Arrastrar el directorio a desplegar.
+        3. Vercel genera una URL única.
+
+------ Desplegar datos NoSQl ------
+
+* MongoDB Atlas: https://www.mongodb.com/cloud/atlas
+    + Permite desplegar bases de datos MongoDB.
+    + Instrucciones:
+        1. Crear una cuenta en MongoDB Atlas.
+        2. Crear un clúster.
+        3. Conectar la aplicación a la base de datos.
+
+------ Desplegar datos relacionales (PostgreSQL) ------
+
+* ElephantSQL: https://www.elephantsql.com/
+    + Permite desplegar bases de datos PostgreSQL.
+    + Instrucciones:
+        1. Crear una cuenta en ElephantSQL.
+        2. Crear una base de datos.
+        3. Conectar la aplicación a la base de datos.
+
+------ Desplegar aplicaciones web ------
+
+* Heroku: https://www.heroku.com/
+    + Es un PaaS (Platform as a Service).
+    + De pago sin planes gratuitos.
+    + Instrucciones:
+        1. Crear una cuenta en Heroku.
+        2. Crear una aplicación.
+        3. Conectar la aplicación a un repositorio de GitHub.
+        4. Heroku despliega la aplicación automáticamente.
+
+* Alternativas a Heroku (Gratuito):
+    + AWS Elastic Beanstalk.
+    + Back4App.
+    + Engine Yard.
+    + Firebase.
+    + Dokku.
