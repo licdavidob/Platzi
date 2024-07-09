@@ -1,0 +1,10 @@
+// Crea o usa una base de datos establecida
+use("platzi_store");
+
+// Inserta un documento en la colección "products"
+db.products.insertOne({
+  name: "Smartphone",
+  brand: "Apple",
+  price: 1000,
+  stock: 10,
+});

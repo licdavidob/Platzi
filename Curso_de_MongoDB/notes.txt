@@ -1,0 +1,66 @@
+------ Bases de datos NoSQL ------
+
+* Documentales: Se empareja una clave con una estructura de datos compleja denominada documento.
+
+* Grafos: Se basan en la teoría de grafos, donde los nodos representan entidades y las aristas las relaciones entre ellas.
+
+* Clave-valor: Son las bases de datos más simples, donde cada clave se asocia con un único valor.
+
+* Columnares: Almacenan los datos en columnas en lugar de filas. Permiten realizar consultas en grandes volúmenes de datos.
+
+* Bases de datos:
+    - Documentales: MongoDB, CouchDB, Firebase.
+    - Grafos: Neo4j, ArangoDB.
+    - Clave-valor: Redis, DynamoDB.
+    - Columnares: Cassandra, HBase.
+
+* Escalamiento Horizontal: Las NoSQL están diseñadas para escalar horizontalmente, es decir, añadir más servidores a la base de datos para aumentar su capacidad.
+
+------ MongoDB ------
+
+* Documento: Es una forma de organizar y almacenar información con un conjunto de claves y valores.
+
+{
+    "nombre": "Juan",
+    "edad": 25,
+    "ciudad": "Bogotá",
+    "hobbies": ["fútbol", "videojuegos"]
+}
+
+* Colección: Es un conjunto de documentos almacenados en MongoDB (similar a una carpeta que contiene archivos).
+
+------ Instalación y Conexión con MongoDB ------
+
+* Atlas: Es un servicio de MongoDB que permite crear, escalar y administrar bases de datos en la nube.
+    - https://www.mongodb.com/cloud/atlas
+
+* Docker: Es una plataforma de código abierto que facilita la creación, implementación y ejecución de aplicaciones en contenedores.
+    - https://www.docker.com/
+
+* MongoDB Compass: Es una interfaz gráfica para MongoDB que permite explorar y manipular los datos de la base de datos.
+    - https://www.mongodb.com/products/compass
+
+* Shell de MongoDB: Es una interfaz de línea de comandos que permite interactuar con la base de datos.
+    - mongosh "mongodb://<usuario>:<contraseña>@<servidor>/<base_de_datos>"
+
+------ JSON vs BSON ------
+
+* JSON: Es un formato de texto que se utiliza para intercambiar datos. Es legible por humanos y fácil de entender.
+    - Basado en texto.
+    - Consume más espacio.
+    - Limitado: String, Number, Boolean, Array, Object, Null.
+
+* BSON: Es una representación binaria de JSON que permite almacenar y recuperar datos de forma eficiente en MongoDB.
+    - Basado en binario.
+    - Consume menos espacio.
+    - Mayor rendimiento.
+    - Tipos de datos adicionales.
+    - Link: "https://www.mongodb.com/resources/languages/bson"
+
+* Mongodb utiliza BSON para almacenar los datos en la base de datos.
+
+------ Flexibilidad en MongoDB ------
+
+* Al usar el comando use("database_name") se crea una base de datos si no existe o se usa una base de datos existente.
+
+* Al insertar un documento (db.collection.insertOne({})) en una colección, se crea la colección si no existe o se inserta el documento en la colección existente.
