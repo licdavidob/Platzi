@@ -1,0 +1,19 @@
+use("platzi_store");
+
+// Encuentra todos los documentos en la colección "products"
+db.products.find({});
+
+// Encuentra un documento en la colección "products" con el nombre "Smartphone". Devuelve el primer documento que cumple con la condición
+db.products.findOne({ name: "Smartphone" });
+
+// Encuentra un documento en la colección "products" con el nombre "Smartphone" y la marca "Apple"
+db.products.findOne({ name: "Smartphone", brand: "Apple" });
+
+// Encuentra todos los documentos en la colección "products" con un precio menor a 1000
+db.products.find({ price: { $lt: 1000 } });
+
+// Encuentra todos los documentos en la colección "products" con un precio mayor o igual a 1000
+db.products.find({ price: { $gte: 1000 } });
+
+// Encuentra todos los documentos en la colección "products" con un precio entre 500 y 1500
+db.products.find({ price: { $gte: 500, $lte: 1500 } });

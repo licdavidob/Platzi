@@ -63,4 +63,11 @@
 
 * Al usar el comando use("database_name") se crea una base de datos si no existe o se usa una base de datos existente.
 
-* Al insertar un documento (db.collection.insertOne({})) en una colección, se crea la colección si no existe o se inserta el documento en la colección existente.
+* Al insertar un documento (db.collection.insertOne({campo: "value"})) en una colección, se crea la colección si no existe o se inserta el documento en la colección existente.
+
+------ Conceptos Generales ------
+
+* ObjectId: Es un identificador único de 12 bytes que se genera automáticamente al insertar un documento en una colección de MongoDB. Es posible crear un ObjectId manualmente.
+
+* InsertMany: Permite insertar varios documentos en una colección de MongoDB. Si hay una falla en la inserción de un documento, deja de insertar los siguientes.
+    - "ordered: false": Permite continuar con la inserción de los documentos restantes aunque haya una falla.

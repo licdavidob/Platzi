@@ -8,3 +8,34 @@ db.products.insertOne({
   price: 1000,
   stock: 10,
 });
+
+// Inserta varios documentos en la colección "products"
+db.products.insertMany(
+  [
+    {
+      name: "Laptop",
+      brand: "HP",
+      price: 1500,
+      stock: 5,
+    },
+    {
+      name: "Tablet",
+      brand: "Samsung",
+      price: 500,
+      stock: 20,
+    },
+    {
+      name: "Smartwatch",
+      brand: "Xiaomi",
+      price: 200,
+      stock: 15,
+    },
+    {
+      name: "Smartphone",
+      brand: "Samsung",
+      price: 800,
+      stock: 8,
+    },
+  ],
+  { ordered: false }
+);

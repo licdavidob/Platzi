@@ -1,0 +1,7 @@
+use("platzi_store");
+
+// Vaciar la colección "products"
+db.products.drop();
+
+// Elimitar un documento en la colección "products" con el nombre "Smartphone". Elimina el primer documento que cumple con la condición
+db.products.deleteOne({ name: "Smartphone" });
