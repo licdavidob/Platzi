@@ -71,3 +71,78 @@
 
 * InsertMany: Permite insertar varios documentos en una colección de MongoDB. Si hay una falla en la inserción de un documento, deja de insertar los siguientes.
     - "ordered: false": Permite continuar con la inserción de los documentos restantes aunque haya una falla.
+
+* UpdateOne vs UpdateMany: UpdateOne actualiza el primer documento que cumple con la condición, mientras que UpdateMany actualiza todos los documentos que cumplen con la condición.
+
+* DeleteOne vs DeleteMany: DeleteOne elimina el primer documento que cumple con la condición, mientras que DeleteMany elimina todos los documentos que cumplen con la condición.
+
+* Drop: Elimina una colección de MongoDB.
+
+* Find: Permite buscar documentos en una colección de MongoDB. Si no se especifica un filtro, devuelve todos los documentos de la colección.
+
+* Upsert: Es una opcion de parametro que indica si se debe insertar un documento si no existe o actualizarlo si existe.
+    - Se utiliza en los métodos 'updateOne' y 'updateMany' comunmente.
+
+
+------ Operadores ------
+
+* La importancia de los operadores en MongoDB radica en la capacidad de realizar consultas más complejas y específicas. Utilizar el operador correcto en el momento adecuado puede mejorar el rendimiento de la base de datos.
+
+* Operadores de Actualización:
+    - $set: Actualiza o agrega un campo en un documento.
+    - $unset: Elimina un campo de un documento.
+    - $inc: Incrementa el valor de un campo en un documento.
+    - $min: Actualiza el valor de un campo si el valor especificado es menor.
+    - $max: Actualiza el valor de un campo si el valor especificado es mayor.
+    - $mul: Multiplica el valor de un campo en un documento.
+    - $rename: Renombra un campo en un documento.
+    - $currentDate: Asigna la fecha actual a un campo en un documento.
+    - $pop: Elimina el primer o último elemento de un array.
+    - $pull: Elimina todos los elementos de un array que cumplan con una condición.
+        - $in($pull): Elimina los elementos de un array que coinciden con los valores especificados.
+    - $addToSet: Agrega un elemento a un array si no existe.
+    - $push: Agrega un elemento a un array.
+        + $each($addToSet, $push): Agrega varios elementos a un array.
+
+* Operadores de Comparación:
+    - $eq: Igual a.
+    - $gt: Mayor que.
+    - $gte: Mayor o igual
+    - $in: Coincide con cualquier valor en un array.
+    - $lt: Menor que.
+    - $lte: Menor o igual.
+    - $ne: No igual a.
+    - $nin: No coincide con ningún valor en un array.
+
+* Operadores Lógicos:
+    - $and: Evalúa una expresión lógica y devuelve true si todas las expresiones son verdaderas.
+    - $or: Evalúa una expresión lógica y devuelve true si alguna de las expresiones es verdadera.
+    - $not: Invierte el valor de una expresión booleana.
+    - $nor: Evalúa una expresión lógica y devuelve true si ninguna de las expresiones es verdadera.
+
+* Operadores de Elemento:
+    - $exists: Verifica si un campo existe en un documento.
+    - $type: Verifica el tipo de un campo en un documento.
+
+* Operadores de Expresión:
+    - $expr: Permite utilizar expresiones de agregación en una consulta.
+    - $jsonSchema: Valida un documento con un esquema JSON.
+
+* Operadores de Array:
+    - $all: Verifica si todos los elementos de un array cumplen con una condición.
+    - $elemMatch: Verifica si al menos un elemento de un array cumple con una condición.
+    - $size: Verifica el tamaño de un array.
+    - $slice: Devuelve un subconjunto de elementos de un array.
+
+* Operadores de Evaluación:
+    - $expr: Permite utilizar expresiones de agregación en una consulta.
+    - $mod: Selecciona los documentos donde el valor de un campo dividido por un divisor tiene un residuo específico.
+    - $regex: Selecciona los documentos donde el valor de un campo coincide con una expresión regular especificada.
+    - $text: Realiza una búsqueda de texto completo en un campo de tipo string.
+    - $where: Permite ejecutar una función de JavaScript en la base de datos.
+
+* Operadores Geoespaciales:
+    - $geoIntersects: Selecciona los documentos cuyos campos geoespaciales se cruzan con un objeto geoespacial.
+    - $geoWithin: Selecciona los documentos cuyos campos geoespaciales están completamente contenidos en un objeto geoespacial.
+    - $near: Selecciona los documentos cuyos campos geoespaciales están cerca de un punto geoespacial.
+    - $nearSphere: Selecciona los documentos cuyos campos geoespaciales están cerca de un punto geoespacial en una esfera.

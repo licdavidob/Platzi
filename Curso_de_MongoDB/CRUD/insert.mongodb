@@ -1,41 +1,69 @@
 // Crea o usa una base de datos establecida
 use("platzi_store");
 
-// Inserta un documento en la colección "products"
+// Inserta un documento en la colección "products". El campo "_id" es automático
 db.products.insertOne({
   name: "Smartphone",
   brand: "Apple",
   price: 1000,
   stock: 10,
+  tags: ["technology", "smartphone"],
+});
+
+// Inserta un documento en la colección "products". El campo "_id" es manual
+db.products.insertOne({
+  _id: 1,
+  name: "Smartphone",
+  brand: "Apple",
+  price: 1000,
+  stock: 10,
+  tags: ["technology", "smartphone"],
 });
 
 // Inserta varios documentos en la colección "products"
 db.products.insertMany(
   [
     {
+      _id: 2,
       name: "Laptop",
       brand: "HP",
       price: 1500,
       stock: 5,
+      tags: ["technology", "laptop"],
     },
     {
+      _id: 3,
       name: "Tablet",
       brand: "Samsung",
       price: 500,
       stock: 20,
+      tags: ["technology", "tablet"],
     },
     {
+      _id: 4,
       name: "Smartwatch",
       brand: "Xiaomi",
       price: 200,
       stock: 15,
+      tags: ["technology", "smartwatch"],
     },
     {
-      name: "Smartphone",
-      brand: "Samsung",
+      _id: 5,
+      name: "T-Shirt",
+      brand: "Platzi",
       price: 800,
       stock: 8,
+      tags: ["clothing", "t-shirt"],
     },
   ],
   { ordered: false }
 );
+
+db.iot.insertMany([
+  { _id: 1, sensor: "A001", date: "2022-01-01", readings: [1, 2, 3, 4] },
+  { _id: 2, sensor: "A001", date: "2022-01-02", readings: [1, 2, 3, 4] },
+  { _id: 3, sensor: "A002", date: "2022-01-01", readings: [1, 2, 3, 4] },
+  { _id: 4, sensor: "A002", date: "2022-01-02", readings: [1, 2, 3, 4] },
+]);
+
+db.iot.find();

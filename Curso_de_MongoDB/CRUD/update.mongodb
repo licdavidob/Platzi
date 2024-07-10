@@ -1,0 +1,139 @@
+use("platzi_store");
+
+// Actualiza un documento en la colección "products". Operador '$set'
+db.products.updateOne(
+  // Filtro
+  { _id: 1 },
+
+  // Operador '$set'
+  {
+    $set: {
+      price: 1500,
+      name: "Laptop",
+
+      //Puedo agregar más campos
+      description: "Laptop de 15 pulgadas",
+    },
+  }
+);
+
+// Actualiza varios documentos en la colección "products". Operador '$inc'
+db.products.updateMany(
+  // Filtro
+  { brand: "Apple" },
+
+  // Operador '$inc'. Suma 500 al valor del campo 'price'
+  {
+    $inc: {
+      price: 500,
+    },
+  }
+);
+
+// Actualiza un documento en la colección "products" utilizando su 'ObjectId'.
+db.products.updateOne(
+  // Filtro
+  { _id: ObjectId("668eba154b3b1fc2d910d333") },
+
+  // Operador '$set'
+  {
+    $set: {
+      price: 1500,
+      name: "Laptop",
+      description: "Laptop de 15 pulgadas",
+    },
+  }
+);
+
+// Actualiza el nombre de un campo en la colección "products". Operador '$rename'. Elimina el campo 'brand' y crea el campo 'manufacturer'. Dicho campo se agrega al final del documento.
+db.products.updateMany(
+  // Filtro
+  {},
+
+  // Operador '$rename'. Renombra el campo 'brand' a 'manufacturer'
+  {
+    $rename: {
+      brand: "manufacturer",
+    },
+  }
+);
+
+// Elimina un campo en la colección "products". Operador '$unset'. Elimina el campo 'stock' de todos los documentos.
+db.products.updateMany(
+  // Filtro
+  {},
+
+  // Operador '$unset'. Elimina el campo 'stock'
+  {
+    $unset: {
+      stock: "",
+    },
+  }
+);
+
+// Agrega elementos a un array en la colección "products". Operador '$push'. Agrega tags al documento con '_id' igual a 1.
+db.products.updateOne(
+  // Filtro
+  { _id: 1 },
+
+  // Operador '$push'. Agrega los elementos 'new tag' y 'another tag' al array 'tags' al final.
+  {
+    $push: {
+      tags: {
+        $each: ["new tag", "another tag"],
+      },
+    },
+  }
+);
+
+// Agrega elementos a un array en la colección "products". Operador '$addToSet'. Agrega tags al documento con '_id' igual a 2.
+db.products.updateOne(
+  // Filtro
+  { _id: 2 },
+
+  // Operador '$addToSet'. Agrega los elementos 'new tag' y 'another tag' al array 'tags' solo si no existen.
+  {
+    $addToSet: {
+      tags: {
+        $each: ["new tag", "another tag"],
+      },
+    },
+  }
+);
+
+// Elimina elementos de un array en la colección "products". Operador '$pull'. Elimina los elementos 'technology' y 'laptop' del array 'tags' en todos los documentos.
+db.products.updateMany(
+  // Filtro
+  {},
+
+  // Operador '$pull'. Elimina los elementos 'technology' y 'laptop' del array 'tags'
+  {
+    $pull: {
+      tags: {
+        $in: ["technology", "laptop"],
+      },
+    },
+  }
+);
+
+// Insertar o actualizar un documento en la colección "iot". Operador $upsert. Si el documento no existe, lo inserta. Si existe, lo actualiza.
+
+db.iot.updateOne(
+  // Filtro
+  {
+    sensor: "A001",
+    date: "2022-01-03",
+  },
+
+  // Operador $push
+  {
+    $push: {
+      readings: {
+        $each: [11, 12, 13, 14, 15],
+      },
+    },
+  },
+
+  // Opciones
+  { upsert: true }
+);
