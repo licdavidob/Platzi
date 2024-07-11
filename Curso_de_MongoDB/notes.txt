@@ -146,3 +146,78 @@
     - $geoWithin: Selecciona los documentos cuyos campos geoespaciales están completamente contenidos en un objeto geoespacial.
     - $near: Selecciona los documentos cuyos campos geoespaciales están cerca de un punto geoespacial.
     - $nearSphere: Selecciona los documentos cuyos campos geoespaciales están cerca de un punto geoespacial en una esfera.
+
+------ Regex ------
+
+* Regex: Es una secuencia de caracteres que define un patrón de búsqueda. Se utiliza para buscar y reemplazar texto en una cadena.
+
+* Opciones:
+    - i: Ignora mayúsculas y minúsculas.
+    - m: Multilínea.
+    - s: Punto coincide con cualquier carácter, incluidos los saltos de línea.
+    - x: Ignora los espacios en blanco y permite comentarios.
+
+* Metacaracteres:
+    - ^: Inicio de la cadena.
+    - $: Fin de la cadena.
+    - .: Cualquier carácter.
+    - *: Cero o más repeticiones.
+    - +: Una o más repeticiones.
+    - ?: Cero o una repetición.
+    - (): Agrupar expresiones.
+    - []: Lista de caracteres permitidos.
+    - {}: Número específico de repeticiones.
+    - |: Alternativa.
+    - \: Caracter de escape.
+
+------ Proyección ------
+
+* Proyección: Permite seleccionar los campos que se desean mostrar en los resultados de una consulta.
+
+* Es el equivalente a la cláusula SELECT en SQL. Se pasa como segundo argumento en el método 'find'.
+
+* Los campos que esten en '1' se mostrarán, mientras que los campos que esten en '0' no se mostrarán. Los campos que no se especifiquen no se mostrarán por defecto.
+
+* El campo '_id' se muestra por defecto, a menos que se especifique explícitamente con '0'.
+
+* Sintaxis:
+    - db.collection.find({}, {campo1: 1, campo2: 1, _id: 0})
+
+
+------ $in vs $elemMatch (objetos) ------
+
+* $in: Selecciona los documentos donde el valor de un campo coincide con al menos uno de los valores especificados en un array. Si tengo un arreglo de objetos, $in va a buscar los objetos que específicamente tengan la estrucutra y valores especificados.
+
+* $elemMatch: Selecciona los documentos donde al menos un elemento de un array cumple con los criterios especificados. Si tengo un arreglo de objetos, $elemMatch va a buscar los objetos que cumplan con los criterios especificados, mas no que tengan la estructura exacta.
+
+* Ejemplo:
+
+{
+  "_id": 1,
+  "results": [
+    { "product": "abc", "score": 10, "region": "US" },
+    { "product": "xyz", "score": 5, "region": "EU" }
+  ]
+},
+
+{
+  "_id": 2,
+  "results": [
+    { "product": "abc", "score": 10, "region": "EU" },
+    { "product": "xyz", "score": 5, "region": "US" }
+  ]
+}
+
+* $in:
+    - db.collection.find({results: { $in: [{product: "abc", score: 10}] }})
+        - No devuelve nada, ya que no hay un objeto que cumpla con la estructura y valores especificados.
+
+    - db.collection.find({results: { $in: [{product: "abc", score: 10, region: "US"}] }})
+        - Devuelve el primer documento, ya que hay un objeto que cumple con la estructura y valores especificados.
+
+* $elemMatch:
+    - db.collection.find({results: { $elemMatch: {product: "abc", score: 10} }})
+        - Devuelve el primer documento y el segundo, ya que cumplen con los criterios especificados.
+
+    - db.collection.find({results: { $elemMatch: {product: "abc", score: 10, region: "US"} }})
+        - Devuelve el primer documento, ya que cumple con los criterios especificados.

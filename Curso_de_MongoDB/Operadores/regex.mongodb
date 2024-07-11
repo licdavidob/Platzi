@@ -1,0 +1,35 @@
+//Busqueda de documentos con el operador $regex
+use("platzi_store");
+
+//Busca los documentos donde el campo 'item.description' coincida exactamente con el valor especificado.
+db.inventory.find({ "item.description": "Single line description." });
+
+//Busca los documentos que contengan la palabra 'line'.
+db.inventory.find({
+  "item.description": { $regex: /line/ },
+});
+
+//Busca los documentos que contengan la palabra 'line' sin importar si es mayúscula o minúscula.
+db.inventory.find({
+  "item.description": { $regex: /LINE/i },
+});
+
+//Busca los documentos que contengan la palabra 'single' al inicio del campo (case-insensitive).
+db.inventory.find({
+  "item.description": { $regex: /^single/i },
+});
+
+//Busca los documentos que contengan la palabra 'line' al final del campo.
+db.inventory.find({
+  "item.description": { $regex: /line$/ },
+});
+
+//Busca los documentos que contengan la palabra 'line' y tengan una longitud de 20 caracteres(case-insensitive).
+db.inventory.find({
+  "item.description": { $regex: /line/, $options: "i", $size: 20 },
+});
+
+//Busca los documentos que inicien con la letra 'l' contemplando si hay un salto de línea y sin importar si es mayúscula o minúscula.
+db.inventory.find({
+  "item.description": { $regex: /^l/, $options: "im" },
+});

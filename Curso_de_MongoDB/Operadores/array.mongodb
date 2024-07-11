@@ -1,0 +1,117 @@
+use("platzi_store");
+
+//db.inventory.drop();
+//db.survey.drop();
+
+// Data for the 'inventory' collection.
+/* db.inventory.insertMany([
+  {
+    _id: 1,
+    item: { name: "ab", code: "123", description: "Single line description." },
+    qty: 15,
+    tags: ["school", "book", "bag", "headphone", "appliance"],
+  },
+  {
+    _id: 2,
+    item: { name: "cd", code: "123", description: "First line\nSecond line" },
+    qty: 20,
+    tags: ["appliance", "school", "book"],
+  },
+  {
+    _id: 3,
+    item: {
+      name: "ij",
+      code: "456",
+      description: "Many spaces before     line",
+    },
+    qty: 25,
+    tags: ["school", "book"],
+  },
+  {
+    _id: 4,
+    item: {
+      name: "xy",
+      code: "456",
+      description: "Multiple\nline description",
+    },
+    qty: 30,
+    tags: ["electronics", "school"],
+  },
+  {
+    _id: 5,
+    item: { name: "mn", code: "000" },
+    qty: 20,
+    tags: ["appliance", "school"],
+  },
+]); */
+
+// Data for the 'survey' collection.
+// Array with embedded documents.
+/* db.survey.insertMany([
+  {
+    _id: 1,
+    results: [
+      { product: "abc", score: 10 },
+      { product: "xyz", score: 5 },
+    ],
+  },
+  {
+    _id: 2,
+    results: [
+      { product: "abc", score: 8 },
+      { product: "xyz", score: 7 },
+    ],
+  },
+  {
+    _id: 3,
+    results: [
+      { product: "abc", score: 7 },
+      { product: "xyz", score: 8 },
+    ],
+  },
+  {
+    _id: 4,
+    results: [
+      { product: "abc", score: 7 },
+      { product: "def", score: 8 },
+    ],
+  },
+]); */
+
+// ------ Operador $in, $nin, $all, $elemMatch, $size ------
+
+/*
+    - $in: Selecciona los documentos donde el valor de un campo coincide con al menos uno de los valores especificados en un array.
+
+    - $nin: Selecciona los documentos donde el valor de un campo no coincide con ninguno de los valores especificados en un array.
+
+    - $all: Selecciona los documentos donde el valor de un campo coincide con todos los valores especificados en un array.
+
+    - $elemMatch: Selecciona los documentos donde al menos un elemento de un array cumple con los criterios especificados.
+
+    - $size: Selecciona los documentos donde el tamaño de un array coincide con el valor especificado.
+*/
+
+//Valores.
+//Que tengan ($in) o no ($nin) en el campo 'qty' los valores 20 o 25.
+db.inventory.find({ qty: { $in: [20, 25] } });
+db.inventory.find({ qty: { $nin: [20, 25] } });
+
+//Arrays.
+//Que tengan ($in) o no ($nin) en el campo 'tags' los valores 'book' o 'school'.
+db.inventory.find({ tags: { $in: ["book", "school"] } });
+db.inventory.find({ tags: { $nin: ["book", "school"] } });
+
+//Que contengan todos ($all) los valores 'book' y 'school' en el campo 'tags'.
+db.inventory.find({ tags: { $all: ["book", "school"] } });
+
+//Que tengan un tamaño ($size) de 5 elementos en el campo 'tags'.
+db.inventory.find({ tags: { $size: 5 } });
+
+//Array de documentos.
+//Documentos en la colección survey donde el campo results contenga al menos un elemento que sea exactamente igual al objeto { product: "abc", score: 10 }.
+db.survey.find({ results: { $in: [{ product: "abc", score: 10 }] } });
+db.survey.find({ results: { $nin: [{ product: "abc", score: 10 }] } });
+
+//Que contengan al menos un elemento que cumpla con los criterios de 'product' y 'score' en el campo 'results'.
+db.survey.find({ results: { $elemMatch: { product: "abc", score: 10 } } });

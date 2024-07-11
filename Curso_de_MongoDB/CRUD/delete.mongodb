@@ -1,10 +1,12 @@
 use("platzi_store");
 
-// Vaciar la colección "products"
+// Eliminar colección
 db.products.drop();
+db.iot.drop();
+db.inventory.drop();
 
 // Elimitar un documento en la colección "products" con el nombre "Smartphone". Elimina el primer documento que cumple con la condición
-db.products.deleteOne({ name: "Smartphone" });
+//db.products.deleteOne({ name: "Smartphone" });
 
 // Eliminar todos los documentos en la colección "products" con el nombre "Smartphone". Elimina todos los documentos que cumplen con la condición
-db.products.deleteMany({ name: "Smartphone" });
+//db.products.deleteMany({ name: "Smartphone" });

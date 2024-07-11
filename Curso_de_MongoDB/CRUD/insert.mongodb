@@ -10,16 +10,6 @@ db.products.insertOne({
   tags: ["technology", "smartphone"],
 });
 
-// Inserta un documento en la colección "products". El campo "_id" es manual
-db.products.insertOne({
-  _id: 1,
-  name: "Smartphone",
-  brand: "Apple",
-  price: 1000,
-  stock: 10,
-  tags: ["technology", "smartphone"],
-});
-
 // Inserta varios documentos en la colección "products"
 db.products.insertMany(
   [
@@ -66,4 +56,55 @@ db.iot.insertMany([
   { _id: 4, sensor: "A002", date: "2022-01-02", readings: [1, 2, 3, 4] },
 ]);
 
-db.iot.find();
+db.inventory.insertMany([
+  {
+    _id: 1,
+    item: {
+      name: "ab",
+      code: "123",
+      description: "Single line description.",
+      location: { warehouse: "A", aisle: 1, shelf: 1 },
+    },
+    qty: 15,
+    tags: ["A", "B", "C"],
+  },
+  {
+    _id: 2,
+    item: {
+      name: "cd",
+      code: "123",
+      description: "First line\nSecond line",
+      location: { warehouse: "A", aisle: 2, shelf: 3 },
+    },
+    qty: 20,
+    tags: ["B"],
+  },
+  {
+    _id: 3,
+    item: {
+      name: "ij",
+      code: "456",
+      description: "Many spaces before     line",
+      location: { warehouse: "B", aisle: 2, shelf: 3 },
+    },
+    qty: 25,
+    tags: ["A", "B"],
+  },
+  {
+    _id: 4,
+    item: {
+      name: "xy",
+      code: "456",
+      description: "Multiple\nline description",
+      location: { warehouse: "B", aisle: 3, shelf: 3 },
+    },
+    qty: 30,
+    tags: ["B", "A"],
+  },
+  {
+    _id: 5,
+    item: { name: "mn", code: "000" },
+    qty: 20,
+    tags: [["A", "B"], "C"],
+  },
+]);

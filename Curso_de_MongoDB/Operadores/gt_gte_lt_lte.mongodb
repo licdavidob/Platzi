@@ -1,0 +1,31 @@
+use("platzi_store");
+
+//Operador $gt - Mayor que
+db.products.find({ price: { $gt: 1000 } });
+
+//Operador $gte - Mayor o igual
+db.products.find({ price: { $gte: 1000 } });
+
+//Operador $lt - Menor que
+db.products.find({ price: { $lt: 1000 } });
+
+//Operador $lte - Menor o igual
+db.products.find({ price: { $lte: 1000 } });
+
+//Join de operadores
+//Price mayor a 500 y menor a 2000
+//Stock mayor o igual a 5 y menor o igual a 20
+db.products.find({
+  price: { $gt: 500, $lt: 2000 },
+  stock: { $gte: 5, $lte: 20 },
+});
+
+//Join de operadores
+//UpdateMany
+db.products.updateMany(
+  {
+    price: { $gt: 500, $lt: 2000 },
+    stock: { $gte: 5, $lte: 20 },
+  },
+  { $push: { tags: "expensive" } }
+);

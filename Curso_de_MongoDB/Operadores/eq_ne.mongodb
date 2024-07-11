@@ -1,0 +1,13 @@
+use("platzi_store");
+
+//Operador $eq - Igual a
+
+//Explicitamente escrito
+db.products.find({ price: { $eq: 1500 } });
+//Implicitamente escrito
+db.products.find({ price: 1500 });
+//Objetos
+db.inventory.find({ "item.location.warehouse": "B" });
+
+//Operador $ne - Diferente a
+db.products.find({ price: { $ne: 1500 } });

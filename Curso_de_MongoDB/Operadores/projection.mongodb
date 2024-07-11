@@ -1,0 +1,16 @@
+use("platzi_store");
+
+//Projection: Especifica los campos que se deben devolver en los documentos de la colección.
+
+//Muestra solo el campo '_id' e 'item' de los documentos.
+//El campo '_id' se muestra por defecto.
+db.inventory.find({ "item.description": { $regex: /line/ } }, { item: 1 });
+
+//Muestra solo el campo 'item' de los documentos.
+db.inventory.find(
+  { "item.description": { $regex: /line/ } },
+  { item: 1, _id: 0 }
+);
+
+//Oculta solo el campo 'item' de los documentos.
+db.inventory.find({ "item.description": { $regex: /line/ } }, { item: 0 });
