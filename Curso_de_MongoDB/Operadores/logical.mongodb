@@ -1,0 +1,49 @@
+use("sample_training");
+
+// Operador and (implícita)
+db.inspections
+  .find({
+    sector: "Cigarette Retail Dealer - 127",
+    result: "No Violation Issued",
+  })
+  .count();
+
+// Operador and (explícita)
+// $and: [{}, {}, {}, ...]
+db.inspections
+  .find({
+    $and: [
+      { sector: "Cigarette Retail Dealer - 127" },
+      { result: "No Violation Issued" },
+      { "address.city": "NEW YORK" },
+    ],
+  })
+  .count();
+
+// Operador or
+// $or: [{}, {}, {}, ...]
+db.inspections
+  .find({
+    $or: [
+      { sector: "Cigarette Retail Dealer - 127" },
+      { result: "No Violation Issued" },
+      { "address.city": "NEW YORK" },
+    ],
+  })
+  .count();
+
+// Operador nor
+// $nor: [{}, {}, {}, ...]
+// Buscas los documentos que no cumplan con las condiciones
+db.inspections.find({
+  $nor: [
+    { sector: "Cigarette Retail Dealer - 127" },
+    { sector: "Tobacco Retail Dealer" },
+    { result: "No Violation Issued" },
+    { "address.city": "NEW YORK" },
+  ],
+});
+
+// Operador not
+// $not: {}
+// Buscas los documentos que no cumplan con la condición
