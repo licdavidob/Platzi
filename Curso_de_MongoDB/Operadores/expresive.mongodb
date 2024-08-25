@@ -1,0 +1,39 @@
+use("platzi_store");
+
+// db.monthlyBudget.drop();
+
+// db.monthlyBudget.insertMany([
+//   { _id: 1, category: "food", budget: 400, spent: 450 },
+//   { _id: 2, category: "drinks", budget: 100, spent: 150 },
+//   { _id: 3, category: "clothes", budget: 100, spent: 50 },
+//   { _id: 4, category: "misc", budget: 500, spent: 300 },
+//   { _id: 5, category: "travel", budget: 200, spent: 650 },
+// ]);
+
+/**
+ * $expr
+ *
+ * Nos permite realizar operaciones de comparación entre campos de un documento.
+ * Si usas $expr, debes usar una expresión de agregación, es decir, no puedes usar comparaciones directas.
+ */
+
+//¿Cuáles son los documentos que tienen un gasto (spent) mayor o igual al presupuesto (budget)?
+db.monthlyBudget.find({
+  $expr: { $gte: ["$spent", "$budget"] },
+});
+
+//Ejemplo de como usar $expr de forma correcta vs incorrecta
+
+//Funciona
+db.monthlyBudget.find({
+  $expr: {
+    $and: [{ $gte: ["$spent", "$budget"] }, { $eq: ["$category", "food"] }],
+  },
+});
+
+//No funciona ya que no se puede comparar directamente
+db.monthlyBudget.find({
+  $expr: {
+    $and: [{ $gte: ["$spent", "$budget"] }, { category: { $eq: "food" } }],
+  },
+});

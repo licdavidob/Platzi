@@ -1,0 +1,24 @@
+/**
+ * Skip y Limit:
+ *
+ * Permiten paginar los resultados de una consulta.
+ *
+ * Skip: Salta los primeros n documentos.
+ * Limit: Limita la salida a n documentos.
+ *
+ * Ejemplo: Supongamos que hay 6 documentos en una colección.
+ *
+ * db.collection.find().skip(0).limit(2);
+ *
+ * Salida: Documento 1 y Documento 2.
+ *
+ * db.collection.find().skip(2).limit(2); (skip(2) = Salta los primeros 2 documentos)
+ *
+ * Salida: Documento 3 y Documento 4.
+ *
+ * db.collection.find().skip(4).limit(2); (skip(4) = Salta los primeros 4 documentos)
+ *
+ * Salida: Documento 5 y Documento 6.
+ *
+ * db.collection.find().skip(6).limit(2); (skip(6) = Salta los primeros 6 documentos)
+ */
