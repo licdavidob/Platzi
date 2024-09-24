@@ -16,6 +16,38 @@
 
 * Escalamiento Horizontal: Las NoSQL están diseñadas para escalar horizontalmente, es decir, añadir más servidores a la base de datos para aumentar su capacidad.
 
+------ NoSQL vs SQL ------
+
+* NoSQL:
+    - No requiere un esquema fijo.
+    - Escalabilidad horizontal.
+    - Bajo rendimiento en consultas complejas.
+    - Alto rendimiento en consultas simples.
+    - Almacenamiento de grandes volúmenes de datos.
+    - Estructura de datos flexible.
+
+* SQL:
+    - Requiere un esquema fijo.
+    - Escalabilidad vertical.
+    - Alto rendimiento en consultas complejas.
+    - Bajo rendimiento en consultas simples.
+    - Almacenamiento de volúmenes de datos moderados.
+    - Estructura de datos rígida.
+
+* Ventajas de NoSQL:
+    - Datos indeterminados: Todavía no se sabe la estructura de los datos.
+    - No relacionados: Los datos no tienen una relación clara.
+    - Distribución geográfica: Tal vez algunos datos se puedan distribuir en diferentes ubicaciones geográficas.
+    - Datos definidos por terceros: Pueden cambiar en cualquier momento.
+    - Priorizamos tener la info rapidamente contra la consistencia de los datos.
+
+* Ventajas de SQL:
+    - Datos estructurados: Los datos tienen una estructura clara.
+    - Relacionados: Los datos tienen una relación clara.
+    - A.C.I.D: Atomicidad, Consistencia, Aislamiento, Durabilidad.
+
+* Es importante saber que siempre se pueden combinar ambas bases de datos para obtener lo mejor de cada una y que depende del caso de uso. No debemos casarnos con una sola tecnología.
+
 ------ MongoDB ------
 
 * Documento: Es una forma de organizar y almacenar información con un conjunto de claves y valores.
