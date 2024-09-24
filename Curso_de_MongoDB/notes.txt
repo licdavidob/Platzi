@@ -253,3 +253,29 @@
 
     - db.collection.find({results: { $elemMatch: {product: "abc", score: 10, region: "US"} }})
         - Devuelve el primer documento, ya que cumple con los criterios especificados.
+
+------ update vs replace vs findAndModify ------
+
+* Update: Actualiza un documento en una colección de MongoDB. Se pueden realizar actualizaciones parciales o completas.
+* Replace: Reemplaza un documento en una colección de MongoDB. Se debe especificar el documento completo.
+* FindAndModify: Encuentra un documento en una colección de MongoDB y lo modifica. Se puede devolver el documento original o el modificado.
+
+* Update:
+    - ¿Cuando utilizar?: Ideal para actualizaciones parciales donde solo necesitas cambiar ciertos campos sin afectar el resto del documento.
+    - Ventajas:
+        + Eficiencia: Solo los campos especificados son modificados, lo que puede ser más rápido y eficiente.
+        + Flexibilidad: Permite usar operadores de actualización como $set, $inc, etc.
+
+* Replace:
+    - ¿Cuando utilizar?: Ideal para reemplazar un documento completo por otro nuevo.
+    - Ventajas:
+        + Claridad: Deja claro que el documento entero será reemplazado, lo que puede ser más intuitivo.
+        + Simplicidad: Menos propenso a errores en ciertos contextos donde se necesita un reemplazo completo.
+        + Seguridad: Evita errores al reemplazar un documento completo en lugar de modificarlo parcialmente.
+
+* FindAndModify:
+    - ¿Cuando utilizar?: Ideal para operaciones que requieren atomicidad y cuando necesitas devolver el documento modificado o el original.
+    - Ventajas:
+        + Atomicidad: Garantiza que la operación se realice de manera atómica, evitando problemas de concurrencia.
+        + Consistencia: Evita problemas de lectura y escritura concurrentes al realizar la operación en un solo paso.
+        + Operaciones Complejas: Permite realizar operaciones más complejas que involucran buscar, modificar y ordenar documentos.
