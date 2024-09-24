@@ -50,3 +50,9 @@ Se construye considerando los Escenarios, Expertos y el Sistema Actual para iden
 5. Entidades: Creación de entidades del negocio basadas en la información de los expertos.
 
 6. Observaciones finales: Acotaciones generales sobre la información recolectada.
+
+------ Validación de campos ------
+
+Para validar los campos de un documento en MongoDB, se puede utilizar el método createCollection() con un objeto de validación que incluya un esquema JSON con las propiedades y restricciones necesarias.
+
+Todos los tipos de datos disponibles: https://www.mongodb.com/docs/manual/reference/bson-types/

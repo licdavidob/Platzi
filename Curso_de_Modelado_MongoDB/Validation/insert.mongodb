@@ -1,0 +1,20 @@
+use("platzi_store");
+
+db.users.insertOne({
+  name: "Juan",
+  email: "juan@gmail.com",
+  password: "123456",
+  age: 25,
+  isSingle: true,
+  role: "admin",
+  created_at: new Date(),
+  updated_at: new Date(),
+});
+
+db.products.insertOne({
+  name: "Laptop",
+  price: 1500,
+  category: "Electronics",
+  created_at: new Date(),
+  updated_at: new Date(),
+});
