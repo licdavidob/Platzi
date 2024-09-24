@@ -56,3 +56,36 @@ Se construye considerando los Escenarios, Expertos y el Sistema Actual para iden
 Para validar los campos de un documento en MongoDB, se puede utilizar el método createCollection() con un objeto de validación que incluya un esquema JSON con las propiedades y restricciones necesarias.
 
 Todos los tipos de datos disponibles: https://www.mongodb.com/docs/manual/reference/bson-types/
+
+Pattern: Permite validar un campo con una expresión regular.
+
+    + Metacaracteres: Tienen un significado específico dentro de una expresión regular:
+        - .: Cualquier carácter.
+        - ^: Inicio de la cadena.
+        - $: Fin de la cadena.
+        - *: Cero o más repeticiones.
+        - +: Una o más repeticiones.
+        - ?: Cero o una repetición.
+        - []: Lista de caracteres permitidos.
+        - (): Agrupación de caracteres.
+    
+    + Clases de caracteres: Representan conjuntos predefinidos de caracteres. 
+        - \d: Dígitos.
+        - \w: Caracteres alfanuméricos.
+        - \s: Espacios en blanco.
+        - \D: No dígitos.
+        - \W: No alfanuméricos.
+        - \S: No espacios en blanco.
+    
+    + Validaciones comunes: 
+        - Validar email: "pattern": "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
+        - Validar URL: "pattern": "^(http|https)://[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$"
+        - Validar password: "pattern": "^(?=.*[a-z])(?=.*[A-Z])(?=.*d)(?=.*W).{8,}$"
+            Donde:
+                * (?=.*[a-z]): Al menos una letra minúscula.
+                * (?=.*[A-Z]): Al menos una letra mayúscula.
+                * (?=.*d): Al menos un dígito.
+                * (?=.*W): Al menos un carácter especial.
+                * .{8,}: Al menos 8 caracteres.
+
+
