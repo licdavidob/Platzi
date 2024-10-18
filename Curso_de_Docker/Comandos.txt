@@ -75,7 +75,9 @@
     - docker build [options] <path>: Construye una imagen a partir de un Dockerfile.
         + -t: Permite asignar un nombre y un tag a la imagen.
         + -f: Permite indicar el archivo Dockerfile.
-        + Ejemplo: docker build -t my-image:1.0 -f mi.dockerfile
+            * Windows: -f C:/path/Dockerfile
+            * Linux: -f /path/Dockerfile
+        + Ejemplo: docker build -t my-image:1.0 -f Dockerfile .
 
     - docker network create [options] <network_name>: Crea una red personalizada.
         + -ls: Muestra las redes que se han creado.
