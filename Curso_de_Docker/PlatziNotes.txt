@@ -48,10 +48,12 @@
     - Indica el puerto que expone la imagen.
     - No mapea el puerto del contenedor al puerto del host.
     - Es una buena práctica para documentar el puerto que expone la imagen.
+    - Expone el puerto en la red interna de Docker. Recomendado para comunicar contenedores.
 
 * Publish:
     - Es una instrucción que se coloca al crear un contenedor.
     - Mapea un puerto del contenedor al puerto del host.
+    - Queda expuesto al mundo exterior.
     - Se hace con el parámetro -p al crear un contenedor.
     - Ejemplo: docker run -p 8080:80 nginx (Mapea el puerto 80 del contenedor al puerto 8080 del host).
 
