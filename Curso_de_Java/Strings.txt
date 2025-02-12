@@ -1,0 +1,25 @@
+--- Funciones útiles de la clase String en Java ---
+
+1. length(): Devuelve la longitud de la cadena de texto.
+2. charAt(int index): Devuelve el carácter en la posición especificada.
+3. toUpperCase(): Convierte la cadena de texto a mayúsculas.
+4. toLowerCase(): Convierte la cadena de texto a minúsculas.
+5. equals(String str): Compara la cadena de texto con otra cadena.
+6. equalsIgnoreCase(String str): Compara la cadena de texto con otra cadena sin importar mayúsculas o minúsculas.
+7. startsWith(String prefix): Verifica si la cadena de texto comienza con el prefijo especificado.
+8. endsWith(String suffix): Verifica si la cadena de texto termina con el sufijo especificado.
+9. contains(CharSequence sequence): Verifica si la cadena de texto contiene la secuencia especificada.
+10. indexOf(String str): Devuelve la posición de la primera ocurrencia de la cadena especificada.
+11. trim(): Elimina los espacios en blanco al principio y al final de la cadena de texto.
+
+--- Caracteres de Escape ---
+
+- Existen caracteres especiales que se utilizan para representar secuencias de escape en Java.
+- Algunos de los caracteres de escape más comunes son:
+
+1. \n: Salto de línea.
+2. \t: Tabulación.
+3. \b: Retroceso.
+4. \r: Retorno de carro.
+5. \": Comilla doble.
+6. \\: Barra invertida. 

@@ -1,0 +1,39 @@
+--- Arrays en Java ---
+
+- Un array en Java es un conjunto de elementos del mismo tipo que se almacenan en una sola variable.
+
+- La forma de declarar un array en Java es la siguiente:
+  tipo[] nombreArray = new tipo[tamaño];
+
+- Otra forma de inicializar un array en Java es la siguiente:
+  tipo[] nombreArray = {elemento1, elemento2, elemento3, ...};
+
+- Por defecto, cuando se declara un array en Java, todos sus elementos se inicializan con un valor por defecto:
+  - 0 para los elementos de tipo numérico.
+  - false para los elementos de tipo boolean.
+  - null para los elementos de tipo objeto.
+
+--- java.util.Arrays ---
+
+- La clase Arrays de Java proporciona una serie de métodos estáticos para trabajar con arrays.
+
+- Algunos de los métodos más comunes de la clase Arrays son:
+  - sort(): Ordena los elementos de un array.
+  - binarySearch(): Busca un elemento en un array ordenado.
+  - toString(): Convierte un array en una cadena de texto.
+  - equals(): Compara dos arrays para verificar si son iguales.
+  - fill(): Rellena un array con un valor específico.
+  - copyOf(): Copia un array en otro array de un tamaño específico.
+  - asList(): Convierte un array en una lista.
+
+--- Características de los Arrays en Java ---
+
+- Tienen un tamaño fijo que se define en el momento de la creación del array.
+- Los elementos de un array se acceden mediante un índice que va desde 0 hasta tamaño - 1.
+- Los arrays en Java son objetos, por lo que se almacenan en el heap.
+- Los arrays en Java pueden ser de cualquier tipo de dato, incluyendo tipos primitivos y objetos.
+- Los arrays en Java pueden ser multidimensionales, es decir, pueden contener otros arrays como elementos.
+
+--- Arrays Multidimensionales ---
+
+- Un array multidimensional en Java es un array que contiene otros arrays como elementos.

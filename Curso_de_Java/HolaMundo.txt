@@ -1,0 +1,29 @@
+--- ¿Qué es Java? ---
+
+- Es un lenguaje de programación que se creó en 1991 por James Gosling.
+- Fue creado inicialemente por la empresa Sun Microsystems, la cual fue adquirida por Oracle Corporation en 2010.
+- Java es un lenguaje de programación de propósito general, es decir, que se puede utilizar para crear cualquier tipo de aplicación.
+
+--- Características de Java ---
+
+- Java es un lenguaje de programación orientado a objetos.
+- Java es un lenguaje de programación portable, lo que significa que una vez que se escribe un programa en Java, este se puede ejecutar en cualquier dispositivo que tenga instalado un entorno de ejecución de Java.
+
+--- Proceso de compilación y ejecución de un programa en Java ---
+
+1. Creación de un programa en Java.
+2. Compilación del programa en Java (Java Compiler).
+3. El compilador de Java genera un archivo con extensión .class (bytecode).
+4. Ejecución del programa en Java (Java Virtual Machine).
+
+--- Java Runtime Environment (JRE) ---
+
+- Es un entorno de ejecución de Java que se encarga de ejecutar los programas en Java, es decir, se encarga de instalar la JVM en el dispositivo donde se quiere ejecutar el programa en Java.
+- Instala las librerias y bibliotecas que necesita la JVM para ejecutar los programas en Java.
+-Las JRE son las que se escriben para cada plataforma, es decir, se escribe una JRE para Windows, otra para Linux, otra para Mac OS, etc. 
+
+--- Java Development Kit (JDK) ---
+
+- Es un kit de desarrollo de Java que se encarga de compilar los programas en Java, es decir, se encarga de proporcionar el compilador de Java.
+
+- Incluye: JRE, Java Compiler, JavaDoc, Java Debugger, etc.

@@ -1,0 +1,42 @@
+--- Variables y Tipos de Datos en Java ---
+
+- En Java, los tipos de datos se dividen en dos categorías:
+
+1. Tipos de datos primitivos.
+2. Tipos de datos no primitivos (objetos).
+
+- Los tipos de datos primitivos en Java son:
+
+    + Números enteros:
+        - byte: Se utiliza para almacenar valores enteros de 8 bits (-128 a 127).
+            Ej. byte numero = 100;
+        - short: Se utiliza para almacenar valores enteros de 16 bits (-32,768 a 32,767).
+            Ej. short numero = 1000;
+        - int: Se utiliza para almacenar valores enteros de 32 bits (-2,147,483,648 a 2,147,483,647).
+            Ej. int numero = 10000;
+        - long: Se utiliza para almacenar valores enteros de 64 bits (-9,223,372,036,854,775,808 a 9,223,372,036,854,775,807).
+            Ej. long numero = 100000L;
+    
+    + Números decimales:
+        - float: Se utiliza para almacenar valores decimales de 32 bits.
+            Ej. float numero = 3.1416f;
+        - double: Se utiliza para almacenar valores decimales de 64 bits.
+            Ej. double numero = 3.1416;
+
+    + Caracteres:
+        - char: Se utiliza para almacenar caracteres Unicode de 16 bits.
+            Ej. char caracter = 'a';
+    
+    + Valores booleanos:
+        - boolean: Se utiliza para almacenar valores booleanos (true o false).
+            Ej. boolean bandera = true;
+
+- Los tipos de datos no primitivos en Java son:
+
+    + String: Se utiliza para almacenar cadenas de texto.
+        Ej. String texto = "Hola Mundo";
+    + Arrays: Se utiliza para almacenar colecciones de datos.
+        Ej. int[] numeros = {1, 2, 3, 4, 5};
+    + Clases: Se utiliza para almacenar objetos.
+        Ej. Date fecha = new Date();
+    + Interfaces: Se utiliza para almacenar interfaces.
