@@ -25,7 +25,15 @@ db.listingsAndReviews.aggregate([
     },
   },
 
-  //sort: Ordena los documentos por el campo price de forma descendente. (Capa 3)
+  //group: Agrupa los documentos por el campo beds. (Capa 3)
+  {
+    $group: {
+      _id: "$beds",
+      total: { $sum: 1 },
+    },
+  },
+
+  //sort: Ordena los documentos por el campo price de forma descendente. (Capa 4)
   // 1 = 0 - 10, A - Z
   // -1 = 10 - 0, Z - A
   {
@@ -34,7 +42,7 @@ db.listingsAndReviews.aggregate([
     },
   },
 
-  //limit: Limita la salida a 5 documentos. (Capa 4)
+  //limit: Limita la salida a 5 documentos. (Capa 5)
   {
     $limit: 5,
   },
