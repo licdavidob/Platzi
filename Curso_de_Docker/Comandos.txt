@@ -120,3 +120,7 @@
     - docker system prune: Elimina todos los contenedores, imágenes y volúmenes que no se están utilizando.
 
     - docker stats: Muestra el uso de recursos de los contenedores que se están ejecutando.
+
+    - docker scan <image>: Escanea una imagen en busca de vulnerabilidades.
+        + --mitigate: Permite mitigar las vulnerabilidades encontradas.
+        + Ejemplo: docker scan my-image:1.0 (Escanea la imagen my-image:1.0 en busca de vulnerabilidades).

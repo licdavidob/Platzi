@@ -168,3 +168,16 @@ Link de referencia: https://stackoverflow.com/questions/22111060/what-is-the-dif
 * Docker in Docker:
     - Permite ejecutar Docker dentro de un contenedor.
     - Se puede ejecutar Docker en un contenedor con el comando 'docker run -it --rm -v /var/run/docker.sock:/var/run/docker.sock docker'.
+
+* Escaneo y Mitigación de vulnerabilidades (Si tengo 2 tareas pendientes y una de ellas es la seguridad, la seguridad es la que se hace primero):
+    - Permite escanear y mitigar vulnerabilidades en las imágenes.
+    - Se puede escanear una imagen con el comando 'docker scan <image>'.
+    - Se puede mitigar una vulnerabilidad con el comando 'docker scan --mitigate <image>'.
+    - No es necesario que todo sea perfecto, sólo hay que mitigar las vulnerabilidades críticas.
+
+* Distroless:
+    - Es un enfoque para crear imágenes de contenedores mínimas, sin incluir herramientas o paquetes innecesarios.
+    - Carcateristicas:
+        + Ligero y seguro: Reduce el tamaño de la imagen y la superficie de ataque.
+        + Específico para la aplicación: Solo incluye lo necesario para ejecutar la aplicación.
+        + Optimizado: Mejora el rendimiento y la eficiencia.
