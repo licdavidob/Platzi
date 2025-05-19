@@ -1,0 +1,101 @@
++ redis-server: Comando para iniciar el servidor de Redis.
+
++ redis-cli: Comando para iniciar la consola de Redis.
+    * -h <host> -p <port>: Conexión a un servidor Redis en un host y puerto específicos.
+    * -a <password>: Autenticación con una contraseña.
+
++ ping: Comando para verificar la conexión con el servidor Redis.
+
++ flusdb: Comando para limpiar la base de datos actual.
+
+--- Strings ---
+
++ set <key> <value>: Comando para establecer un valor en una clave.
+    * Ejemplo: set nombre "Juan"
+
++ get <key>: Comando para obtener el valor de una clave.
+    * Ejemplo: get nombre
+    * Respuesta: "Juan"
+
+--- Hashes ---
+
++ hmset <key> <field1> <value1> <field2> <value2>: Comando para establecer múltiples pares clave-valor en un hash.
+    * Ejemplo: HMSET usuario:1 nombre "Juan" apelido "Pérez" edad 30
+
++ hmget <key> <field1> <field2>: Comando para obtener múltiples valores de un hash.
+    * Ejemplo: HMGET usuario:1 nombre apelido
+    * Respuesta: "Juan" "Pérez"
+
++ hgetall <key>: Comando para obtener todos los pares clave-valor de un hash.
+    * Ejemplo: HGETALL usuario:1
+    * Respuesta: "nombre" "Juan" "apelido" "Pérez" "edad" 30
+
+--- Lists ---
+
++ lpush <key> <value>: Comando para agregar un valor al inicio de una lista.
+    
+    * Ejemplo: lpush nombres "Juan" "Pedro" "María"
+    * Respuesta: 3 (Indica que hay 3 elementos en la lista)
+    
+    *Ejemplo: lpush nombres "Ana"
+    * Respuesta: 4 (Indica que hay 4 elementos en la lista)
+
++ rpush <key> <value>: Comando para agregar un valor al final de una lista.
+    * Ejemplo: rpush nombres "Luis"
+    * Respuesta: 5 (Indica que hay 5 elementos en la lista)
+    
++ lrange <key> <start> <stop>: Comando para obtener un rango de valores de una lista.
+    
+    * Ejemplo: lrange nombres 0 -1 (Obtener todos los valores)
+    * Respuesta: "Juan" "Pedro" "María"
+    
+    * Ejemplo: lrange nombres 0 1 (Obtener los dos primeros valores)
+    * Respuesta: "Juan" "Pedro"
+
+--- Sets ---
+
++ sadd <key> <value>: Comando para agregar un valor a un set.
+    * Ejemplo: sadd colores "rojo" "verde" "azul"
+    * Respuesta: 3 (Indica que hay 3 elementos en el set)
+
+    * Ejemplo: sadd colores "amarillo"
+    * Respuesta: 1 (Indica que se agregó un nuevo elemento al set)
+
++ smembers <key>: Comando para obtener todos los valores de un set.
+    * Ejemplo: smembers colores
+    * Respuesta: "rojo" "verde" "azul" "amarillo"
+
++ srem <key> <value>: Comando para eliminar un valor de un set.
+    * Ejemplo: srem colores "verde"
+    * Respuesta: 1 (Indica que se eliminó un elemento del set)
+    
+    * Ejemplo: srem colores "morado"
+    * Respuesta: 0 (Indica que no se encontró el elemento en el set)
+
+--- Sorted Sets ---
+
++ zadd <key> <score1> <value1> <score2> <value2>: Comando para agregar un valor a un sorted set con un puntaje.
+    * Ejemplo: zadd puntuaciones 100 "Juan" 200 "Pedro"
+    * Respuesta: 2 (Indica que se agregaron 2 elementos al sorted set)
+
++ zrange <key> <start> <stop>: Comando para obtener un rango de valores de un sorted set.
+    * Ejemplo: zrange puntuaciones 0 -1 (Obtener todos los valores)
+    * Respuesta: "Juan" "Pedro"
+    
+    * Ejemplo: zrange puntuaciones 0 0 (Obtener el primer valor)
+    * Respuesta: "Juan"
+
++ zscore <key> <value>: Comando para obtener el puntaje de un valor en un sorted set.
+    * Ejemplo: zscore puntuaciones "Juan"
+    * Respuesta: 100
+    
+    * Ejemplo: zscore puntuaciones "Pedro"
+    * Respuesta: 200
+
++ zrangebyscore <key> <min> <max>: Comando para obtener un rango de valores de un sorted set por puntaje.
+    * Ejemplo: zrangebyscore puntuaciones 0 150
+    * Respuesta: "Juan"
+    
+    * Ejemplo: zrangebyscore puntuaciones 150 250
+    * Respuesta: "Pedro"
+

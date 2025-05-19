@@ -1,0 +1,36 @@
+--- ¿Qué es Redis? ---
++ Redis es un sistema de almacenamiento de datos en memoria, basado en estructuras de datos clave-valor.
++ Es un sistema de base de datos NoSQL, que permite almacenar y recuperar datos de manera rápida.
++ Redis es un sistema de almacenamiento en memoria, lo que significa que los datos se almacenan en la RAM, lo que permite un acceso rápido.
+
+--- Set y Get ---
+
++ Set: Se utiliza para establecer un valor en una clave.
++ Get: Se utiliza para obtener el valor de una clave.
+
+--- Hashes ---
+
++ Los hashes son estructuras de datos que permiten almacenar múltiples pares clave-valor dentro de una sola clave.
++ Se utilizan para almacenar objetos o registros.
+
+--- Lists ---
+
++ Las listas son estructuras de datos que permiten almacenar múltiples valores en una sola clave.
++ Se utilizan para almacenar colecciones de datos ordenados.
+
+--- Sets ---
+
++ Los sets son estructuras de datos que permiten almacenar múltiples valores únicos en una sola clave.
++ Se utilizan para almacenar colecciones de datos no ordenados.
+
+--- Lists vs Sets ---
+
++ Las listas permiten almacenar valores duplicados y mantienen el orden de inserción.
++ Los sets no permiten valores duplicados y no mantienen el orden de inserción.
+
+--- Sorted Sets ---
+
++ Los sorted sets son estructuras de datos que permiten almacenar múltiples valores únicos en una sola clave, pero con un puntaje asociado a cada valor.
++ Se utilizan para almacenar colecciones de datos ordenados por puntaje.
++ Los sorted sets permiten realizar operaciones de rango y ordenación de manera eficiente.
++ El puntaje se utiliza para ordenar los elementos dentro del sorted set.
