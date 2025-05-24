@@ -99,3 +99,76 @@
     * Ejemplo: zrangebyscore puntuaciones 150 250
     * Respuesta: "Pedro"
 
+--- Keys ---
+
++ set <key> <value>: Comando para establecer un valor en una clave.
+    * Ejemplo: set nombre "Juan"
+
++ del <key>: Comando para eliminar una clave.
+    * Ejemplo: del nombre
+    * Respuesta: 1 (Indica que se eliminó la clave)
+    * Respuesta: 0 (Indica que no se encontró la clave)
+
++ dump <key>: Comando para obtener la representación serializada de una clave.
+    * Ejemplo: dump nombre
+    * Respuesta: "\x..." (Serializar significa que se convierte a un formato específico)
+
++ exists <key>: Comando para verificar si una o más claves existen.
+    * Ejemplo: exists nombre
+    * Respuesta: 1 (Indica que la clave existe)
+    
+    * Ejemplo: exists edad
+    * Respuesta: 0 (Indica que la clave no existe)
+
++ expire <key> <seconds>: Comando para establecer un tiempo de expiración en una clave en segundos.
+    * Ejemplo: expire nombre 60 (La clave "nombre" expirará en 60 segundos)
+    * Respuesta: 1 (Indica que se estableció el tiempo de expiración)
+    
+    * Ejemplo: expire edad 30
+    * Respuesta: 0 (Indica que la clave no existe o ya tiene un tiempo de expiración)
+
++ expireat <key> <timestamp>: Comando para establecer una fecha de expiración en una clave.
+    * Ejemplo: expireat nombre 1672531199 (La clave "nombre" expirará en la fecha y hora especificadas)
+        - 1672531199 es un timestamp Unix que representa el 1 de enero de 2023 a las 00:00:00 UTC.
+    * Respuesta: 1 (Indica que se estableció la fecha de expiración)
+
++ pexpire <key> <milliseconds>: Comando para establecer un tiempo de expiración en una clave en milisegundos.
+    * Ejemplo: pexpire nombre 60000 (La clave "nombre" expirará en 60 segundos)
+    * Respuesta: 1 (Indica que se estableció el tiempo de expiración)
+
++ keys <pattern>: Comando para obtener todas las claves que coinciden con un patrón.
+    * Ejemplo: keys *
+    * Respuesta: "nombre" "usuario:1" "nombres" "colores" "puntuaciones"
+    
+    * Ejemplo: keys nom*
+    * Respuesta: "nombre" "nombres"
+
+    * Ejemplo: keys *ones
+    * Respuesta: "puntuaciones"
+
++ persist <key>: Comando para eliminar el tiempo de expiración de una clave.
+    * Ejemplo: persist nombre (Elimina el tiempo de expiración de la clave "nombre")
+    * Respuesta: 1 (Indica que se eliminó el tiempo de expiración)
+    
+    * Ejemplo: persist edad
+    * Respuesta: 0 (Indica que la clave no existe o no tiene un tiempo de expiración)
+
++ pttl <key>: Comando para obtener el tiempo de vida restante de una clave en milisegundos.
+    * Ejemplo: pttl nombre
+    * Respuesta: 50000 (Indica que quedan 50 segundos para que expire la clave "nombre")
+    
+    * Ejemplo: pttl edad
+    * Respuesta: -2 (Indica que la clave no existe o ya ha expirado)
+
++ ttl <key>: Comando para obtener el tiempo de vida restante de una clave en segundos.
+    * Ejemplo: ttl nombre
+    * Respuesta: 50 (Indica que quedan 50 segundos para que expire la clave "nombre")
+
++ rename <oldkey> <newkey>: Comando para renombrar una clave.
+    * Ejemplo: rename nombre nombre_completo
+    * Respuesta: OK (Indica que se renombró la clave)
+
++ type <key>: Comando para obtener el tipo de dato de una clave.
+    * Ejemplo: type nombre
+    * Respuesta: string (Indica que la clave "nombre" es de tipo string)
+    
