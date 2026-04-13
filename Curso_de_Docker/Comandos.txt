@@ -77,6 +77,9 @@
         + -f: Permite indicar el archivo Dockerfile.
             * Windows: -f C:/path/Dockerfile
             * Linux: -f /path/Dockerfile
+        + --platform: Permite especificar la plataforma para la que se va a construir la imagen.
+            * --platform linux/amd64.
+            * --platform linux/arm64 (Sistemas embebidos) 
         + Ejemplo: docker build -t my-image:1.0 -f Dockerfile .
 
     - docker network create [options] <network_name>: Crea una red personalizada.
@@ -111,13 +114,13 @@
 
     - docker history <image_id>: Muestra el historial de una imagen.
 
-    - docker container prune: Elimina todos los contenedores que no se están ejecutando.
-
     - docker rm -f $(docker ps -a -q): Elimina todos los contenedores que se han creado, ejecutandose o no.
 
     - docker rmi $(docker images -q): Elimina todas las imágenes que se han descargado.
 
     - docker system prune: Elimina todos los contenedores, imágenes y volúmenes que no se están utilizando.
+
+    - docker builder prune: Borra el caché de compilación de Docker.
 
     - docker stats: Muestra el uso de recursos de los contenedores que se están ejecutando.
 
