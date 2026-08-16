@@ -157,6 +157,8 @@ Link de referencia: https://stackoverflow.com/questions/22111060/what-is-the-dif
 
 * Docker Ignore:
     - Permite ignorar archivos o directorios al momento de construir una imagen.
+    - Se define en un archivo '.dockerignore'.
+    - En un dockerignore se deben definir todos los archivos que no sirvan para nada en la imagen.
 
 * Multi Stage Build:
     - Permite reducir el tamaño de una imagen.
@@ -181,3 +183,34 @@ Link de referencia: https://stackoverflow.com/questions/22111060/what-is-the-dif
         + Ligero y seguro: Reduce el tamaño de la imagen y la superficie de ataque.
         + Específico para la aplicación: Solo incluye lo necesario para ejecutar la aplicación.
         + Optimizado: Mejora el rendimiento y la eficiencia.
+
+* Capas:
+
+    - Una imagen de Docker se compone de múltiples capas.
+    - Cada instrucción en un Dockerfile crea una nueva capa.
+    - Las capas son inmutables y se almacenan en caché.
+    - A menos capas tenga una imagen, más ligera será.
+    - Ejemplo de Dockerfile con múltiples capas: 
+        FROM ubuntu:20.04 -> Capa 1
+        RUN apt-get update && apt-get install -y python3 -> Capa 2
+        COPY app.py /app.py -> Capa 3
+        CMD ["python3", "/app.py"]  -> Capa 4
+    
+    - NOTA: Si una capa cambia, todas las capas posteriores también cambian, es decir, la cache de Docker se invalida para las capas posteriores a la que cambió.
+
+* Usuarios y Permisos:
+    
+    - Todas las imagenes de Docker se ejecutan como root por defecto.
+    - Crear usuarios específicos dentro de tus imágenes es una medida preventiva eficaz. Al seguir esta práctica, puedes:
+        + Limitar el acceso: Los usuarios no-root tienen acceso restringido dentro de la imagen, lo que reduce la posibilidad de modificaciones no autorizadas o ejecución de comandos peligrosos.
+        + Seguridad mejorada: Disminuye la superficie de ataque, ya que muchos exploits buscan explorar sectores con acceso root.
+        + Facilidad de manejo: Al tener un grupo y usuario con el mismo nombre, es más fácil seguir sus actividades y efectivamente reducir errores administrativos.
+    
+    - Para crear un usuario en un Dockerfile, se puede usar la instrucción `USER`:
+        FROM ubuntu:20.04
+        RUN groupadd amin && useradd -g amin amin
+        RUN chown amin:amin /app
+        USER amin
+    
+    - En caso de que un comando permisos elevados, se pueden ejecutar estos comandos antes de cambiar al usuario limitado.
+    

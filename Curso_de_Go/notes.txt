@@ -1,0 +1,74 @@
+1. Concepto de Go
+Go es un lenguaje de programación de código abierto, compilado y de tipado estático desarrollado por Google. Está diseñado bajo los principios de simplicidad y eficiencia, destacando principalmente en la arquitectura de sistemas distribuidos y concurrentes gracias a su soporte nativo de Goroutines (hilos virtuales ligeros gestionados por el propio runtime del lenguaje).
+
+2. Herramientas de Ejecución: Go Run vs Go Build
+
+    - go run [archivo.go]: Compila el código fuente directamente en la memoria RAM de forma temporal y lo ejecuta. Se utiliza en entornos de desarrollo para pruebas rápidas; no genera un archivo ejecutable físico en el disco.
+
+    - go build [archivo.go]: Compila el código fuente y genera un archivo binario ejecutable independiente (código máquina puro). Se utiliza para el despliegue en sistemas de producción, ya que el entorno de destino no requiere tener Go instalado para ejecutar el binario.
+
+3. Importancia de los Paquetes y la Ligerza de Go
+
+Todo el código en Go se organiza en paquetes independientes mediante la declaración "package" al inicio de cada archivo.
+
+    - Ligeza de Go: Posee un entorno de ejecución (runtime) minúsculo incrustado directamente dentro del binario ejecutable.
+    - Evita el uso de máquinas virtuales intermedias o dependencias externas masivas, optimizando el consumo de hardware (CPU y RAM).
+
+Utilidad práctica del uso estricto de paquetes:
+
+    - Control de visibilidad nativo: No utiliza palabras clave de privacidad. Si el nombre de un componente empieza con Mayúscula es público (exportado); si empieza con minúscula es privado (interno del paquete).
+    - Restricción de dependencias circulares: El compilador prohíbe estrictamente que dos paquetes se importen mutuamente entre sí, lo que obliga a diseñar arquitecturas desacopladas y unidireccionales.
+    - Velocidad de compilación: El compilador procesa únicamente los paquetes declarados y utilizados, reduciendo los tiempos de construcción del sistema a milisegundos.
+
+4. Variables en Go: Declaración, Tipos y Valores por Defecto
+
+    - Formas de Declaración:
+        * Formal con tipo: var edad int = 30
+        * Con omisión de tipo: var nombre = "David" (El compilador deduce el tipo según el valor asignado).
+        * Declaración corta: precio := 10.5 (Válida únicamente dentro de funciones; omite la palabra var e infiere el tipo automáticamente).
+
+    - Tipos de Datos Básicos:
+        * Numéricos: int, int64, float64.
+        * Cadenas de texto: string.
+        * Booleanos: bool.
+
+Inferencia de Tipos:
+
+Al utilizar la asignación corta o la omisión de tipo, Go define el tipo de la variable de forma estática y permanente durante la compilación. No se puede cambiar su tipo en tiempo de ejecución.
+
+Valores por Defecto (Zero Values):
+    - Las variables declaradas sin un valor inicial nunca quedan con datos residuales en memoria; el compilador les asigna automáticamente un valor seguro:
+        * int / float -> 0 / 0.0
+        * string -> "" (cadena vacía)
+        * bool -> false
+        * Punteros y estructuras complejas -> nil
+
+5. Variables en Go: Nil vs Zero Value
+
+    - ¿Qué es Nil?: Representa la ausencia de valor o la falta de inicialización. A diferencia del concepto null tradicional de otros entornos, nil solo puede aplicarse a tipos de referencia y punteros, no a tipos de datos básicos.
+    - Dónde se usa: Punteros, interfaces, slices (arreglos dinámicos), maps (diccionarios) y channels (conductos de comunicación concurrente).
+
+Trucos y Peligros:
+
+    - El peligro del Panic: Intentar realizar operaciones de lectura o escritura sobre una variable cuyo valor es nil detendrá el proceso del sistema inmediatamente a través de un error crítico de ejecución (panic).
+    - Slices vs Maps: Un slice que apunta a nil se puede evaluar de forma segura, pero un mapa que apunta a nil provocará un pánico si se intenta escribir datos en él sin antes haberlo inicializado con la función interna make().
+
+Manejo de Errores:
+
+    - En la arquitectura de Go, las funciones suelen retornar el resultado y un tipo de dato error. Si el error devuelto es igual a nil, se confirma que la operación del sistema fue exitosa.
+
+6. Variables en Go: Eficiencia, Convenciones y Buenas Prácticas
+
+    - Eficiencia en Memoria: Go calcula el espacio exacto en bytes de cada tipo de dato en tiempo de compilación. El compilador implementa un análisis interno (Escape Analysis) para determinar si aloja la variable en el Stack (memoria de ejecución rápida y corta duración) o en el Heap (memoria global), automatizando la optimización de los recursos de hardware.
+
+Convención de Nombres:
+
+    - camelCase: Para variables de uso local dentro de funciones o de ámbito interno en el paquete (ej. idUsuario).
+    - PascalCase: Exclusivo para componentes que necesitan ser exportados y accesibles desde otros paquetes del sistema (ej. IdUsuario).
+    - Nombres cortos: Se prioriza la brevedad si el contexto de la variable es pequeño y claro (ej. usar "db" en lugar de "databaseConnection").
+
+Buenas Prácticas:
+
+    - Emplear la declaración corta (:=) de manera consistente dentro de los bloques de funciones para mantener el código limpio.
+    - Evitar el uso de variables globales a nivel de paquete para prevenir colisiones de datos o efectos secundarios en ejecuciones concurrentes.
+    - No declarar variables que no se vayan a utilizar; el compilador detendrá la construcción del binario si detecta una variable inactiva.
