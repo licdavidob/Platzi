@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: backend-app
+  template:
+    metadata:
+      labels:
+        app: backend-app
+    spec:
+      containers:
+        - name: contenedor-web
+          image: nginx:alpine
+          ports:
+            - containerPort: 80
+          env:
+            # Variable 1 dentro del SO del contenedor
+            - name: DATABASE_USER
+              valueFrom:
+                secretKeyRef:
+                  name: mis-credenciales # Nombre del objeto Secret
+                  key: DB_USER # Llave dentro del Secret
+            # Variable 2 dentro del SO del contenedor
+            - name: DATABASE_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mis-credenciales # Nombre del objeto Secret
+                  key: DB_PASSWORD # Llave dentro del Secret

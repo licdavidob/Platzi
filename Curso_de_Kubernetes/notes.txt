@@ -1,0 +1,471 @@
+------ Kubernetes ------
+
+¿Qué es Kubernetes (K8s)?:
+Kubernetes es una plataforma de código abierto diseñada para automatizar el despliegue, el escalamiento y la operación de aplicaciones en contenedores.
+
+Aruitectura General:
+- Control Plane (El Cerebro): El grupo de componentes que toma las decisiones globales y administra el clúster.
+
+- Worker Nodes: Los servidores reales (o virtuales) que ejecutan tus aplicaciones.
+
+- Pod: La unidad más pequeña de Kubernetes. Es una "cáscara" que envuelve a uno o más contenedores. Kubernetes no maneja contenedores directamente, maneja Pods.
+
+- Archivos YAML: Como administrador, tú no decides en qué servidor exacto se instala tu aplicación. Tú defines tus requerimientos (el Estado Deseado en el YAML) y el clúster se encarga de repartir los Pods en los nodos basándose en la disponibilidad de recursos.
+
+------ Control Plane ------
+
+Es el sistema central de administración de Kubernetes. No ejecuta las aplicaciones, sino que administra el clúster entero. Toma las decisiones globales (como en qué servidor ejecutar una carga de trabajo) y detecta o responde a los eventos del clúster (como reiniciar aplicaciones que fallan).
+
+Está compuesto por los siguientes componentes fundamentales:
+
+- kube-apiserver (Punto de entrada): Es la única interfaz de comunicación del clúster. Recibe, valida y procesa todas las peticiones externas (como los comandos que envías con kubectl) e internas.
+
+- etcd (Base de datos): Es el almacenamiento principal de Kubernetes. Guarda de forma segura y consistente toda la configuración y el "estado" de todo lo que existe en el clúster.
+
+- kube-scheduler (El asignador): Vigila constantemente si hay Pods nuevos que aún no tienen un servidor asignado. Cuando detecta uno, evalúa los recursos (CPU, memoria) y decide en qué servidor (Worker Node) debe ejecutarse.
+
+- kube-controller-manager (El supervisor): Ejecuta procesos de control en segundo plano. Compara continuamente el "estado actual" del clúster con el "estado deseado" que tú definiste en tus archivos YAML. Si detecta diferencias (ej. falta un Pod), da las órdenes necesarias para corregirlo.
+
+- cloud-controller-manager (Enlace de nube): Solo se usa si tu clúster está en la nube (como en Google Cloud Platform). Se encarga de traducir las peticiones de Kubernetes para que hablen con la infraestructura real de tu proveedor (por ejemplo, para pedirle a GCP que cree un balanceador de carga o un disco duro externo).
+
+------ Jerarquía y Objetos de Kubernetes (Archivos YAML) ------
+
+Para publicar y gestionar una aplicación moderna, Kubernetes utiliza una serie de objetos (archivos YAML) que se conectan en una jerarquía estricta. El flujo de información va desde el acceso externo hasta la ejecución del código y la inyección de sus configuraciones.
+
+1. Ingress
+Es la puerta de entrada para el tráfico que viene desde fuera del clúster (el internet público). Actúa como un enrutador inteligente que recibe peticiones externas (HTTP/HTTPS) y las dirige hacia el Service interno correcto basándose en reglas definidas, como la URL solicitada o el dominio.
+
+2. Service
+Es el punto de contacto interno estable y el balanceador de carga de la aplicación. Dado que los Pods se destruyen y recrean constantemente cambiando su dirección IP, el Service proporciona un nombre y una IP fija. De esta manera, recibe el tráfico del Ingress (o de otros componentes internos) y lo distribuye equitativamente entre los Pods que estén disponibles y sanos.
+
+3. Deployment
+Es el controlador encargado de mantener el "estado deseado" de la aplicación. Define y supervisa cuántas copias replicas deben estar funcionando en todo momento. Además, gestiona de forma automatizada y gradual las actualizaciones hacia nuevas versiones del código, asegurando que el servicio no sufra caídas durante el proceso.
+
+Internamente existe una jerarquía técnica: Deployment -> ReplicaSet -> Pod.
+
+4. ConfigMap
+Es un objeto diseñado para almacenar datos de configuración no confidenciales en formato de clave-valor. Permite separar la configuración de la imagen del contenedor, inyectando variables de entorno, puertos o archivos de configuración directamente en el Pod al momento de arrancar. Esto hace posible que una misma imagen de contenedor funcione de manera distinta en diferentes entornos (como pruebas y producción) simplemente cambiando el ConfigMap asociado.
+
+5. Secret
+Es un objeto con la misma función estructural que el ConfigMap, pero diseñado específicamente para manejar información pequeña y sensible. Almacena de forma codificada datos críticos como contraseñas de bases de datos, tokens de autenticación, llaves SSH o certificados SSL. Su propósito es garantizar que esta información se inyecte de forma segura en los Pods que la necesitan, evitando que los datos queden expuestos en el código fuente, en la imagen del contenedor o en los registros del sistema.
+
+------ Ingress vs Service vs Deployment ------
+
+- Deployment: Se encarga de mantener a la app funcioando, vigila los pods y actualizaciones. No sabe nada de redes o internet
+
+- Service: Se encarga de la conectividad interna. Agrupa a los pods y balancea la carga
+
+- Ingress: Expone una ip publica, recibe las peticiones y se lo turna al service. No ejecuta contenedores ni balancea el trafico entre pods
+
+------ Arquitectura Kubernetes vs Archivos YAML ------
+
+- kube-apiserver: Es el unico que habla con el exterior. Recibe los archivos YAML, que tengan sintaxis correcta y guarda el estado deseado en la base de datos (etcd)
+
+- kube-controller-manager: 
+    
+    1. Lee la base de datos para saber el estado deseado y revisa el estado actual. Si algo es diferente, inmediatamente da la orden de crear los pods necesarios usando "el molde" en el archivo deployment.yaml
+    
+    2. Vigila cuando nacen los pods. Toma las ip de esos pod y las anota para distribuir la carga de acuerdo al archivo service.yaml
+
+- kube-sheducler: El controller ordeno crear los pods pero aún no tienen un servidor. El scheduler revisa la memoria y cpu de las maquinas reales (worker nodes) y decide donde se va a ejecutar cada pod.
+
+------ Imperativo vs Declarativo ------
+
+- Imperativo: Comandos directos y precisos. Se basa en dar instrucciones directas al cluster mediante comandos específicos en la terminal.
+    1. Depuración rápida de problemas.
+    2. Pruebas efímeras.
+    3. Validaciones rápidas en entornos de desarrollo.
+    4. Aprendizaje y familiarización con kubernetes.
+
+- Declarativo: Definir mediante archivos yaml el estado deseado.
+    1. Archivos yaml son versionables mediante git.
+    2. Facilitan la auditoría de cambios.
+    3. Definiciones completas y complejas de recursos.
+    4. Legibles y mantenibles por equipos diversos.
+
+Para implementar una app en kubernetes y diferentes recursos que tiene, se recomienda:
+
+1. Utilizar el enfoque imperativo para pruebas iniciales y verificaciones rápidas.
+2. Transformar esas configuraciones en archivos yaml
+3. Mantener archivos yaml en git
+4. Implementar procesos de ci/cd que apliquen estos archivos de manera automatica.
+
+
+------ Ejemplo: Objeto Pod (Rara vez se usa solo) ------
+
+apiVersion: v1
+kind: Pod
+metadata:
+  name: mi-pod-nginx
+spec:
+  containers:
+  - name: nginx-contenedor
+    image: nginx:latest
+    ports:
+    - containerPort: 80
+
+------ Ejemplo: Deployment ------
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mi-backend-deployment
+spec:
+  replicas: 3               # <--- ReplicaSet
+  selector:
+    matchLabels:
+      app: backend
+  template:                 # <--- Definición del Pod
+    metadata:
+      labels:
+        app: backend
+    spec:
+      containers:
+      - name: mi-app-php
+        image: php:8.2-apache
+        ports:
+      - containerPort: 80
+
+------ Ejemplo: Service ------
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+spec:
+  selector:
+    app: backend            # <--- Busca los pods que tengan esta etiqueta
+  ports:
+  - port: 80                # Puerto del Service
+    targetPort: 80          # Puerto del Contenedor
+
+
+------ Diccionario YAML: metadata, labels, spec y selector ------
+
+En los archivos YAML de Kubernetes, estas cuatro palabras clave definen la identidad y el comportamiento de todos los objetos.
+
+1. "metadata" (La Credencial de Identidad):
+   - Qué es: Son los datos que describen "quién es" el objeto.
+   - Qué contiene: Siempre lleva el 'name' (su nombre oficial) y opcionalmente los 'labels'.
+
+2. "labels" (Etiquetas):
+   - Qué son: Pequeñas pegatinas que le pegas a un objeto para clasificarlo. No hacen nada por sí solas, pero permiten que otros objetos te encuentren.
+   - Siempre van dentro del bloque 'metadata'.
+
+3. "spec" (Las Especificaciones / El Estado Deseado):
+   - Qué es: El corazón del archivo. Aquí le dices a Kubernetes exactamente qué quieres (ej. cantidad de réplicas, imagen de Docker, puertos).
+
+4. "selector" (El Buscador):
+   - Qué es: La herramienta que usan los objetos "Jefes" (Deployment, Service) para encontrar a sus "empleados" (Pods) basándose en sus etiquetas.
+   - Dónde va: Siempre va dentro del bloque 'spec'.
+
+------ La Estructura en la "Muñeca Rusa" (Deployment) ------
+
+Dado que un Deployment es una fábrica que tiene las instrucciones del Pod incrustadas en su interior, el archivo YAML tendrá DOS bloques de 'metadata' y DOS bloques de 'spec': los de afuera son del Jefe, los de adentro (bajo 'template') son del Pod.
+
+Ejemplo:
+
+apiVersion: apps/v1
+kind: Deployment
+# ==========================================
+# NIVEL 1: EL JEFE (Deployment)
+# ==========================================
+metadata:                     # Credencial del Jefe
+  name: mi-deployment-web     # Nombre del Jefe
+spec:                         # Especificaciones del Jefe
+  replicas: 3                 # El Jefe pide 3 copias
+  selector:                   # Buscador
+    matchLabels:
+      app: web-frontend       # "Vigilaré a los Pods que tengan esta etiqueta"
+  
+  # ==========================================
+  # NIVEL 2: EL POD (La pieza - Muñeca interior)
+  # ==========================================
+  template:
+    metadata:                 # Credencial del Pod
+      labels:                 # La etiqueta del pod
+        app: web-frontend     # "Yo soy el Pod que el Jefe busca"
+    spec:                     # Especificaciones del Pod
+      containers:             
+      - name: mi-contenedor
+        image: nginx:latest
+
+El 'selector' del Deployment (o Service) DEBE coincidir de forma idéntica y exacta con los 'labels' del Pod. Ese "match" permite que conecte toda la arquitectura en Kubernetes.
+
+------ Exposición de Servicios y el Ingress ------
+
+Antes de entender el Ingress, es importante conocer las 4 formas tradicionales en las que Kubernetes expone servicios:
+1. ClusterIP: Es el tipo por defecto. Asigna una IP virtual interna y un nombre DNS para que los Pods y aplicaciones dentro del clúster puedan comunicarse entre sí. Solo es accesible desde la red del clúster.
+2. NodePort: Además de crear un ClusterIP, expone un puerto específico en todos los nodos del clúster. Un cliente externo puede acceder usando la IP de cualquier nodo y ese puerto; Kubernetes se encarga de redirigir la petición al Pod correcto, sin importar en qué nodo se encuentre.
+3. LoadBalancer: Además de crear un NodePort, solicita al proveedor cloud la creación de un balanceador de carga externo con una IP pública. El cliente solo necesita conocer esa IP o dominio; el balanceador envía el tráfico al clúster y Kubernetes lo dirige al Pod correspondiente.
+4. ExternalName: Actúa como un alias (CNAME en DNS) para enrutar tráfico interno hacia servicios externos (ej. una base de datos externa).
+
+¿Qué es el Ingress y por qué lo necesitamos?
+Cuando tienes una aplicación real con frontend y backend, usar un LoadBalancer para cada pedacito es costoso y desordenado. El Ingress es una capa de abstracción avanzada que proporciona un único punto de entrada para administrar múltiples servicios. 
+
+Ventajas y Capacidades Clave en Producción:
+- Enrutamiento basado en contenido: Permite dirigir el tráfico usando dominios (hosts), rutas de URL (paths) o encabezados. 
+  * Ejemplo práctico: Puedes configurar que 'api.myapp.com/login' vaya al backend, mientras que 'myapp.com/dashboard' vaya al frontend.
+- Terminación TLS/SSL: Puedes configurar tu certificado de seguridad en un solo lugar (el Ingress) sin tener que configurarlo servicio por servicio.
+- Gestión Centralizada: Simplifica la arquitectura al administrar las rutas desde un solo punto, integrándose optimizadamente con proveedores cloud.
+
+El Ingress por sí solo (el archivo YAML) es solo un pedazo de papel con reglas. Para que esas reglas funcionen, necesitas tener instalado en tu clúster un "Ingress Controller" (el más popular es NGINX Ingress Controller). Es el software real que lee tu YAML y ejecuta el enrutamiento.
+
+------ Ejemplo Ingress.yaml ------
+
+El siguiente ejemplo muestra cómo un Ingress recibe tráfico del dominio 'miempresa.com' y lo divide: si la URL termina en '/api', lo manda al backend; si es cualquier otra cosa, lo manda al frontend.
+
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-principal
+spec:
+  rules:
+  - host: miempresa.com               # El dominio principal
+    http:
+      paths:
+      # REGLA 1: Todo lo que vaya a /api se va al backend
+      - path: /api
+        pathType: Prefix
+        backend:
+          service:
+            name: mi-backend-service  # Apunta al nombre de tu Service
+            port:
+              number: 80
+
+      # REGLA 2: Todo lo demás (/) se va al frontend
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: mi-frontend-service # Apunta al nombre de tu Service
+            port:
+              number: 80
+
+------ ConfigMap y Secret ------
+
+Kubernetes permite separar el código fuente de la configuración utilizando dos objetos principales. Esto ayuda a que una misma imagen de contenedor funcione en distintos entornos (como pruebas o producción) sin tener que reescribir el código interno.
+
+- ConfigMap: Es un almacén de datos diseñado para guardar información que no es sensible en texto plano. Se utiliza principalmente cuando necesitas inyectar variables de entorno generales, configuraciones de servicios o incluso archivos completos de configuración (como un php.ini o nginx.conf) directamente en el contenedor cuando este arranca.
+
+- Secret: Es un objeto con una estructura similar pero diseñado específicamente para almacenar información confidencial. Internamente, los datos de un Secret no están encriptados, sino que están ofuscados o codificados en formato Base64. 
+
+Para decidir cuál utilizar, piensa en la sensibilidad del dato. Si necesitas configurar la URL de un servidor o cambiar el nivel de logs de una aplicación, el lugar correcto es un ConfigMap. En cambio, si vas a manejar las credenciales de acceso para esa misma base de datos, siempre debes usar un Secret.
+
+Recomendación en la Nube (Cloud): En entornos profesionales como GCP, AWS o Azure, la alternativa estándar es utilizar servicios externos como GCP Secret Manager. Funciona instalando un operador automático en el clúster que se encarga de ir a la bóveda segura de la nube, extraer la contraseña (protegida con seguridad militar) y fabricar automáticamente el Secret nativo dentro de Kubernetes. Así, el dato real nunca queda expuesto en tus archivos.
+
+Para aplicar la nueva configuración, es obligatorio reiniciar el Deployment para que los Pods actuales sean reemplazados por Pods nuevos que absorban los valores actualizados.
+
+------ Ejemplos YAML: ConfigMap y Secret ------
+
+1. Configmap
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-config-ejemplo     # Nombre para que el Pod lo encuentre
+data:
+  APP_COLOR: "azul"            # Clave: Valor (Siempre como texto)
+  ENTORNO: "desarrollo"        # Puedes agregar las variables que quieras
+  PUERTO_APP: "8080"           # Los números también van entre comillas
+
+---
+
+2. Secret
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secret-ejemplo     # Nombre para que el Pod lo encuentre
+type: Opaque                   # Tipo estándar para contraseñas o llaves
+data:
+  # IMPORTANTE: Los valores ABAJO deben estar en Base64
+  DB_PASSWORD: bXktcGFzc3dvcmQ= # "my-password" codificado
+  API_KEY: dG9rZW4xMjM=         # "token123" codificado
+
+  ------ El Modelo de Red en Kubernetes ------
+
+El modelo de red de Kubernetes se basa en un concepto llamado "red plana entre pods". A diferencia de las redes tradicionales que usan muros y traductores, esta arquitectura permite que todos los componentes se comuniquen de manera fluida y transparente.
+
+Para que esta red plana funcione, el clúster obedece tres reglas:
+
+    1. Todos los nodos (servidores) deben poder conectarse entre sí sin usar NAT.
+    2. La comunicación entre pods debe ser totalmente directa, permitiendo que un pod del frontend hable con uno del backend utilizando solo su IP o nombre.
+    3. Tanto los pods como los servicios comparten el mismo segmento de red.
+
+Esta comunicación ocurre por tres componentes internos que trabajan en equipo:
+
+1. CNI (El Constructor): Significa Container Network Interface. Es un plugin que se encarga de cablear y construir la red virtual por donde viajarán los datos. Las opciones más populares que instala la comunidad son Calico (muy versátil) o Flannel.
+
+2. kube-proxy (El Oficial de Tráfico): Es un agente que vive en cada nodo y utiliza reglas internas de Linux (llamadas IPTables) para enrutar las peticiones. Cuando alguien intenta acceder a un Service, el kube-proxy recibe la petición y la redirige hacia el Pod correcto que está libre.
+
+3. CoreDNS (El Directorio Telefónico): Es el encargado del "Service Discovery". Como los Pods nacen y mueren todo el tiempo cambiando su IP, CoreDNS mantiene un registro de nombres fijos. Gracias a él, una app solo necesita pedir conectarse a "mi-base-de-datos" y CoreDNS se encarga de traducir ese nombre a la IP correcta en milisegundos.
+
+
+A nivel técnico (Modelo OSI), es importante recordar que los Pods se comunican utilizando la Capa 3 (enrutamiento por IP), mientras que los Services operan en capas superiores (Aplicación y Transporte), aprovechando protocolos como TCP y UDP para hacer el balanceo de carga.
+
+------ Jerarquía de la Red: Los 5 Niveles de Dependencia ------
+
+1. Conectividad de Nodos (Cimientos): Es el nivel físico. Los servidores (nodos) deben poder comunicarse entre sí libremente y sin usar traductores (NAT). Sin esta base, el clúster no puede sostenerse.
+
+2. Comunicación directa entre Pods (La Ley): Es el nivel lógico. Se establece la regla de "red plana", donde cada Pod recibe su propia IP única y tiene el derecho de hablar directamente con cualquier otro Pod del clúster.
+
+3. Implementación con CNI (Los Cables): Es el nivel de construcción. Se utiliza un plugin (como Flannel o Calico) que es el software encargado de tirar los cables virtuales, asignar las IPs a los contenedores y crear las calles de la red.
+
+4. Enrutamiento con Kube-proxy (El Tráfico): Es el nivel de control. Este agente configura las reglas de tránsito (IPTables) en cada nodo para que, cuando alguien busque un "Service", el tráfico sea redirigido correctamente hacia los Pods disponibles.
+
+5. Resolución con CoreDNS (El Directorio): Es el nivel de aplicación. Funciona como un directorio telefónico que traduce los nombres de los servicios (ej. "db-service") a direcciones IP. Es lo que permite que tu código encuentre otros componentes usando nombres simples.
+
+------ Almacenamiento: PV y PVC ------
+
+En Kubernetes, el almacenamiento persistente se divide en dos objetos para separar el trabajo de infraestructura del trabajo de desarrollo:
+
+1. PV (Persistent Volume / El Disco Real): Es un recurso de almacenamiento físico o virtual (ej. un disco en la nube) que existe en el clúster. Su ciclo de vida es independiente al de los Pods; si el Pod se elimina, los datos en el PV se conservan.
+
+2. PVC (Persistent Volume Claim / La Solicitud): Es una petición de almacenamiento escrita por el desarrollador. Es un archivo YAML que dice "Necesito X cantidad de GB". 
+
+- El Binding (Vinculación): Cuando se crea un PVC, Kubernetes busca automáticamente un PV disponible que cumpla con los requisitos solicitados y los vincula. Una vez vinculados, el Pod monta el PVC como si fuera un disco duro interno.
+
+- StorageClass (Aprovisionamiento Dinámico): En proveedores de nube (GCP, AWS), rara vez se crean los PV manualmente. Se utiliza un recurso llamado StorageClass que intercepta tu PVC y crea automáticamente el disco real (PV) en la nube en cuestión de segundos, agilizando todo el proceso.
+
+------ Nivel de Acceso en Volúmenes: Nodos vs Pods ------
+
+DIFERENCIA CLAVE:
+- Nodo: Servidor físico o Máquina Virtual.
+- Pod: Tu aplicación o contenedor ejecutándose adentro.
+Regla de oro: La mayoría de los modos (RWO, RWX, ROX) bloquean el almacenamiento a nivel del NODO, no de la aplicación. Solo RWOP bloquea a nivel POD.
+
+MODOS DE ACCESO (AccessModes):
+
+1. ReadWriteOnce (RWO) - [1 Nodo | Lectura y Escritura]
+   - Permite conexión a un único Nodo a la vez.
+   - Cualquier cantidad de Pods dentro de ese MISMO Nodo pueden escribir en el volumen.
+   - Tipos de disco típicos: Almacenamiento de bloque en la nube (AWS EBS, GCP Persistent Disk).
+   - Implicación: Si la app se escala y Kubernetes mueve un Pod a otro Nodo, este fallará al no poder conectar el disco.
+
+2. ReadWriteOncePod (RWOP) - [1 Pod Exclusivo | Lectura y Escritura]
+   - Permite la conexión a un ÚNICO Pod en todo el clúster.
+   - Bloquea el acceso a cualquier otra réplica o Pod vecino, incluso si viven en el mismo Nodo físico.
+   - Tipos de disco típicos: Discos locales o de bloque con aislamiento estricto (K8s v1.22+).
+   - Implicación: Garantiza máxima coherencia de datos. Diseñado para replicas=1 o StatefulSets (Bases de Datos como Postgres, MySQL, MongoDB).
+
+3. ReadWriteMany (RWX) - [Múltiples Nodos | Lectura y Escritura]
+   - Permite conexiones simultáneas de múltiples Nodos y múltiples Pods.
+   - Tipos de disco típicos: Sistemas de archivos en red (NFS, AWS EFS, Ceph).
+   - Implicación: Elimina barreras de exclusividad. Requerido cuando varios microservicios en distintos servidores modifican la misma carpeta en tiempo real (ej. /uploads de imágenes).
+
+4. ReadOnlyMany (ROX) - [Múltiples Nodos | Solo Lectura]
+   - Conecta el volumen a múltiples Nodos en simultáneo, bajo la regla estricta de SOLO LECTURA.
+   - Tipos de disco típicos: Almacenamiento compartido de assets, imágenes estáticas o datasets.
+   - Implicación: Inmutabilidad garantizada por infraestructura. Permite distribuir información masivamente sin riesgo de corrupción o modificación.
+
+RESUMEN RÁPIDO (CHEATSHEET):
+• RWO  --> 1 Nodo  (L/E)          --> Discos Nube (EBS / GCP PD)
+• RWOP --> 1 Pod   (L/E)          --> Bases de Datos / Single Replica
+• RWX  --> N Nodos (L/E)          --> Archivos Red (NFS / EFS)
+• ROX  --> N Nodos (Solo Lectura) --> Archivos Estáticos / Assets
+
+------ StatefulSet ------
+
+Mientras que un Deployment trata a sus Pods como "ganado" desechable con nombres aleatorios que comparten la misma configuración, un StatefulSet los trata como "mascotas" con identidad única. Un StatefulSet garantiza nombres fijos y predecibles (ej. db-0, db-1), un orden estricto de encendido, y lo más importante: una red estable. Esta identidad es crucial porque permite que los Pods se encuentren entre sí dentro de la red interna para pasarse datos.
+
+En un escenario "normal" (Deployment), tú creas un solo archivo PVC y todos los Pods intentan usar ese mismo disco, lo que genera cuellos de botella o errores de conexión si están en distintos nodos físicos. En cambio, el StatefulSet utiliza un mecanismo llamado "volumeClaimTemplates" (Plantillas de Reclamación). Gracias a esto, Kubernetes fabrica automáticamente un PVC y un disco real (PV) único y exclusivo para cada Pod que nace. La mayor ventaja es que el disco se "pega" a la identidad del Pod; si el nodo físico falla y el Pod db-1 muere, cuando Kubernetes lo haga renacer en otro servidor, lo obligará a reconectarse exactamente a su disco número 1 original, garantizando que nunca pierda su historial.
+
+Los StatefulSets no deben usarse para aplicaciones web tradicionales (Stateless) ni para bases de datos relacionales simples donde un servicio administrado en la nube (como Cloud SQL) es más eficiente. Su uso es estrictamente necesario y brilla en "Sistemas Distribuidos". Es decir, herramientas que están diseñadas para dividir terabytes de información en múltiples discos o replicarse constantemente a través de la red interna para evitar colapsos. Ejemplos perfectos de esto son las bases de datos NoSQL distribuidas (MongoDB, Cassandra), los sistemas de colas de mensajes masivos (Apache Kafka, RabbitMQ) y los motores de búsqueda de datos (Elasticsearch).
+
+------ DaemonSet ------
+
+Un DaemonSet es un controlador cuya única responsabilidad es garantizar que una copia específica de un Pod se ejecute en todos los nodos del clúster. A diferencia de un Deployment, donde tú defines un número fijo de réplicas, en un DaemonSet no existe el campo "replicas"; el número de Pods se ajusta automáticamente según la cantidad de servidores físicos o virtuales (Nodos) que existan en la infraestructura.
+
+Este objeto no se utiliza para aplicaciones de usuario, sino para herramientas de infraestructura que necesitan "ojos y oídos" en cada servidor físico. Los escenarios más comunes son:
+
+1. Recolección de Logs: Un agente en cada nodo que captura los errores de todos los contenedores y los centraliza.
+2. Monitoreo: Un exportador de métricas que vigila la temperatura, CPU y RAM física de cada máquina.
+3. Redes y Almacenamiento: Plugins como el CNI (Calico/Flannel) o proxies de red que permiten que el tráfico fluya correctamente en cada rincón del clúster.
+
+Mientras que el Deployment busca "Alta Disponibilidad" repartiendo Pods donde haya espacio, el DaemonSet busca "Cobertura Total". En cuanto al almacenamiento, los DaemonSets raramente usan PVCs (discos virtuales de la nube), ya que su objetivo es vigilar al servidor donde están parados. Por ello, suelen usar "hostPath", que les permite acceder directamente a las carpetas del disco duro real del nodo físico para leer registros o estados del sistema operativo.
+
+------ Guía de Decisión: ¿Qué Controlador de Kubernetes Necesito? ------
+
+- ¿En todos los servidores obligatoriamente? = DaemonSet
+- ¿Guarda datos, importa el nombre y el disco? = StatefulSet
+- ¿Es código web sin memoria local y reemplazable? = Deployment
+
+------ Estrategias de Almacenamiento: Deployment vs StatefulSet ------
+
+1. Estrategias de Volumen (En Deployments)
+Esta estrategia se basa en crear un PVC independiente (un solo archivo) al que uno o varios Pods intentan conectarse. Se usa en escenarios de colaboración o inyección de dependencias:
+
+- El Disco Compartido (ReadWriteMany - RWX): Brilla cuando tienes aplicaciones Stateless (como 5 Pods de una página web) y necesitas que todos escriban y lean en la misma carpeta exacta. Por ejemplo, si un usuario sube una foto de perfil, no importa qué Pod lo atienda mañana, la foto debe estar ahí para todos. Aquí se usan sistemas de archivos en red (como NFS).
+
+- El Disco Único Legado (ReadWriteOnce - RWO con 1 Réplica): Brilla cuando tienes una aplicación monolítica y antigua que no soporta funcionar con múltiples réplicas al mismo tiempo. Creas un Deployment con réplica=1, le pegas un disco, y si el Pod muere, renace y recupera su único disco.
+
+2. Estrategia StatefulSet (VolumeClaimTemplates)
+Esta estrategia abandona la idea de "compartir". En lugar de crear un PVC a mano, defines una plantilla dentro del StatefulSet y dejas que Kubernetes fabrique automáticamente un PVC y un disco real exclusivo por cada Pod que nazca. 
+
+- El Almacenamiento Pegajoso (Sticky Storage - 1 Pod = 1 PV): Brilla pura y exclusivamente en Sistemas Distribuidos (MongoDB, Kafka, Elasticsearch). 
+
+- ¿Por qué es superior aquí?: Si usaras el "Disco Compartido" del Deployment para una base de datos distribuida, los Pods se pelearían por escribir en el mismo archivo, corrompiendo la información o creando un cuello de botella terrible. La estrategia del StatefulSet le da un disco físico privado (ReadWriteOnce) a cada Pod. Esto permite que el Pod 0 guarde la mitad de los datos de la empresa en su disco, y el Pod 1 guarde la otra mitad en el suyo, multiplicando la velocidad por dos. La aplicación (no Kubernetes) se encarga de la sincronización. El StatefulSet solo garantiza que, pase lo que pase, el Pod 0 jamás perderá la conexión con su disco privado número 0.
+
+------ Kubernetes: Jobs, CronJobs y Patrones de Uso ------
+
+1. JOB (Tarea por Lotes / Batch)
+- Concepto: Proceso con principio y fin explícito. A diferencia de un Deployment (que corre 24/7), el Pod del Job nace, ejecuta la tarea, finaliza con éxito (exit 0) y muere (queda en estado 'Completed').
+- Propósito: Migraciones de DB, procesamiento pesado e imprevisto, scripts de una sola ejecución o análisis de datos en lenguajes/entornos aislados (Python, Rust, etc.).
+- Comportamiento: Si falla, reintenta según 'backoffLimit'. Al terminar, libera RAM y CPU para el resto del cluster.
+
+2. CRONJOB (Programador en el Tiempo)
+- Concepto: Un temporizador basado en la sintaxis estándar de Linux Cron ("* * * * *") que crea objetos 'Job' de forma periódica.
+- Creación: Se define SIEMPRE de manera declarativa mediante un archivo YAML en el repositorio Git (`kubectl apply -f cronjob.yaml`) como cualquier Deployment o Service.
+- Políticas de Concurrencia (concurrencyPolicy):
+  • Allow (por defecto): Inicia el nuevo Job aunque el anterior no haya terminado.
+  • Forbid: Salta la nueva ejecución si la anterior sigue corriendo.
+  • Replace: Cancela el Job viejo y arranca el nuevo en su lugar.
+- Uso típico: Respaldos nocturnos de DB, purga periódica de archivos, ejecución de tareas programadas.
+
+3. ESTÁNDARES Y PATRONES DE CREACIÓN DE JOBS (¿Cómo/Cuándo se activan?)
+
+Principio de diseño: Por seguridad (RBAC) y desacoplamiento, una aplicación web normal NO debería saber que corre en Kubernetes ni llamar a su API directamente.
+
+• Patrón 1: Basado en Eventos con KEDA (Estándar Cloud Native para Jobs bajo demanda)
+  - La aplicación web solo registra el trabajo en una cola normal (Redis, RabbitMQ, MySQL).
+  - KEDA (un operador instalado en el cluster) vigila la cola y le ordena a Kubernetes crear los 'Jobs' efímeros.
+  - Ideal para: Tareas pesadas, aisladas o con picos de carga esporádicos (ahorra recursos al no tener Pods gigantes corriendo 24/7).
+
+• Patrón 2: Declarativo YAML (Estándar para CronJobs)
+  - Se despliega el archivo 'cronjob.yaml' en la infraestructura. Kubernetes se encarga de monitorear el reloj y disparar los Jobs a la hora programada.
+
+• Patrón 3: Llamada directa a la API de Kubernetes (Casos muy específicos)
+  - La app usa permisos RBAC y un SDK (Go, Python, Node, PHP) para solicitar la creación del Job directamente al API Server de K8s.
+  - ÚNICAMENTE se considera el estándar cuando la app es una plataforma u orquestador de infraestructura (ej. sistemas de CI/CD como GitLab/Jenkins, o plataformas de ejecución de código tipo LeetCode/Replit).
+
+------ Kubernetes: Autoescalado (HPA vs. VPA) ------
+
+1. HPA (Horizontal Pod Autoscaler) - [Escalado Horizontal / Scale Out-In]
+- Concepto: Agrega o quita Pods (réplicas) dinámicamente según la demanda.
+- Cómo opera:
+  • Lee métricas de consumo en tiempo real mediante 'Metrics Server' (CPU, RAM o métricas personalizadas).
+  • Ajusta el campo 'replicas' entre un rango definido: 'minReplicas' y 'maxReplicas'.
+- Relación con el Deployment:
+  • Es un objeto independiente conectado vía 'scaleTargetRef'.
+  • El HPA MANDA y sobrescribe el valor de 'replicas' definido en el deployment.yaml.
+  • Buena práctica: Omitir la línea 'replicas: X' en el YAML del Deployment si se usa HPA para evitar conflictos al aplicar cambios (`kubectl apply`).
+- Ideal para: Aplicaciones sin estado (Stateless), APIs, Webs y Workers.
+
+2. VPA (Vertical Pod Autoscaler) - [Escalado Vertical / Scale Up-Down]
+- Concepto: Modifica el tamaño de hardware ('requests' y 'limits' de CPU/RAM) asignado al Pod, sin cambiar el número de réplicas.
+- Modos de Operación:
+  • Off (Modo Recomendación): No modifica nada; solo analiza y reporta el consumo real ideal (ideal para "Right-Sizing" en desarrollo/staging).
+  • Initial: Asigna los recursos calculados solo cuando un Pod nace por primera vez.
+  • Auto / Recreate: Si el Pod requiere más recursos, lo REINICIA con los nuevos límites asignados.
+- Ideal para: Aplicaciones con estado (Stateful), monolitos, bases de datos o para calibrar requerimientos de recursos antes de ir a producción.
+
+3. AUTOSCALING EN DEPLOYMENTS vs. STATEFULSETS
+
+• Deployments (Stateless) --> HPA por excelencia
+  - Como los Pods son idénticos, intercambiables y no guardan datos locales, levantar 5 o 20 réplicas adicionales en paralelo no genera conflictos de datos ni de red.
+
+• StatefulSets (Stateful / Bases de Datos) --> VPA por defecto
+  - En bases de datos tradicionales (Postgres, MySQL mononodo), levantar réplicas con HPA rompe la arquitectura porque Kubernetes no sabe configurar la replicación Master-Replica por sí solo. Es más seguro agrandar el servidor (VPA) que duplicar instancias.
+  - Excepción con HPA: Solo se usa si el software tiene clustering/sharding nativo (Elasticsearch, Cassandra, Mongo) o si un Operator gestiona las réplicas de lectura automáticamente.
+
+4. REGLAS DE ORO EN PRODUCCIÓN
+• Conflicto HPA + VPA: NUNCA uses HPA y VPA al mismo tiempo sobre la misma métrica (ej. CPU). Entrarán en conflicto ("flapping"): HPA creará más Pods mientras VPA intentará agrandar el Pod existente.
+• HPA es el estándar para el 90% de los microservicios en la nube.

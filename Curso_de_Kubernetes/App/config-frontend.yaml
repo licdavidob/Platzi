@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: frontend-config
+data:
+  default.conf: |
+    server {
+        listen 80;
+
+        location / {
+            default_type text/html;
+            return 200 '<h1>🚀 Aplicacion Frontend</h1><p>Esta es la capa visual. Para consumir la API de Backend desde dentro del cluster, navega a <a href="/api">/api</a></p>';
+        }
+
+        # Redirección interna hacia el Service de Backend usando DNS de K8s
+        location /api {
+            proxy_pass http://backend-service:80/;
+        }
+    }

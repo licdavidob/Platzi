@@ -1,0 +1,29 @@
+apiVersion: autoscaling.k8s.io/v1
+kind: VerticalPodAutoscaler
+metadata:
+  name: backend-vpa
+spec:
+  # Objeto objetivo que va a redimensionar
+  targetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: backend-deployment
+
+  # Política de actualización
+  updatePolicy:
+    # "Off" = Solo da recomendaciones, no modifica los Pods (Ideal para calcular consumos)
+    # "Initial" = Ajusta los recursos solo cuando el Pod nace por primera vez
+    # "Auto" = Si el Pod necesita más recursos, lo reinicia con los nuevos valores
+    updateMode: "Auto"
+
+  # Límites de seguridad para que el VPA no sobreasigne ni ahogue el cluster
+  resourcePolicy:
+    containerPolicies:
+      - containerName: "*" # '*' aplica a todos los contenedores del Pod
+        minAllowed:
+          cpu: "100m"
+          memory: "128Mi"
+        maxAllowed:
+          cpu: "2"
+          memory: "4Gi"
+        controlledResources: ["cpu", "memory"]

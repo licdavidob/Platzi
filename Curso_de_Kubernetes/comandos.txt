@@ -1,0 +1,56 @@
+
+--- Comandos Minikube (Gestión de la máquina local) ---
+
+- "minikube start --driver=docker": Permite iniciar una nueva instancia de minikube creando un clúster dentro de un contenedor de Docker.
+- "minikube status": Muestra el estado de salud de los componentes principales del clúster local.
+- "minikube stop": Apaga el clúster local sin borrar los datos ni las configuraciones.
+- "minikube delete": Destruye el clúster local por completo (borrón y cuenta nueva).
+- "minikube ip": Muestra la dirección IP interna que tiene asignada tu clúster virtual.
+- "minikube dashboard": Abre en tu navegador una interfaz gráfica oficial de Kubernetes para ver tus recursos de forma visual.
+
+--- Comandos Kubectl (Gestión Declarativa - Archivos YAML) ---
+
+- "kubectl apply -f <archivo.yaml>": Crea o actualiza un recurso basándose en lo que está escrito en el archivo YAML.
+- "kubectl apply -f <carpeta/>": Aplica todos los archivos YAML que se encuentren dentro de esa carpeta de golpe.
+- "kubectl delete -f <archivo.yaml>": Elimina los recursos que estén definidos dentro de ese archivo.
+
+--- Comandos Kubectl (Pods - Contenedores) ---
+
+- "kubectl get pods": Lista todos los pods en el namespace actual (por defecto es 'default').
+- "kubectl get namespaces": Lista todos los namespace disponibles.
+- "kubectl create namespace <namespace>": Crea un nuevo namespace.
+- "kubectl config set-context --current --namespace=<namespace>": Cambia el namespace predeterminado para las siguientes operaciones.
+- "kubectl delete namespace <namespace>": Elimina el namespace y todos los recursos dentro del mismo.
+- "kubectl get pods --namespace=<namespace>": Muestra todos los pods en el namespace especificado.
+- "kubectl run <nombre-del-pod> --image=<imagen> --restart=Never": Crea un pod individual directo desde la terminal. El flag '--restart=Never' evita que se cree como un Deployment.
+- "kubectl describe pod <nombre-del-pod>": Muestra la información detallada, historial y eventos de un pod.
+- "kubectl logs <nombre-del-pod>": Muestra los registros (logs) de la aplicación que está corriendo dentro del pod.
+- "kubectl logs -f <nombre-del-pod>": Igual que el anterior, pero se queda "escuchando" en vivo los logs nuevos.
+- "kubectl exec -it <nombre-del-pod> -- /bin/sh": Abre una terminal interactiva DENTRO del contenedor del pod.
+- "kubectl delete pod <nombre-del-pod>": Elimina el pod especificado.
+- "kubectl port-forward pod/<nombre-del-pod> 8080:80": Crea un puente temporal para que puedas ver el puerto 80 del pod desde el localhost:8080.
+
+--- Comandos Kubectl (Deployments) ---
+
+- "kubectl get deployments": Lista todos los deployments activos.
+- "kubectl create deployment <nombre> --image=<imagen>": Crea un Deployment rápido desde la terminal usando la imagen indicada.
+- "kubectl scale deployment <nombre> --replicas=<numero>": Aumenta o disminuye manualmente la cantidad de pods que mantiene el deployment.
+- "kubectl rollout restart deployment <nombre>": Obliga al deployment a matar sus pods viejos y crear nuevos (útil para que tomen configuraciones nuevas).
+
+--- Comandos Kubectl (Services e Ingress) ---
+
+- "kubectl get services": Lista todos los servicios y muestra sus IPs y puertos.
+- "kubectl get ingress": Lista las reglas de enrutamiento web configuradas.
+- "kubectl expose deployment <nombre> --type=NodePort --port=<puerto>": Crea un servicio rápido para exponer un deployment al exterior.
+
+--- Comandos Kubectl (Configuración) ---
+
+- "kubectl get configmaps": Lista los archivos de configuración pública.
+- "kubectl get secrets": Lista los objetos que guardan contraseñas y datos sensibles.
+
+--- Comandos Kubectl (Worker Nodes e Infraestructura) ---
+
+- "kubectl get nodes": Lista los nodos (servidores físicos o virtuales) que componen el clúster.
+- "kubectl describe node <nombre-del-nodo>": Muestra cuánta CPU y memoria RAM total y disponible tiene ese servidor.
+- "kubectl top nodes": Muestra el consumo en tiempo real de CPU y Memoria de los servidores (requiere Metrics Server instalado).
+- "kubectl top pods": Muestra el consumo en tiempo real de CPU y Memoria de cada Pod individual.

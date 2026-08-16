@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-clusterip-service # DNS interno
+spec:
+  type: ClusterIP
+  selector:
+    app: backend-app # A que pods aplica
+  ports:
+    - protocol: TCP
+      port: 80 # Puerto expuesto en la IP virtual del Service
+      targetPort: 80 # Puerto donde escucha el contenedor NGINX
